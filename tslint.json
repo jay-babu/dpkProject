@@ -1,7 +1,7 @@
 {
   "extends": "tslint:recommended",
   "rules": {
-    "array-type": false,
+    "array-type": [true, "array"],
     "arrow-parens": false,
     "deprecation": {
       "severity": "warning"
@@ -60,7 +60,7 @@
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
-    "no-var-requires": false,
+    "no-var-requires": true,
     "object-literal-key-quotes": [
       true,
       "as-needed"
