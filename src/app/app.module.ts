@@ -1,15 +1,17 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { AngularMaterialModule } from './angular-material.module';
 import { SlideComponent } from './components/slide/slide.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SlidesComponent } from './components/slides/slides.component';
 
 @NgModule({
     declarations: [
         AppComponent,
-        SlideComponent
+        SlideComponent,
+        SlidesComponent
     ],
     imports: [
         AngularMaterialModule,
@@ -18,7 +20,6 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ],
     providers: [],
     bootstrap: [AppComponent],
-    schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
 export class AppModule {
 }
