@@ -1,1 +1,11 @@
-<p>slide works!</p>
+<div class="slide">
+    <div class="lyricDiv">
+        <h3 *ngFor="let line of stanza">{{ line }}</h3>
+    </div>
+    <div class="imageDiv">
+        <img [src]="imageLocation" alt="Slide Image" [style.max-height.vh]="this.imageMaxHeight">
+    </div>
+    <div class="definitionDiv">
+        <p *ngFor="let definition of definitions">{{ definition }}</p>
+    </div>
+</div>
