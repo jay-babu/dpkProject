@@ -1,4 +1,1 @@
-<ng-container *ngFor="let slide of bhajan.lyrics; let i = index" >
-    <app-slide [slideIndex]="slideIndex" [i]="i" [stanza]="bhajan.lyrics[i]"
-               [definitions]="bhajan.definitions[i]" [imageLocation]="bhajan.imagePaths[i]"></app-slide>
-</ng-container>
+<app-slide [bhajan]="bhajan"></app-slide>

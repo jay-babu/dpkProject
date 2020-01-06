@@ -1,1 +1,5 @@
-<app-slides></app-slides>
+<!--<app-nav-bar></app-nav-bar>-->
+
+<main [@fadeAnimation]="getRouterOutletState(o)">
+    <router-outlet #o="outlet"></router-outlet>
+</main>

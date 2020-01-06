@@ -1,5 +1,7 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Bhajan } from '../../interface/bhajan';
 
 @Component({
     selector: 'app-slide',
@@ -33,23 +35,30 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class SlideComponent implements OnInit {
     @Input()
-    stanza: string[];
-    @Input()
-    definitions: string[];
-    @Input()
-    imageLocation: string;
+    bhajan: Bhajan;
 
-    imageMaxHeight: number;
-    @Input()
+    stanza: string[][];
+    definitions: string[][];
+    imageLocation: string[];
+
     slideIndex: number;
-    @Input()
-    i: number;
+    imageMaxHeight: number;
 
-    constructor() {
+    constructor(private router: Router, private activeRouter: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.imageMaxHeight = 100;
+        this.activeRouter.params.subscribe(params => {
+            if (params.id !== undefined) {
+                this.slideIndex = params.id;
+            } else {
+                this.slideIndex = 0;
+            }
+        });
+        // this.slideIndex = 0;
+        this.stanza = this.bhajan.lyrics;
+        this.definitions = this.bhajan.definitions;
+        this.imageLocation = this.bhajan.imagePaths;
         this.imageMaxHeightDecrement();
     }
 
@@ -58,11 +67,25 @@ export class SlideComponent implements OnInit {
         Changes the Max Height of Img in CSS.
         4.5 was found to be a good number that worked for everything.
          */
-        for (const index of this.stanza) {
+        this.imageMaxHeight = 100;
+        for (const index of this.stanza[this.slideIndex]) {
             this.imageMaxHeight -= 6;
         }
-        for (const index of this.definitions) {
+        for (const index of this.definitions[this.slideIndex]) {
             this.imageMaxHeight -= 6;
+        }
+    }
+
+    @HostListener('window:keyup', ['$event'])
+    slideMovement(event: KeyboardEvent) {
+        if (event.key === 'ArrowRight' && this.slideIndex < this.stanza.length - 1) {
+            ++this.slideIndex;
+            this.imageMaxHeightDecrement();
+            this.router.navigate(['/slides', this.slideIndex]).then(_ => _, err => console.log(err));
+        } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
+            --this.slideIndex;
+            this.imageMaxHeightDecrement();
+            this.router.navigate(['/slides', this.slideIndex]).then(_ => _, err => console.log(err));
         }
     }
 }
