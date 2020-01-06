@@ -1,9 +1,35 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-slide',
     templateUrl: './slide.component.html',
-    styleUrls: ['./slide.component.css']
+    styleUrls: ['./slide.component.css'],
+    animations: [
+        // the fade-in/fade-out animation.
+        trigger('simpleFadeAnimation', [
+
+            // the "in" style determines the "resting" state of the element when it is visible.
+            state('in', style({opacity: 1})),
+
+            transition(
+                ':enter',
+                [
+                    style({transform: 'translateX(100vw)'}),
+                    animate('1s ease-in',
+                        style({transform: 'translateX(0vw)'}))
+                ]
+            ),
+            transition(
+                ':leave',
+                [
+                    style({transform: 'translateX(0vw)'}),
+                    animate('1s ease-out',
+                        style({transform: 'translateX(-100vw)'}))
+                ]
+            )
+        ])
+    ]
 })
 export class SlideComponent implements OnInit {
     @Input()
@@ -14,8 +40,10 @@ export class SlideComponent implements OnInit {
     imageLocation: string;
 
     imageMaxHeight: number;
-
-    @Output() slideMove = new EventEmitter<boolean>();
+    @Input()
+    slideIndex: number;
+    @Input()
+    i: number;
 
     constructor() {
     }
@@ -36,13 +64,5 @@ export class SlideComponent implements OnInit {
         for (const index of this.definitions) {
             this.imageMaxHeight -= 6;
         }
-    }
-
-    nextSlide() {
-        this.slideMove.emit(true);
-    }
-
-    prevSlide() {
-        this.slideMove.emit(false);
     }
 }

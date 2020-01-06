@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { Bhajan } from '../../interface/bhajan';
 
 @Component({
@@ -21,11 +21,12 @@ export class SlidesComponent implements OnInit {
         };
     }
 
-    slideMovement(move: boolean) {
-        if (move && this.slideIndex < this.bhajan.lyrics.length - 1) {
+    @HostListener('window:keyup', ['$event'])
+    slideMovement(event: KeyboardEvent) {
+        if (event.key === 'ArrowRight' && this.slideIndex < this.bhajan.lyrics.length - 1) {
             ++this.slideIndex;
         }
-        if (!move && this.slideIndex > 0) {
+        if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             --this.slideIndex;
         }
     }
