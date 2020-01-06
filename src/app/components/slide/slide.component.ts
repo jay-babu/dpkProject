@@ -81,11 +81,11 @@ export class SlideComponent implements OnInit {
         if (event.key === 'ArrowRight' && this.slideIndex < this.stanza.length - 1) {
             ++this.slideIndex;
             this.imageMaxHeightDecrement();
-            this.router.navigate(['/slides', this.slideIndex]).then(_ => _, err => console.log(err));
+            this.router.navigate(['/dpk', this.slideIndex]).then(_ => _, err => console.log(err));
         } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             --this.slideIndex;
             this.imageMaxHeightDecrement();
-            this.router.navigate(['/slides', this.slideIndex]).then(_ => _, err => console.log(err));
+            this.router.navigate(['/dpk', this.slideIndex]).then(_ => _, err => console.log(err));
         }
     }
 }
