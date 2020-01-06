@@ -8,4 +8,4 @@ const appRoutes: Routes = [
     {path: 'slides/:id', component: SlidesComponent},
 ];
 
-export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(appRoutes, {useHash: true});
+export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(appRoutes);
