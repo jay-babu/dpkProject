@@ -1,2 +1,2 @@
-<app-slide *ngFor="let slide of bhajan.lyrics; let i = index" [stanza]="slide" [definitions]="bhajan.definitions[i]"
-           [imageLocation]="bhajan.imagePaths[i]" [hidden]="i!==0"></app-slide>
+<app-slide [stanza]="bhajan.lyrics[slideIndex]" [definitions]="bhajan.definitions[slideIndex]"
+           [imageLocation]="bhajan.imagePaths[slideIndex]" (slideMove)="slideMovement($event)"></app-slide>

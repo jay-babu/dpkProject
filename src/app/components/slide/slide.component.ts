@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 
 @Component({
     selector: 'app-slide',
@@ -14,6 +14,8 @@ export class SlideComponent implements OnInit {
     imageLocation: string;
 
     imageMaxHeight: number;
+
+    @Output() slideMove = new EventEmitter<boolean>();
 
     constructor() {
     }
@@ -34,5 +36,13 @@ export class SlideComponent implements OnInit {
         for (const index of this.definitions) {
             this.imageMaxHeight -= 6;
         }
+    }
+
+    nextSlide() {
+        this.slideMove.emit(true);
+    }
+
+    prevSlide() {
+        this.slideMove.emit(false);
     }
 }

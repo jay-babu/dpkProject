@@ -1,4 +1,4 @@
-<div class="slide">
+<div class="slide" tabindex="0" (keyup.arrowRight)="nextSlide()" (keyup.arrowLeft)="prevSlide()">
     <div class="lyricDiv">
         <h3 *ngFor="let line of stanza">{{ line }}</h3>
     </div>
