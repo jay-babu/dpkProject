@@ -10,10 +10,6 @@ import { fadeAnimation } from './animations/fade.animation';
 export class AppComponent implements OnInit {
     title = 'dpkProject';
 
-    public getRouterOutletState(outlet) {
-        return outlet.isActivated ? outlet.activatedRoute : '';
-    }
-
     ngOnInit(): void {
     }
 }

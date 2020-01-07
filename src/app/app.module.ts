@@ -9,14 +9,12 @@ import { AngularMaterialModule } from './angular-material.module';
 import { SlideComponent } from './components/slide/slide.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SlidesComponent } from './components/slides/slides.component';
-import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SlideComponent,
-        SlidesComponent,
-        NavBarComponent
+        SlidesComponent
     ],
     imports: [
         AngularMaterialModule,
