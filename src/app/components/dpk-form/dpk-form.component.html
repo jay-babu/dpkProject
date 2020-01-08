@@ -1,5 +1,5 @@
 <div [style.min-height]="'100%'" class="mat-app-background">
-    <form [formGroup]="dpkForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="dpkForm" (ngSubmit)="onSubmit()" #form="ngForm">
         <mat-toolbar color="primary">
             <span>Submit a new DPK</span>
         </mat-toolbar>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="submission">
-            <button color="warn" class="submission-btn" mat-raised-button>Reset</button>
+            <button color="warn" class="submission-btn" mat-raised-button type="reset">Reset</button>
             <button color="primary" class="submission-btn" mat-flat-button type="submit" [disabled]="!dpkForm.valid">
                 Submit
                 <mat-icon *ngIf="dpkForm.valid">check_circle</mat-icon>

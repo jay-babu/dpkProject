@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
@@ -7,6 +7,8 @@ import { FormBuilder, Validators } from '@angular/forms';
     styleUrls: ['./dpk-form.component.css']
 })
 export class DpkFormComponent implements OnInit {
+    @ViewChild('form') dpkFullForm;
+
     constructor(private fb: FormBuilder) {
     }
 
@@ -24,6 +26,7 @@ export class DpkFormComponent implements OnInit {
 
     onSubmit() {
         console.warn(this.dpkForm.value);
+        this.dpkFullForm.resetForm();
     }
 
 }
