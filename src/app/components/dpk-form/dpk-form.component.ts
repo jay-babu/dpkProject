@@ -14,7 +14,7 @@ export class DpkFormComponent implements OnInit {
 
     dpkForm = this.fb.group({
         lyrics: ['', Validators.required],
-        definitions: ['', Validators.required],
+        definitions: [''],
         imagePaths: ['', Validators.required],
         dpk: ['', Validators.required]
     });
