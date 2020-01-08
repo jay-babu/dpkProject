@@ -35,8 +35,4 @@ export class DpkFormComponent implements OnInit {
         console.warn(this.dpkForm.value);
     }
 
-// incr() {
-    //     return this.n++;
-    // }
-
 }
