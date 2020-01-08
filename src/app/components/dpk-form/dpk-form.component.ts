@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { DpkFormService } from './dpk-form.service';
 
 @Component({
     selector: 'app-dpk-form',
@@ -9,17 +10,17 @@ import { FormBuilder, Validators } from '@angular/forms';
 export class DpkFormComponent implements OnInit {
     @ViewChild('form') dpkFullForm;
 
-    constructor(private fb: FormBuilder) {
+    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
     }
 
     DPKs = ['Dhun', 'Prathana', 'Kirtan'];
 
-    dpkForm = this.fb.group({
+    dpkForm: FormGroup = this.fb.group({
         lyrics: ['', Validators.required],
         definitions: [''],
         imagePaths: ['', Validators.required],
         dpk: ['', Validators.required]
-    });
+    }, {validators: [this.dpkFormService.validSubmission]});
 
     ngOnInit() {
     }
