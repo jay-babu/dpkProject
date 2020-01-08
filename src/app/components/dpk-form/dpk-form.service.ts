@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
-import { Bhajan } from '../../interfaces/bhajan';
 
 
 @Injectable({
@@ -15,34 +14,39 @@ export class DpkFormService {
     validSubmission: ValidationErrors = (form: FormGroup) => {
         let status: ValidationErrors;
 
-        if (form.get('lyrics').value === null) {
+        if (form.value.lyrics === null) {
             form.patchValue({lyrics: ''});
         }
-        if (form.get('imagePaths').value === null) {
+        if (form.value.imagePaths === null) {
             form.patchValue({imagePaths: ''});
         }
-        if (form.get('definitions').value === null) {
+        if (form.value.definitions === null) {
             form.patchValue({definitions: ''});
         }
 
-        const lyrics: string[] = form.get('lyrics').value.split(/\n{2,}/g);
-        const imagePaths: string[] = form.get('imagePaths').value.split(/\n{2,}/g);
+        const lyrics: string[] = form.value.lyrics.split(/\n{2,}/g);
+        const imagePaths: string[] = form.value.imagePaths.split(/\n{2,}/g);
 
         status = (lyrics.length === imagePaths.length) ? null : {ldp: true};
 
         if (form.value.definitions !== '' && status === null) {
-            const definitions: string[] = form.get('definitions').value.split(/\n{2,}/g);
+            const definitions: string[] = form.value.definitions.split(/\n{2,}/g);
 
             status = (lyrics.length === definitions.length) ? null : {ldp: true};
         }
         return status;
     };
 
-    submitDPK(bhajan: Bhajan, collection: string, path: string) {
+    submitDPK(fg: FormGroup) {
         return new Promise<any>((resolve, reject) => {
             this.fireDB
-                .collection(collection).doc(path)
-                .set(bhajan)
+                .collection(fg.value.dpk).doc(fg.value.title)
+                .set({
+                    lyrics: fg.value.lyrics,
+                    definitions: fg.value.definitions,
+                    imageNames: fg.value.imagePaths,
+                    title: fg.value.title
+                })
                 .then(_ => _, err => reject(err));
         });
     }

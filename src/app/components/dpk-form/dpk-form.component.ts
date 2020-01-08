@@ -16,6 +16,7 @@ export class DpkFormComponent implements OnInit {
     DPKs = ['Dhun', 'Prathana', 'Kirtan'];
 
     dpkForm: FormGroup = this.fb.group({
+        title: ['', Validators.required],
         lyrics: ['', Validators.required],
         definitions: [''],
         imagePaths: ['', Validators.required],
@@ -26,8 +27,7 @@ export class DpkFormComponent implements OnInit {
     }
 
     onSubmit() {
-        console.log(this.dpkForm.value);
-        this.dpkFullForm.resetForm();
+        this.dpkFormService.submitDPK(this.dpkForm).then(_ => this.dpkFullForm.resetForm(), err => console.error(err));
     }
 
 }
