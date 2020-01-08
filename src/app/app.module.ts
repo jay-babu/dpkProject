@@ -15,13 +15,15 @@ import { AppRoutingModule } from './app.routing';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { SlidesComponent } from './components/slides/slides.component';
+import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         SlideComponent,
         SlidesComponent,
-        DpkFormComponent
+        DpkFormComponent,
+        TempOptionsComponent
     ],
     imports: [
         AngularMaterialModule,
