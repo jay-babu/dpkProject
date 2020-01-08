@@ -1,7 +1,7 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fadeAnimation } from '../../animations/fade.animation';
-import { Bhajan } from '../../interface/bhajan';
+import { Bhajan } from '../../interfaces/bhajan';
 
 @Component({
     selector: 'app-slide',

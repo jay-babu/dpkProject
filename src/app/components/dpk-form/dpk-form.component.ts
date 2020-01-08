@@ -25,7 +25,7 @@ export class DpkFormComponent implements OnInit {
     }
 
     onSubmit() {
-        console.warn(this.dpkForm.value);
+        console.log(this.dpkForm.value);
         this.dpkFullForm.resetForm();
     }
 

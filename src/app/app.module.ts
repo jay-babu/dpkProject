@@ -13,9 +13,11 @@ import { AngularMaterialModule } from './angular-material.module';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
+import { DpkFormService } from './components/dpk-form/dpk-form.service';
 import { SlideComponent } from './components/slide/slide.component';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
+import { FirebaseService } from './services/firebase.service';
 
 @NgModule({
     declarations: [
@@ -31,11 +33,14 @@ import { TempOptionsComponent } from './components/temp-options/temp-options.com
         BrowserAnimationsModule,
         RouterModule,
         AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig, 'dpkProject'),
+        AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         ReactiveFormsModule
     ],
-    providers: [],
+    providers: [
+        FirebaseService,
+        DpkFormService
+    ],
     bootstrap: [AppComponent],
 })
 export class AppModule {

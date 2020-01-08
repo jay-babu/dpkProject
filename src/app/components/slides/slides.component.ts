@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Bhajan } from '../../interface/bhajan';
+import { Bhajan } from '../../interfaces/bhajan';
 
 @Component({
     selector: 'app-slides',
