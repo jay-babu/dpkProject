@@ -1,7 +1,8 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../animations/fade.animation';
-import { Bhajan } from '../../interfaces/bhajan';
+import { FirebaseBhajan } from '../../interfaces/bhajan';
 
 @Component({
     selector: 'app-slide',
@@ -11,7 +12,7 @@ import { Bhajan } from '../../interfaces/bhajan';
 })
 export class SlideComponent implements OnInit {
     @Input()
-    bhajan: Bhajan;
+    firebaseBhajan$: Observable<FirebaseBhajan>;
 
     stanza: string[][];
     definitions: string[][];
@@ -20,24 +21,22 @@ export class SlideComponent implements OnInit {
     slideIndex: number;
     imageMaxHeight: number;
     hidden = true;
+    slideName: string;
 
     constructor(private router: Router, private activeRouter: ActivatedRoute) {
     }
 
     ngOnInit() {
         this.activeRouter.params.subscribe(params => {
-            if (params.id !== undefined) {
-                this.slideIndex = params.id;
-            } else {
-                this.slideIndex = 0;
-            }
+            this.slideIndex = (params.id === undefined) ? 0 : params.id;
+            this.slideName = (params.name === undefined) ? '' : params.name;
         });
-        this.stanza = this.bhajan.lyrics;
-        this.definitions = this.bhajan.definitions;
-        this.imageLocation = this.bhajan.imagePaths;
-        this.imageMaxHeightDecrement();
 
-        this.edgeCheck();
+        this.firebaseBhajan$.subscribe(bhajan => {
+            this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
+            this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
+            this.imageLocation = bhajan.imageNames;
+        });
         this.hidden = false;
     }
 
@@ -58,11 +57,11 @@ export class SlideComponent implements OnInit {
     edgeCheck(): number {
         if (this.slideIndex < 0) {
             this.slideIndex = 0;
-            this.router.navigate(['/dpk', this.slideIndex]).then(_ => _, err => console.log(err));
+            this.router.navigate(['./', {id: this.slideIndex, name: this.slideName}]).then(_ => _, err => console.log(err));
         }
         if (this.slideIndex > this.stanza.length - 1) {
             this.slideIndex = this.stanza.length - 1;
-            this.router.navigate(['/dpk', this.slideIndex]).then(_ => _, err => console.log(err));
+            this.router.navigate(['./', {id: this.slideIndex, name: this.slideName}]).then(_ => _, err => console.log(err));
         }
         this.imageMaxHeightDecrement();
         return this.slideIndex;
@@ -71,13 +70,9 @@ export class SlideComponent implements OnInit {
     async upOrDown(bool: boolean) {
         this.hidden = true;
         await new Promise(done => setTimeout(() => done(), 500));
-        if (bool) {
-            ++this.slideIndex;
-        } else {
-            --this.slideIndex;
-        }
+        (bool) ? ++this.slideIndex : --this.slideIndex;
         this.hidden = false;
-        this.router.navigate(['/dpk', this.slideIndex]).then(_ => _, err => console.log(err));
+        this.router.navigate(['./', {id: this.slideIndex, name: this.slideName}]).then(_ => _, err => console.log(err));
     }
 
     @HostListener('window:keyup', ['$event'])

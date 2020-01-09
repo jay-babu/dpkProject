@@ -16,6 +16,7 @@ import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { DpkFormService } from './components/dpk-form/dpk-form.service';
 import { SlideComponent } from './components/slide/slide.component';
 import { SlidesComponent } from './components/slides/slides.component';
+import { DpkParseService } from './components/slides/dpk-parse.service';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 import { FirebaseService } from './services/firebase.service';
 
@@ -39,7 +40,8 @@ import { FirebaseService } from './services/firebase.service';
     ],
     providers: [
         FirebaseService,
-        DpkFormService
+        DpkFormService,
+        DpkParseService
     ],
     bootstrap: [AppComponent],
 })

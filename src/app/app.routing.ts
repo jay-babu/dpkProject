@@ -8,7 +8,7 @@ const appRoutes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: 'options'},
     {path: 'dpkCreate', component: DpkFormComponent},
     {path: 'dpk', component: SlidesComponent},
-    {path: 'dpk/:id', component: SlidesComponent},
+    {path: 'dpk/:name/:id', component: SlidesComponent},
     {path: 'options', component: TempOptionsComponent}
 ];
 
