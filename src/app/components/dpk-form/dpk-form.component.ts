@@ -28,6 +28,7 @@ export class DpkFormComponent implements OnInit {
 
     onSubmit() {
         this.dpkFormService.submitDPK(this.dpkForm).then(_ => this.dpkFullForm.resetForm(), err => console.error(err));
+        this.dpkFullForm.resetForm();
     }
 
 }

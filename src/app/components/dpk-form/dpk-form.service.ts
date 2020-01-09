@@ -42,9 +42,9 @@ export class DpkFormService {
             this.fireDB
                 .collection(fg.value.dpk).doc(fg.value.title)
                 .set({
-                    lyrics: fg.value.lyrics,
-                    definitions: fg.value.definitions,
-                    imageNames: fg.value.imagePaths,
+                    lyrics: fg.value.lyrics.split(/\n{2,}/g),
+                    definitions: fg.value.definitions.split(/\n{2,}/g),
+                    imageNames: fg.value.imagePaths.split(/\n{2,}/g),
                     title: fg.value.title
                 })
                 .then(_ => _, err => reject(err));
