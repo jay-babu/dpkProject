@@ -38,16 +38,13 @@ export class DpkFormService {
     };
 
     submitDPK(fg: FormGroup) {
-        return new Promise<any>((resolve, reject) => {
-            this.fireDB
-                .collection(fg.value.dpk).doc(fg.value.title)
-                .set({
-                    lyrics: fg.value.lyrics.split(/\n{2,}/g),
-                    definitions: fg.value.definitions.split(/\n{2,}/g),
-                    imageNames: fg.value.imagePaths.split(/\n{2,}/g),
-                    title: fg.value.title
-                })
-                .then(_ => _, err => reject(err));
-        });
+        this.fireDB
+            .collection(fg.value.dpk).doc(fg.value.title)
+            .set({
+                lyrics: fg.value.lyrics.split(/\n{2,}/g),
+                definitions: fg.value.definitions.split(/\n{2,}/g),
+                imageNames: fg.value.imagePaths.split(/\n{2,}/g),
+                title: fg.value.title
+            }).then(_ => _, err => console.error(err));
     }
 }

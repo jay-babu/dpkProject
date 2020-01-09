@@ -21,7 +21,6 @@ export class SlideComponent implements OnInit {
     slideIndex: number;
     imageMaxHeight: number;
     hidden = true;
-    slideName: string;
 
     constructor(private router: Router, private activeRouter: ActivatedRoute) {
     }
@@ -29,9 +28,10 @@ export class SlideComponent implements OnInit {
     ngOnInit() {
         this.activeRouter.params.subscribe(params => {
             this.slideIndex = (params.id === undefined) ? 0 : params.id;
-            this.slideName = (params.name === undefined) ? '' : params.name;
+            if (params.id === undefined) {
+                this.router.navigate([`${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+            }
         });
-
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
@@ -57,11 +57,11 @@ export class SlideComponent implements OnInit {
     edgeCheck(): number {
         if (this.slideIndex < 0) {
             this.slideIndex = 0;
-            this.router.navigate(['./', {id: this.slideIndex, name: this.slideName}]).then(_ => _, err => console.log(err));
+            this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
         }
         if (this.slideIndex > this.stanza.length - 1) {
             this.slideIndex = this.stanza.length - 1;
-            this.router.navigate(['./', {id: this.slideIndex, name: this.slideName}]).then(_ => _, err => console.log(err));
+            this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
         }
         this.imageMaxHeightDecrement();
         return this.slideIndex;
@@ -72,7 +72,8 @@ export class SlideComponent implements OnInit {
         await new Promise(done => setTimeout(() => done(), 500));
         (bool) ? ++this.slideIndex : --this.slideIndex;
         this.hidden = false;
-        this.router.navigate(['./', {id: this.slideIndex, name: this.slideName}]).then(_ => _, err => console.log(err));
+        console.log(this.slideIndex);
+        this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
     }
 
     @HostListener('window:keyup', ['$event'])

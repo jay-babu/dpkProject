@@ -7,7 +7,7 @@ import { TempOptionsComponent } from './components/temp-options/temp-options.com
 const appRoutes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: 'options'},
     {path: 'dpkCreate', component: DpkFormComponent},
-    {path: 'dpk', component: SlidesComponent},
+    {path: 'dpk/:name', component: SlidesComponent},
     {path: 'dpk/:name/:id', component: SlidesComponent},
     {path: 'options', component: TempOptionsComponent}
 ];
