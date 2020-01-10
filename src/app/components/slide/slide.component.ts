@@ -68,11 +68,11 @@ export class SlideComponent implements OnInit {
     edgeCheck(): number {
         if (this.slideIndex < 0) {
             this.slideIndex = 0;
-            this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+            this.navigateID();
         }
         if (this.slideIndex > this.stanza.length - 1) {
             this.slideIndex = this.stanza.length - 1;
-            this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+            this.navigateID();
         }
         this.imageMaxHeightDecrement();
         return this.slideIndex;
@@ -83,7 +83,7 @@ export class SlideComponent implements OnInit {
         await new Promise(done => setTimeout(() => done(), 500));
         (bool) ? ++this.slideIndex : --this.slideIndex;
         this.hidden = false;
-        this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+        this.navigateID();
     }
 
     @HostListener('window:keyup', ['$event'])
@@ -93,5 +93,9 @@ export class SlideComponent implements OnInit {
         } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             this.upOrDown(false);
         }
+    }
+
+    navigateID() {
+        this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
     }
 }
