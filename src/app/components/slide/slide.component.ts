@@ -38,26 +38,18 @@ export class SlideComponent implements OnInit {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
             this.imagesURL = bhajan.imagesURL;
-            this.driveAPIService.getListofFiles(`'${this.imagesURL}' in parents`)
-            // @ts-ignore
+            this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`)
                 .subscribe(driveFiles => this.imageDownload(driveFiles.files));
         });
 
         this.hidden = false;
     }
 
-    imageDownload(files: any[]) {
-        // let imagesIdList: any[] = [];
+    imageDownload(files: { id: string; name: string }[]) {
         this.images = [];
-        // console.log(`'${this.imagesURL}' in parents`);
-        // this.driveAPIService.getListofFiles(`'${this.imagesURL}' in parents`).subscribe(driveFiles => console.log(driveFiles));
-        // @ts-ignore
-        // this.driveAPIService.getListofFiles(`'${this.imagesURL}' in parents`).subscribe(driveFiles => imagesIdList = driveFiles.files);
-        // console.log(imagesIdList);
         for (const driveFile of files) {
             this.images.push(new URL(`https://drive.google.com/uc?export=view&id=${driveFile.id}`));
         }
-        // console.log(this.images[0]);
         return this.images;
     }
 
