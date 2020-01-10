@@ -19,11 +19,12 @@ export class DpkFormComponent implements OnInit {
         title: ['', Validators.required],
         lyrics: ['', Validators.required],
         definitions: [''],
-        imagePaths: ['', Validators.required],
+        imagesURL: ['', Validators.required],
         dpk: ['', Validators.required]
     }, {validators: [this.dpkFormService.validSubmission]});
 
     ngOnInit() {
+        console.log(this.dpkFormService.verifyURL('https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing'));
     }
 
     onSubmit() {

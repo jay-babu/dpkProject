@@ -2,6 +2,6 @@
 .page {
     display: flex;
     justify-content: space-evenly;
-    min-height: 99vh;
+    min-height: 95vh;
     align-items: center;
 }

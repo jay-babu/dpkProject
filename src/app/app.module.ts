@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
@@ -39,8 +39,7 @@ import { PasswordlessAuthComponent } from './components/passwordless-auth/passwo
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         AngularFireAuthModule,
-        ReactiveFormsModule,
-        FormsModule
+        ReactiveFormsModule
     ],
     providers: [
         FirebaseService,

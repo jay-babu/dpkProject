@@ -17,19 +17,20 @@ export class DpkFormService {
         if (form.value.lyrics === null) {
             form.patchValue({lyrics: ''});
         }
-        if (form.value.imagePaths === null) {
-            form.patchValue({imagePaths: ''});
+        if (form.value.imagesURL === null) {
+            form.patchValue({imagesURL: ''});
         }
         if (form.value.definitions === null) {
             form.patchValue({definitions: ''});
         }
 
+        if (!this.verifyURL(form.value.imagesURL)) {
+            return {ldp: true};
+        }
+
         const lyrics: string[] = form.value.lyrics.split(/\n{2,}/g);
-        const imagePaths: string[] = form.value.imagePaths.split(/\n{2,}/g);
 
-        status = (lyrics.length === imagePaths.length) ? null : {ldp: true};
-
-        if (form.value.definitions !== '' && status === null) {
+        if (form.value.definitions !== '') {
             const definitions: string[] = form.value.definitions.split(/\n{2,}/g);
 
             status = (lyrics.length === definitions.length) ? null : {ldp: true};
@@ -46,5 +47,18 @@ export class DpkFormService {
                 imageNames: fg.value.imagePaths.split(/\n{2,}/g),
                 title: fg.value.title
             }).then(_ => _, err => console.error(err));
+    }
+
+    verifyURL(imagesURL: string) {
+        // TODO Request URL and check length is same as Lyrics
+        // https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
+        try {
+            const url = new URL(imagesURL);
+            const path = url.pathname.split('/');
+            const hostname = url.hostname;
+            return hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders';
+        } catch {
+            return false;
+        }
     }
 }
