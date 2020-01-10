@@ -44,7 +44,7 @@ export class DpkFormService {
             .set({
                 lyrics: fg.value.lyrics.split(/\n{2,}/g),
                 definitions: fg.value.definitions.split(/\n{2,}/g),
-                imageNames: fg.value.imagePaths.split(/\n{2,}/g),
+                imagesURL: fg.value.imagesURL,
                 title: fg.value.title
             }).then(_ => _, err => console.error(err));
     }

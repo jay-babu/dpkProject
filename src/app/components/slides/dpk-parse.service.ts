@@ -11,7 +11,6 @@ export class DpkParseService {
     }
 
     getDPK(dpk: string, name: string) {
-
         return this.fireDB.collection(dpk).doc<FirebaseBhajan>(name).valueChanges();
     }
 }

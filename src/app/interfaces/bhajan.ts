@@ -1,11 +1,11 @@
 export interface Bhajan {
     lyrics: string[][];
-    imageNames: string[];
+    imagesURL: string;
     definitions?: string[][];
 }
 
 export interface FirebaseBhajan {
     lyrics: string[];
-    imageNames: string[];
+    imagesURL: string;
     definitions?: string[];
 }

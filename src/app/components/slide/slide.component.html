@@ -4,7 +4,7 @@
             <h3 *ngFor="let line of stanza[edgeCheck()]">{{ line }}</h3>
         </div>
         <div class="imageDiv">
-            <img [src]="imageLocation[edgeCheck()]" alt="Slide Image" [style.max-height.vh]="this.imageMaxHeight">
+            <img [src]="images[edgeCheck()]" alt="Slide Image" [style.max-height.vh]="this.imageMaxHeight">
         </div>
         <div class="definitionDiv">
             <p *ngFor="let definition of definitions[edgeCheck()]">{{ definition }}</p>

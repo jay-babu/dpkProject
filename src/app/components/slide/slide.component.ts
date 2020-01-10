@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../animations/fade.animation';
 import { FirebaseBhajan } from '../../interfaces/bhajan';
+import { DriveAPIService } from '../../services/drive-api.service';
 
 @Component({
     selector: 'app-slide',
@@ -16,13 +17,14 @@ export class SlideComponent implements OnInit {
 
     stanza: string[][];
     definitions: string[][];
-    imageLocation: string[];
+    imagesURL: string;
+    images: any[] = ['../../assets/question.jpg', '../../assets/question.jpg', '../../assets/question.jpg', '../../assets/question.jpg'];
 
     slideIndex: number;
     imageMaxHeight: number;
     hidden = true;
 
-    constructor(private router: Router, private activeRouter: ActivatedRoute) {
+    constructor(private router: Router, private activeRouter: ActivatedRoute, private driveAPIService: DriveAPIService) {
     }
 
     ngOnInit() {
@@ -35,9 +37,28 @@ export class SlideComponent implements OnInit {
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
-            this.imageLocation = bhajan.imageNames;
+            this.imagesURL = bhajan.imagesURL;
+            this.driveAPIService.getListofFiles(`'${this.imagesURL}' in parents`)
+            // @ts-ignore
+                .subscribe(driveFiles => this.imageDownload(driveFiles.files));
         });
+
         this.hidden = false;
+    }
+
+    imageDownload(files: any[]) {
+        // let imagesIdList: any[] = [];
+        this.images = [];
+        // console.log(`'${this.imagesURL}' in parents`);
+        // this.driveAPIService.getListofFiles(`'${this.imagesURL}' in parents`).subscribe(driveFiles => console.log(driveFiles));
+        // @ts-ignore
+        // this.driveAPIService.getListofFiles(`'${this.imagesURL}' in parents`).subscribe(driveFiles => imagesIdList = driveFiles.files);
+        // console.log(imagesIdList);
+        for (const driveFile of files) {
+            this.images.push(new URL(`https://drive.google.com/uc?export=view&id=${driveFile.id}`));
+        }
+        // console.log(this.images[0]);
+        return this.images;
     }
 
     imageMaxHeightDecrement() {
@@ -72,7 +93,6 @@ export class SlideComponent implements OnInit {
         await new Promise(done => setTimeout(() => done(), 500));
         (bool) ? ++this.slideIndex : --this.slideIndex;
         this.hidden = false;
-        console.log(this.slideIndex);
         this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
     }
 
