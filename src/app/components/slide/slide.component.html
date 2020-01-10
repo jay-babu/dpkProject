@@ -3,7 +3,7 @@
         <div class="lyricDiv">
             <h3 *ngFor="let line of stanza[edgeCheck()]">{{ line }}</h3>
         </div>
-        <div class="imageDiv">
+        <div class="imageDiv" *ngIf="this.driveBhajanImages$ | async">
             <img [src]="images[edgeCheck()]" alt="Slide Image" [style.max-height.vh]="this.imageMaxHeight">
         </div>
         <div class="definitionDiv">

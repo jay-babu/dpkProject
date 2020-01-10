@@ -9,8 +9,7 @@ import { TempOptionsComponent } from './components/temp-options/temp-options.com
 const appRoutes: Routes = [
     {path: '', pathMatch: 'full', redirectTo: 'options'},
     {path: 'dpkCreate', component: DpkFormComponent},
-    {path: 'dpk/:name', component: SlidesComponent},
-    {path: 'dpk/:name/:id', component: SlidesComponent},
+    {path: 'dpk/:dpk/:name', component: SlidesComponent},
     {path: 'options', component: TempOptionsComponent},
     {path: 'privacy-policy', component: PrivacyPolicyComponent},
     {path: 'login', component: PasswordlessAuthComponent}

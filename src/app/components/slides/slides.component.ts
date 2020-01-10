@@ -13,14 +13,16 @@ export class SlidesComponent implements OnInit {
     firebaseBhajan$: Observable<FirebaseBhajan>;
 
     slideName: string;
+    slideDPK: string;
 
     constructor(private activeRouter: ActivatedRoute, private slidesService: DpkParseService) {
         this.activeRouter.params.subscribe(params => {
             this.slideName = (params.name === undefined) ? '' : params.name;
+            this.slideDPK = params.dpk;
         });
     }
 
     ngOnInit(): void {
-        this.firebaseBhajan$ = this.slidesService.getDPK('Kirtan', this.slideName);
+        this.firebaseBhajan$ = this.slidesService.getDPK(this.slideDPK, this.slideName);
     }
 }

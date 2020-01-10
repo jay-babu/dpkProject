@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../animations/fade.animation';
 import { FirebaseBhajan } from '../../interfaces/bhajan';
+import { DriveImageList } from '../../interfaces/drive';
 import { DriveAPIService } from '../../services/drive-api.service';
 
 @Component({
@@ -14,11 +15,12 @@ import { DriveAPIService } from '../../services/drive-api.service';
 export class SlideComponent implements OnInit {
     @Input()
     firebaseBhajan$: Observable<FirebaseBhajan>;
+    driveBhajanImages$: Observable<DriveImageList>;
 
     stanza: string[][];
     definitions: string[][];
     imagesURL: string;
-    images: any[] = ['../../assets/question.jpg', '../../assets/question.jpg', '../../assets/question.jpg', '../../assets/question.jpg'];
+    images: any[];
 
     slideIndex: number;
     imageMaxHeight: number;
@@ -30,16 +32,13 @@ export class SlideComponent implements OnInit {
     ngOnInit() {
         this.activeRouter.params.subscribe(params => {
             this.slideIndex = (params.id === undefined) ? 0 : params.id;
-            if (params.id === undefined) {
-                this.router.navigate([`${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
-            }
         });
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
             this.imagesURL = bhajan.imagesURL;
-            this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`)
-                .subscribe(driveFiles => this.imageDownload(driveFiles.files));
+            this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
+            this.driveBhajanImages$.subscribe(driveFiles => this.imageDownload(driveFiles.files));
         });
 
         this.hidden = false;
@@ -50,7 +49,6 @@ export class SlideComponent implements OnInit {
         for (const driveFile of files) {
             this.images.push(new URL(`https://drive.google.com/uc?export=view&id=${driveFile.id}`));
         }
-        return this.images;
     }
 
     imageMaxHeightDecrement() {
@@ -70,11 +68,11 @@ export class SlideComponent implements OnInit {
     edgeCheck(): number {
         if (this.slideIndex < 0) {
             this.slideIndex = 0;
-            this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+            this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
         }
         if (this.slideIndex > this.stanza.length - 1) {
             this.slideIndex = this.stanza.length - 1;
-            this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+            this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
         }
         this.imageMaxHeightDecrement();
         return this.slideIndex;
@@ -85,7 +83,7 @@ export class SlideComponent implements OnInit {
         await new Promise(done => setTimeout(() => done(), 500));
         (bool) ? ++this.slideIndex : --this.slideIndex;
         this.hidden = false;
-        this.router.navigate([`../${this.slideIndex}`], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+        this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
     }
 
     @HostListener('window:keyup', ['$event'])
