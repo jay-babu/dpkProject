@@ -1,3 +1,4 @@
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
@@ -14,12 +15,13 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { DpkFormService } from './components/dpk-form/dpk-form.service';
+import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
 import { SlideComponent } from './components/slide/slide.component';
 import { DpkParseService } from './components/slides/dpk-parse.service';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
+import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
-import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
 
 @NgModule({
     declarations: [
@@ -32,19 +34,21 @@ import { PasswordlessAuthComponent } from './components/passwordless-auth/passwo
     ],
     imports: [
         AngularMaterialModule,
-        BrowserModule,
-        BrowserAnimationsModule,
-        RouterModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         AngularFireAuthModule,
-        ReactiveFormsModule
+        BrowserModule,
+        BrowserAnimationsModule,
+        HttpClientModule,
+        ReactiveFormsModule,
+        RouterModule
     ],
     providers: [
         FirebaseService,
         DpkFormService,
-        DpkParseService
+        DpkParseService,
+        DriveAPIService
     ],
     bootstrap: [AppComponent],
 })

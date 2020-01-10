@@ -24,7 +24,6 @@ export class DpkFormComponent implements OnInit {
     }, {validators: [this.dpkFormService.validSubmission]});
 
     ngOnInit() {
-        console.log(this.dpkFormService.verifyURL('https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing'));
     }
 
     onSubmit() {

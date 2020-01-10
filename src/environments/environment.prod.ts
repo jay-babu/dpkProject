@@ -9,5 +9,8 @@ export const environment = {
         messagingSenderId: '1079450967840',
         appId: '1:1079450967840:web:8dc97db687e753fad00145',
         measurementId: 'G-TDV6VZZ3QW'
+    },
+    driveConfig: {
+        key: 'AIzaSyAU5WfIyMZ2vVmwsLmXaCe9JsocIctSUqk'
     }
 };
