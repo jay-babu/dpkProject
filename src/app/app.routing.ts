@@ -1,6 +1,7 @@
 import { ModuleWithProviders } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
+import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 
@@ -9,7 +10,8 @@ const appRoutes: Routes = [
     {path: 'dpkCreate', component: DpkFormComponent},
     {path: 'dpk/:name', component: SlidesComponent},
     {path: 'dpk/:name/:id', component: SlidesComponent},
-    {path: 'options', component: TempOptionsComponent}
+    {path: 'options', component: TempOptionsComponent},
+    {path: 'privacy-policy', component: PrivacyPolicyComponent}
 ];
 
 export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(appRoutes);
