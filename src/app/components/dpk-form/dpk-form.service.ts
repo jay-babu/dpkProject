@@ -61,4 +61,8 @@ export class DpkFormService {
             return false;
         }
     }
+
+    openDPKSlides(form: FormGroup) {
+        window.open('https://jayp0521.github.io/dpkProject/dpk/' + form.value.dpk + '/' + form.value.title, '_blank');
+    }
 }

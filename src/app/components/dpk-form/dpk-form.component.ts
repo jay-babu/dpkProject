@@ -8,7 +8,7 @@ import { DpkFormService } from './dpk-form.service';
     styleUrls: ['./dpk-form.component.css']
 })
 export class DpkFormComponent implements OnInit {
-    @ViewChild('form') dpkFullForm;
+    @ViewChild('form') dpkFullForm: { resetForm: () => void; };
 
     constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
     }
@@ -29,6 +29,10 @@ export class DpkFormComponent implements OnInit {
     onSubmit() {
         this.dpkFormService.submitDPK(this.dpkForm);
         this.dpkFullForm.resetForm();
+    }
+
+    openDPKSlides() {
+        this.dpkFormService.openDPKSlides(this.dpkForm);
     }
 
 }
