@@ -15,7 +15,7 @@ export const environment = {
         measurementId: 'G-TDV6VZZ3QW'
     },
     driveConfig: {
-        key: 'AIzaSyAU5WfIyMZ2vVmwsLmXaCe9JsocIctSUqk'
+        key: 'AIzaSyAaEZBnfTEAIGhEgFQaj-f-R9uLQuow3MA'
     }
 }
 ;

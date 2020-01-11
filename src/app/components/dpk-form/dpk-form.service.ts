@@ -51,7 +51,7 @@ export class DpkFormService {
 
     verifyURL(imagesURL: string) {
         // TODO Request URL and check length is same as Lyrics
-        // https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
+        // Initial Style https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
         try {
             const url = new URL(imagesURL);
             const path = url.pathname.split('/');

@@ -7,21 +7,24 @@ import { DriveImageList } from '../interfaces/drive';
     providedIn: 'root'
 })
 export class DriveAPIService {
+    driveURL = 'https://www.googleapis.com/drive/v3/files';
 
     constructor(private http: HttpClient) {
+    }
+
+    getDPKRadio(rootFolderId: string) {
+        return this.getListOfFiles(`'${rootFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder'`);
     }
 
     getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id)') {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
-        const url = 'https://www.googleapis.com/drive/v3/files';
-        return this.http.get<DriveImageList>(url, {params});
+        return this.http.get<DriveImageList>(this.driveURL, {params});
     }
 
     getFile(id: string) {
         const key = environment.driveConfig.key;
-        const url = 'https://www.googleapis.com/drive/v3/files/';
         const params: HttpParams = new HttpParams().set('key', key).set('alt', 'media');
-        return this.http.get(url + id, {params});
+        return this.http.get(this.driveURL + id, {params});
     }
 }

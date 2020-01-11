@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Observable } from 'rxjs';
+import { DriveImageList } from '../../interfaces/drive';
+import { DriveAPIService } from '../../services/drive-api.service';
 import { DpkFormService } from './dpk-form.service';
 
 @Component({
@@ -10,10 +13,12 @@ import { DpkFormService } from './dpk-form.service';
 export class DpkFormComponent implements OnInit {
     @ViewChild('form') dpkFullForm: { resetForm: () => void; };
 
-    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
+    DPKRadio$: Observable<DriveImageList>;
+    DPKs = new Map<string, string>(); // Key = Name, Value = Id
+
+    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService, private driveAPIService: DriveAPIService) {
     }
 
-    DPKs = ['Dhun', 'Prathana', 'Kirtan'];
 
     dpkForm: FormGroup = this.fb.group({
         title: ['', Validators.required],
@@ -24,6 +29,7 @@ export class DpkFormComponent implements OnInit {
     }, {validators: [this.dpkFormService.validSubmission]});
 
     ngOnInit() {
+        this.getDPKRadio();
     }
 
     onSubmit() {
@@ -35,4 +41,13 @@ export class DpkFormComponent implements OnInit {
         this.dpkFormService.openDPKSlides(this.dpkForm);
     }
 
+    getDPKRadio() {
+        this.DPKRadio$ = this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`);
+        this.DPKRadio$.subscribe(foldersObject => {
+            const folders = foldersObject.files;
+            for (const folder of folders) {
+                this.DPKs.set(folder.name, folder.id);
+            }
+        });
+    }
 }

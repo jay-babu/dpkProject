@@ -7,8 +7,8 @@
         <div>
             <label>Type: </label>
             <mat-radio-group formControlName="dpk">
-                <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of DPKs"
-                                  value="{{ dpk }}">{{ dpk }}</mat-radio-button>
+                <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of DPKs | keyvalue"
+                                  value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
             </mat-radio-group>
         </div>
         <div class="form-field">
@@ -84,7 +84,6 @@
                 <p>The Sant always remains cool, calm, and at peace.</p>
                 <p>He is never disturbed or bound by the nets of lust or anger.</p>
                 <p>He has renounced all greed and worships Bhagwan. He firmly holds Bhagwan in his heart.</p>
-
             </mat-card-content>
         </mat-card>
     </div>
