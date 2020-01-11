@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
+import { DriveAPIService } from '../../services/drive-api.service';
 
 
 @Injectable({
@@ -8,7 +9,7 @@ import { FormGroup, ValidationErrors } from '@angular/forms';
 })
 export class DpkFormService {
 
-    constructor(private fireDB: AngularFirestore) {
+    constructor(private fireDB: AngularFirestore, private driveAPIService: DriveAPIService) {
     }
 
     validSubmission: ValidationErrors = (form: FormGroup) => {
@@ -24,7 +25,7 @@ export class DpkFormService {
             form.patchValue({definitions: ''});
         }
 
-        if (!this.verifyURL(form.value.imagesURL)) {
+        if (form.value.imagesURL && !this.verifyURL(form.value.imagesURL, form.value.lyrics)) {
             return {ldp: true};
         }
 
@@ -32,7 +33,6 @@ export class DpkFormService {
 
         if (form.value.definitions !== '') {
             const definitions: string[] = form.value.definitions.split(/\n{2,}/g);
-
             status = (lyrics.length === definitions.length) ? null : {ldp: true};
         }
         return status;
@@ -49,13 +49,20 @@ export class DpkFormService {
             }).then(_ => _, err => console.error(err));
     }
 
-    verifyURL(imagesURL: string) {
-        // TODO Request URL and check length is same as Lyrics
+    async verifyURL(imagesURL: string, lyrics: string) {
         // Initial Style https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
         try {
             const url = new URL(imagesURL);
             const path = url.pathname.split('/');
             const hostname = url.hostname;
+            const id = path[3];
+            await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
+                files => {
+                    if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
+                        return false;
+                    }
+                }
+            );
             return hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders';
         } catch {
             return false;
@@ -64,5 +71,9 @@ export class DpkFormService {
 
     openDPKSlides(form: FormGroup) {
         window.open('https://jayp0521.github.io/dpkProject/dpk/' + form.value.dpk + '/' + form.value.title, '_blank');
+    }
+
+    getDPKRadio() {
+        return this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`);
     }
 }

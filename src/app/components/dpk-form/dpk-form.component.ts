@@ -2,7 +2,6 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { DriveImageList } from '../../interfaces/drive';
-import { DriveAPIService } from '../../services/drive-api.service';
 import { DpkFormService } from './dpk-form.service';
 
 @Component({
@@ -16,7 +15,7 @@ export class DpkFormComponent implements OnInit {
     DPKRadio$: Observable<DriveImageList>;
     DPKs = new Map<string, string>(); // Key = Name, Value = Id
 
-    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService, private driveAPIService: DriveAPIService) {
+    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
     }
 
 
@@ -42,7 +41,7 @@ export class DpkFormComponent implements OnInit {
     }
 
     getDPKRadio() {
-        this.DPKRadio$ = this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`);
+        this.DPKRadio$ = this.dpkFormService.getDPKRadio();
         this.DPKRadio$.subscribe(foldersObject => {
             const folders = foldersObject.files;
             for (const folder of folders) {
