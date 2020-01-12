@@ -9,31 +9,37 @@ import { DriveAPIService } from '../../services/drive-api.service';
 })
 export class DpkFormService {
 
+    DPKs = new Map<string, string>();
+
     constructor(private fireDB: AngularFirestore, private driveAPIService: DriveAPIService) {
     }
 
-    validSubmission: ValidationErrors = (form: FormGroup) => {
-        let status: ValidationErrors;
+    validSubmission = async (form: FormGroup) => {
+        let status: ValidationErrors = null;
 
-        if (form.value.lyrics === null) {
+        const lyrics = form.value.lyrics;
+        const imagesURL = form.value.imagesURL;
+        const definitions = form.value.definitions;
+
+        if (lyrics === null) {
             form.patchValue({lyrics: ''});
         }
-        if (form.value.imagesURL === null) {
+        if (imagesURL === null) {
             form.patchValue({imagesURL: ''});
         }
-        if (form.value.definitions === null) {
+        if (definitions === null) {
             form.patchValue({definitions: ''});
         }
 
-        if (form.value.imagesURL && !this.verifyURL(form.value.imagesURL, form.value.lyrics)) {
-            return {ldp: true};
+        if (imagesURL) {
+            await this.verifyURL(imagesURL, lyrics).then(res => status = (res) ? null : {ldp: true});
         }
 
-        const lyrics: string[] = form.value.lyrics.split(/\n{2,}/g);
+        const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
 
-        if (form.value.definitions !== '') {
-            const definitions: string[] = form.value.definitions.split(/\n{2,}/g);
-            status = (lyrics.length === definitions.length) ? null : {ldp: true};
+        if (status === null && definitions !== '') {
+            const definitionsArr: string[] = definitions.split(/\n{2,}/g);
+            status = (lyricsArr.length === definitionsArr.length) ? null : {ldp: true};
         }
         return status;
     };
@@ -49,6 +55,16 @@ export class DpkFormService {
             }).then(_ => _, err => console.error(err));
     }
 
+    async verifyTitleInDrive(title: string, dpkId: string) {
+        // console.log(dpkId);
+        let filesArr: { id: string; name: string }[] = [];
+        await this.driveAPIService
+            .getListOfFiles(`'${dpkId}' in parents and mimeType = 'application/vnd.google-apps.folder' and name = '${title}'`)
+            .toPromise().then(files => filesArr = files.files);
+        console.log(filesArr);
+        return filesArr;
+    }
+
     async verifyURL(imagesURL: string, lyrics: string) {
         // Initial Style https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
         try {
@@ -56,14 +72,16 @@ export class DpkFormService {
             const path = url.pathname.split('/');
             const hostname = url.hostname;
             const id = path[3];
+
+            let status = true;
             await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
                 files => {
                     if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
-                        return false;
+                        status = false;
                     }
                 }
             );
-            return hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders';
+            return (!status) ? status : hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders';
         } catch {
             return false;
         }
@@ -74,6 +92,13 @@ export class DpkFormService {
     }
 
     getDPKRadio() {
-        return this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`);
+        this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`)
+            .subscribe(foldersObject => {
+                const folders = foldersObject.files;
+                for (const folder of folders) {
+                    this.DPKs.set(folder.name, folder.id);
+                }
+            });
+        return this.DPKs;
     }
 }

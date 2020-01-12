@@ -1,7 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Observable } from 'rxjs';
-import { DriveImageList } from '../../interfaces/drive';
 import { DpkFormService } from './dpk-form.service';
 
 @Component({
@@ -12,8 +10,7 @@ import { DpkFormService } from './dpk-form.service';
 export class DpkFormComponent implements OnInit {
     @ViewChild('form') dpkFullForm: { resetForm: () => void; };
 
-    DPKRadio$: Observable<DriveImageList>;
-    DPKs = new Map<string, string>(); // Key = Name, Value = Id
+    DPKs: Map<string, string>; // Key = Name, Value = Id
 
     constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
     }
@@ -25,10 +22,10 @@ export class DpkFormComponent implements OnInit {
         definitions: [''],
         imagesURL: ['', Validators.required],
         dpk: ['', Validators.required]
-    }, {validators: [this.dpkFormService.validSubmission]});
+    }, {asyncValidators: [this.dpkFormService.validSubmission]});
 
     ngOnInit() {
-        this.getDPKRadio();
+        this.DPKs = this.getDPKRadio();
     }
 
     onSubmit() {
@@ -41,12 +38,6 @@ export class DpkFormComponent implements OnInit {
     }
 
     getDPKRadio() {
-        this.DPKRadio$ = this.dpkFormService.getDPKRadio();
-        this.DPKRadio$.subscribe(foldersObject => {
-            const folders = foldersObject.files;
-            for (const folder of folders) {
-                this.DPKs.set(folder.name, folder.id);
-            }
-        });
+        return this.dpkFormService.getDPKRadio();
     }
 }
