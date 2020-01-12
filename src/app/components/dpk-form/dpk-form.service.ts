@@ -14,7 +14,7 @@ export class DpkFormService {
     constructor(private fireDB: AngularFirestore, private driveAPIService: DriveAPIService) {
     }
 
-    validSubmission = async (form: FormGroup) => {
+    validSubmission: (form: FormGroup) => Promise<ValidationErrors> = async (form: FormGroup) => {
         let status: ValidationErrors = null;
 
         const lyrics = form.value.lyrics;
@@ -33,6 +33,11 @@ export class DpkFormService {
 
         if (imagesURL) {
             await this.verifyURL(imagesURL, lyrics).then(res => status = (res) ? null : {ldp: true});
+        }
+
+        if (status === null && form.value.title) {
+            await this.verifyTitleInDrive(form.value.title, this.DPKs.get(`${form.value.dpk}`))
+                .then(res => status = (res === []) ? null : {ldp: true});
         }
 
         const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
@@ -56,12 +61,10 @@ export class DpkFormService {
     }
 
     async verifyTitleInDrive(title: string, dpkId: string) {
-        // console.log(dpkId);
         let filesArr: { id: string; name: string }[] = [];
         await this.driveAPIService
             .getListOfFiles(`'${dpkId}' in parents and mimeType = 'application/vnd.google-apps.folder' and name = '${title}'`)
             .toPromise().then(files => filesArr = files.files);
-        console.log(filesArr);
         return filesArr;
     }
 
