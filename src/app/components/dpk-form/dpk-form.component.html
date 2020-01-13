@@ -67,7 +67,7 @@
         </div>
     </form>
 
-    <div [ngStyle]="{'display':'flex', 'justify-content': 'space-around'}">
+    <div [ngStyle]="{'display':'flex', 'justify-content': 'space-evenly'}">
         <mat-card class="example-card">
             <mat-card-header>
                 <mat-card-title>Ex: Lyrics</mat-card-title>
@@ -88,6 +88,17 @@
             </mat-card-content>
         </mat-card>
 
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Full Walk-Through</mat-card-title>
+                <mat-card-subtitle>Video shows various error messages as well</mat-card-subtitle>
+            </mat-card-header>
+            <video controls class="example-card">
+                <source src="../../../assets/DPK%20Tutorial.mp4" type="video/mp4">
+            </video>
+
+        </mat-card>
+
         <mat-card class="example-card">
             <mat-card-header>
                 <mat-card-title>Ex: Definitions (Optional)</mat-card-title>
@@ -103,7 +114,7 @@
                 <br>
                 <p>The Sant always remains cool, calm, and at peace.</p>
                 <p>He is never disturbed or bound by the nets of lust or anger.</p>
-                <p>He has renounced all greed and worships Bhagwan. He firmly holds Bhagwan in his heart.</p>
+                <p>He has renounced all greed and worships Bhagwan. <br> He firmly holds Bhagwan in his heart.</p>
             </mat-card-content>
         </mat-card>
     </div>
