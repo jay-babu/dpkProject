@@ -5,7 +5,7 @@ import { DpkFormService } from './dpk-form.service';
 
 class CrossFieldMatcher implements ErrorStateMatcher {
     isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
-        return control.dirty && form.invalid;
+        return control.dirty && form.invalid && form.errors !== null;
     }
 }
 
