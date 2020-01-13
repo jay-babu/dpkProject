@@ -32,19 +32,19 @@ export class DpkFormService {
         }
 
         if (imagesURL) {
-            await this.verifyURL(imagesURL, lyrics).then(res => status = (res) ? null : {ldp: true});
+            await this.verifyURL(imagesURL, lyrics).then(res => status = res);
         }
 
         if (status === null && form.value.title) {
             await this.verifyTitleInDrive(form.value.title, this.DPKs.get(`${form.value.dpk}`))
-                .then(res => status = (res === []) ? null : {ldp: true});
+                .then(res => status = (res.length !== 0) ? null : {titleNotInDrive: true});
         }
 
         const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
 
         if (status === null && definitions !== '') {
             const definitionsArr: string[] = definitions.split(/\n{2,}/g);
-            status = (lyricsArr.length === definitionsArr.length) ? null : {ldp: true};
+            status = (lyricsArr.length === definitionsArr.length) ? null : {lyricsDef: true};
         }
         return status;
     };
@@ -75,18 +75,23 @@ export class DpkFormService {
             const path = url.pathname.split('/');
             const hostname = url.hostname;
             const id = path[3];
-
-            let status = true;
+            let status = null;
+            if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
+                status = {badURL: true};
+            }
+            if (status) {
+                return status;
+            }
             await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
                 files => {
                     if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
-                        status = false;
+                        status = {NotEqualPhotos: true};
                     }
                 }
             );
-            return (!status) ? status : hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders';
+            return status;
         } catch {
-            return false;
+            return {badURL: true};
         }
     }
 

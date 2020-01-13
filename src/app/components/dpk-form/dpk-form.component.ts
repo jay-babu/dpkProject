@@ -1,6 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { ErrorStateMatcher } from '@angular/material';
 import { DpkFormService } from './dpk-form.service';
+
+class CrossFieldMatcher implements ErrorStateMatcher {
+    isErrorState(control: FormControl | null, form: FormGroupDirective | NgForm | null): boolean {
+        return control.dirty && form.invalid;
+    }
+}
 
 @Component({
     selector: 'app-dpk-form',
@@ -11,10 +18,10 @@ export class DpkFormComponent implements OnInit {
     @ViewChild('form') dpkFullForm: { resetForm: () => void; };
 
     DPKs: Map<string, string>; // Key = Name, Value = Id
+    errorMatcher = new CrossFieldMatcher();
 
     constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
     }
-
 
     dpkForm: FormGroup = this.fb.group({
         title: ['', Validators.required],

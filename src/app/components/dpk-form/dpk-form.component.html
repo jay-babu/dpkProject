@@ -14,13 +14,24 @@
         <div class="form-field">
             <mat-form-field class="text-fields">
                 <label>
-                    <input matInput placeholder="DPK Title" formControlName="title" class="mat-primary">
+                    <input matInput placeholder="DPK Title" formControlName="title" class="mat-primary"
+                           [errorStateMatcher]="errorMatcher">
                 </label>
+                <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
+                    the {{ dpkForm.value.dpk }} folder in Google Drive
+                </mat-error>
             </mat-form-field>
             <mat-form-field class="text-fields">
                 <label>
-                    <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics" class="mat-primary"></textarea>
+                    <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics"
+                              class="mat-primary" [errorStateMatcher]="errorMatcher"></textarea>
                 </label>
+                <mat-error *ngIf="dpkForm.hasError('lyricsDef')">Number of Stanzas for Lyrics and Definitions do not
+                    Match
+                </mat-error>
+                <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">The Number of Slides and Photos in Google Drive do
+                    not Match
+                </mat-error>
             </mat-form-field>
 
             <mat-form-field class="text-fields">
@@ -34,6 +45,8 @@
                 <label>
                     <input matInput placeholder="Images URL" formControlName="imagesURL" class="mat-primary">
                 </label>
+                <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
+                </mat-error>
             </mat-form-field>
         </div>
 
