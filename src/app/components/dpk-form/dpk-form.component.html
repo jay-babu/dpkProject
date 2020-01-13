@@ -10,6 +10,13 @@
                 <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of DPKs | keyvalue"
                                   value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
             </mat-radio-group>
+            <mat-divider></mat-divider>
+            <a mat-flat-button *ngIf="form.value.dpk" [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
+               href="https://drive.google.com/open?id={{this.DPKs.get(form.value.dpk)}}">
+                Create a New Folder and
+                Upload your {{form.value.dpk}} Images Here!
+            </a>
+            <mat-divider></mat-divider>
         </div>
         <div class="form-field">
             <mat-form-field class="text-fields">
