@@ -22,6 +22,9 @@ import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
+import { SliderComponent } from './components/slider/slider.component';
+import { SliderItemDirective } from './components/slider/slider-item.directive';
+import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 
 @NgModule({
     declarations: [
@@ -31,6 +34,9 @@ import { FirebaseService } from './services/firebase.service';
         DpkFormComponent,
         TempOptionsComponent,
         PasswordlessAuthComponent,
+        SliderComponent,
+        SliderItemDirective,
+        SliderItemsComponent,
     ],
     imports: [
         AngularMaterialModule,

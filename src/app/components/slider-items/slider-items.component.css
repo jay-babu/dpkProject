@@ -1,0 +1,40 @@
+p {
+    font-family: Lato, serif;
+}
+
+.example-card {
+    max-width: 20vw;
+    min-height: 55vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+[appSliderItem] {
+    flex-shrink: 0;
+}
+
+mat-card-content {
+    height: 15vh;
+    overflow: scroll;
+}
+
+img {
+    max-height: 30vh;
+    object-fit: cover;
+}
+
+.shiba-header-image {
+    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+    background-size: cover;
+}
+
+.akita-header-image {
+    background-image: url('https://cdn1-www.dogtime.com/assets/uploads/gallery/akita-dogs-and-puppies/akita-dogs-puppies-4.jpg');
+    background-size: cover;
+}
+
+
+.chow-chow-header-image {
+    background-image: url('https://cdn1-www.dogtime.com/assets/uploads/gallery/chow-chow-dog-breed-pictures/2-laying.jpg');
+    background-size: cover;
+}
