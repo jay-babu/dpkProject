@@ -36,7 +36,7 @@ export class SlideComponent implements OnInit {
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
-            this.imagesURL = bhajan.imagesURL;
+            this.imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => this.imageDownload(driveFiles.files));
         });
