@@ -1,0 +1,55 @@
+.slider-container {
+    display: flex;
+    flex-direction: column
+}
+
+.slides {
+    display: flex;
+    overflow-x: scroll;
+    // This is not supported by all browsers. If you want a different animation, please feel free
+    // to find your own solution.
+    scroll-behavior: smooth;
+
+    &::-webkit-scrollbar {
+        width: 0;
+        background: transparent;
+    }
+
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 1vh;
+}
+
+.actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+p {
+    font-family: Lato, serif;
+}
+
+.example-card {
+    max-width: 20vw;
+    min-height: 55vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
+}
+
+[appSliderItem] {
+    flex-shrink: 0;
+}
+
+mat-card-content {
+    height: 15vh;
+    overflow: scroll;
+}
+
+img {
+    max-height: 30vh;
+    object-fit: cover;
+    cursor: pointer;
+}
