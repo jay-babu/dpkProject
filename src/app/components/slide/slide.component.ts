@@ -20,7 +20,7 @@ export class SlideComponent implements OnInit {
     stanza: string[][];
     definitions: string[][];
     imagesURL: string;
-    images: any[];
+    images: HTMLImageElement[];
 
     slideIndex: number;
     imageMaxHeight: number;
@@ -46,8 +46,16 @@ export class SlideComponent implements OnInit {
 
     imageDownload(files: { id: string; name: string }[]) {
         this.images = [];
-        for (const driveFile of files) {
-            this.images.push(new URL(`https://drive.google.com/uc?export=view&id=${driveFile.id}`));
+        let image = new Image();
+        image.src = `https://drive.google.com/uc?export=view&id=${files[this.slideIndex].id}`;
+        this.images[this.slideIndex] = image;
+
+        for (const [index, driveFile] of files.entries()) {
+            if (this.slideIndex !== index) {
+                image = new Image();
+                image.src = `https://drive.google.com/uc?export=view&id=${driveFile.id}`;
+                this.images[index] = image;
+            }
         }
     }
 
@@ -96,6 +104,6 @@ export class SlideComponent implements OnInit {
     }
 
     navigateID() {
-        this.router.navigate([`./`, {id: this.slideIndex}], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+        this.router.navigate([`./`, { id: this.slideIndex }], { relativeTo: this.activeRouter }).then(_ => _, err => console.log(err));
     }
 }
