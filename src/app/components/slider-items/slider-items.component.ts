@@ -7,7 +7,7 @@ import { DriveAPIService } from '../../services/drive-api.service';
     styleUrls: ['./slider-items.component.css']
 })
 export class SliderItemsComponent implements OnInit {
-    DPKs: Map<string, string>;
+    DPKs = new Map<string, string>();
 
     constructor(private driveAPIService: DriveAPIService) {
     }
@@ -17,7 +17,6 @@ export class SliderItemsComponent implements OnInit {
     }
 
     async DPKItems() {
-        this.DPKs = new Map<string, any>();
         await this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`).toPromise().then(DPKs => {
             for (const DPK of DPKs.files) {
                 this.DPKs.set(DPK.name, DPK.id);

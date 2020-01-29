@@ -1,22 +1,19 @@
-<div class="slider-container">
-    <div class="slides" #slides>
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>{{ slider.title }}</mat-card-title>
-            </mat-card-header>
-            <img mat-card-image [src]="slider.imgLink" (click)="onImgClick(slider.slidesLink)"
-                 alt="Photo of a Shiba Inu">
-            <mat-card-content>
-                <p>{{ slider.text }}</p>
-            </mat-card-content>
-            <mat-card-actions class="actions">
-                <button mat-button color="primary">LIKE</button>
-                <button mat-button color="warn">Flag</button>
-            </mat-card-actions>
-        </mat-card>
-    </div>
-    <div class="controls">
-        <button mat-raised-button color="primary" (click)="onClickLeft()" [style.margin]="'0 1vw'">left</button>
-        <button mat-raised-button color="primary" (click)="onClickRight()" [style.margin]="'0 1vw'">right</button>
+<div *ngIf="dpkObservable | async" class="slider-container">
+    <div class="slides">
+        <div *ngFor="let slide of dpk" class="slide">
+            <mat-card class="example-card">
+                <mat-card-header>
+                    <mat-card-title>{{ slide.title }}</mat-card-title>
+                </mat-card-header>
+
+                <img mat-card-image [src]="this.getImage(slide.imgID).src" (click)="onImgClick(slide.slidesLink)"
+                     alt="Slides">
+
+                <mat-card-actions class="actions">
+                    <button mat-button color="primary">LIKE</button>
+                    <button mat-button color="warn">Flag</button>
+                </mat-card-actions>
+            </mat-card>
+        </div>
     </div>
 </div>

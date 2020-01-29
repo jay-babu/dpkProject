@@ -34,12 +34,12 @@ p {
 
 .example-card {
     max-width: 20vw;
-    min-height: 55vh;
+    min-height: 30vh;
     margin-left: 1vw;
     margin-right: 1vw;
 }
 
-[appSliderItem] {
+.slide {
     flex-shrink: 0;
 }
 

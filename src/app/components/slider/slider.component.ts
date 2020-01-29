@@ -1,52 +1,53 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, ElementRef, Input, QueryList, ViewChild } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
+import { DriveImageList } from '../../interfaces/drive';
 import { Slider } from '../../interfaces/slider';
-import { SliderItemDirective } from './slider-item.directive';
+import { DriveAPIService } from '../../services/drive-api.service';
 
 @Component({
     selector: 'app-slider',
     templateUrl: './slider.component.html',
     styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements AfterContentInit, AfterViewInit {
+export class SliderComponent implements OnInit {
     @Input()
-    slider: Slider;
+    DPK: string;
+    @Input()
+    dpkID;
 
-    @ContentChildren(SliderItemDirective, {read: ElementRef}) items
-        : QueryList<ElementRef<HTMLDivElement>>;
-    @ViewChild('slides') slidesContainer: ElementRef<HTMLDivElement>;
+    dpkObservable: Observable<DriveImageList>;
 
-    private slidesIndex = 0;
+    dpk: Slider[];
 
-    get currentItem(): ElementRef<HTMLDivElement> {
-        return this.items.find((item, index) => index === this.slidesIndex);
+    constructor(private driveAPIService: DriveAPIService) {
     }
 
-    ngAfterContentInit() {
-        console.log('items', this.items);
-    }
-
-    ngAfterViewInit() {
-        console.log('slides', this.slidesContainer);
-    }
-
-    onClickLeft() {
-        this.slidesContainer.nativeElement.scrollLeft -= this.currentItem.nativeElement.offsetWidth;
-
-        if (this.slidesIndex > 0) {
-            this.slidesIndex--;
-        }
-    }
-
-    onClickRight() {
-        this.slidesContainer.nativeElement.scrollLeft += this.currentItem.nativeElement.offsetWidth;
-
-        if (this.slidesIndex < this.items.length - 1) {
-            this.slidesIndex++;
-        }
+    ngOnInit(): void {
+        this.dpk = this.getSomething(this.DPK, this.dpkID);
     }
 
     onImgClick(slidesLink: string) {
         window.open(slidesLink, '_blank');
     }
 
+    getImage(id: string) {
+        return this.driveAPIService.getImage(id);
+    }
+
+    getSomething(type: string, id: string) {
+        const dpk: Slider[] = [];
+        this.dpkObservable = this.driveAPIService.getListOfFiles(`'${id}' in parents`);
+        this.dpkObservable.subscribe(
+            DPKs => {
+                for (const DPK of DPKs.files) {
+                    const name = DPK.name;
+                    this.driveAPIService.getListOfFiles(`'${DPK.id}' in parents`).subscribe(images => {
+                        const imageID = images.files[0].id;
+                        dpk.push({ title: name, imgID: imageID, slidesLink: `http://localhost:4200/dpk/${type}/${name}` });
+                    });
+                }
+            }
+        );
+        return dpk;
+    }
 }
