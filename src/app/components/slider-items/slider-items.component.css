@@ -19,3 +19,8 @@ img {
     max-height: 30vh;
     object-fit: cover;
 }
+
+mat-toolbar {
+    font-size: 1.3em;
+    margin-bottom: 1vh;
+}

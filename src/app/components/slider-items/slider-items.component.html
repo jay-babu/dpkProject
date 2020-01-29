@@ -5,6 +5,7 @@
 
     <br>
     <ng-container *ngFor="let DPK of this.DPKs | keyvalue">
+        <mat-toolbar>{{DPK.key}}</mat-toolbar>
         <app-slider [DPK]="DPK.key" [dpkID]="DPK.value">
             <div appSliderItem>
             </div>
