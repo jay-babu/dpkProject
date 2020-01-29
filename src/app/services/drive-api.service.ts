@@ -19,12 +19,18 @@ export class DriveAPIService {
     getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id)') {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
-        return this.http.get<DriveImageList>(this.driveURL, {params});
+        return this.http.get<DriveImageList>(this.driveURL, { params });
+    }
+
+    getImage(id: string) {
+        const image = new Image();
+        image.src = `https://drive.google.com/uc?export=view&id=${id}`;
+        return image;
     }
 
     getFile(id: string) {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('key', key).set('alt', 'media');
-        return this.http.get(this.driveURL + id, {params});
+        return this.http.get(this.driveURL + id, { params });
     }
 }
