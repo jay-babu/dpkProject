@@ -1,6 +1,5 @@
 export interface Slider {
     title: string;
-    text: string;
-    imgLink: string;
+    imgID: string;
     slidesLink: string;
 }
