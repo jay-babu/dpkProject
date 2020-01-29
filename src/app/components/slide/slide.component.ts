@@ -46,15 +46,11 @@ export class SlideComponent implements OnInit {
 
     imageDownload(files: { id: string; name: string }[]) {
         this.images = [];
-        let image = new Image();
-        image.src = `https://drive.google.com/uc?export=view&id=${files[this.slideIndex].id}`;
-        this.images[this.slideIndex] = image;
+        this.images[this.slideIndex] = this.driveAPIService.getImage(files[this.slideIndex].id);
 
         for (const [index, driveFile] of files.entries()) {
             if (this.slideIndex !== index) {
-                image = new Image();
-                image.src = `https://drive.google.com/uc?export=view&id=${driveFile.id}`;
-                this.images[index] = image;
+                this.images[index] = this.driveAPIService.getImage(driveFile.id);
             }
         }
     }
