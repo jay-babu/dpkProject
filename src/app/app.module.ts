@@ -17,7 +17,6 @@ import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { DpkFormService } from './components/dpk-form/dpk-form.service';
 import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
 import { SlideComponent } from './components/slide/slide.component';
-import { SliderItemsService } from './components/slider-items/slider-items.service';
 import { DpkParseService } from './components/slides/dpk-parse.service';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
@@ -55,8 +54,7 @@ import { SliderItemsComponent } from './components/slider-items/slider-items.com
         FirebaseService,
         DpkFormService,
         DpkParseService,
-        DriveAPIService,
-        SliderItemsService
+        DriveAPIService
     ],
     bootstrap: [AppComponent],
 })
