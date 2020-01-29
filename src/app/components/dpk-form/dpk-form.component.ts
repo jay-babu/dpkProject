@@ -29,7 +29,7 @@ export class DpkFormComponent implements OnInit {
         definitions: [''],
         imagesURL: ['', Validators.required],
         dpk: ['', Validators.required]
-    }, {asyncValidators: [this.dpkFormService.validSubmission]});
+    }, { asyncValidators: [this.dpkFormService.validSubmission] });
 
     ngOnInit() {
         this.DPKs = this.getDPKRadio();
