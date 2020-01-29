@@ -31,7 +31,7 @@ export class SliderComponent implements OnInit {
     }
 
     getImage(id: string) {
-        return this.driveAPIService.getImage(id);
+        return this.driveAPIService.getThumbnail(id);
     }
 
     getSomething(type: string, id: string) {

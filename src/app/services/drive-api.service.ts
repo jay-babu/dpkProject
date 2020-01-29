@@ -28,6 +28,12 @@ export class DriveAPIService {
         return image;
     }
 
+    getThumbnail(id: string) {
+        const image = new Image();
+        image.src = `https://drive.google.com/thumbnail?id=${id}&sz=h210`;
+        return image;
+    }
+
     getFile(id: string) {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('key', key).set('alt', 'media');
