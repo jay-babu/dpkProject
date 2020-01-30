@@ -1,4 +1,4 @@
-<div class="slide" *ngIf="this.firebaseBhajan$ | async">
+<div class="slide" *ngIf="this.firebaseBhajan$ | async" (swipeLeft)="upOrDown(true)" (swipeRight)="upOrDown(false)">
     <div [@openClose]="hidden ? 'closed' : 'open'">
         <div class="lyricDiv">
             <h3 *ngFor="let line of stanza[edgeCheck()]">{{ line }}</h3>
