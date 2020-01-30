@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
-import { ErrorStateMatcher } from '@angular/material';
+import { ErrorStateMatcher } from '@angular/material/core';
 import { DpkFormService } from './dpk-form.service';
 
 class CrossFieldMatcher implements ErrorStateMatcher {
@@ -23,12 +23,12 @@ export class DpkFormComponent implements OnInit {
     constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
     }
 
-    dpkForm: FormGroup = this.fb.group({
-        title: ['', Validators.required],
-        lyrics: ['', Validators.required],
-        definitions: [''],
-        imagesURL: ['', Validators.required],
-        dpk: ['', Validators.required]
+    dpkForm = new FormGroup({
+        title: new FormControl('', Validators.required),
+        lyrics: new FormControl('', Validators.required),
+        definitions: new FormControl(''),
+        imagesURL: new FormControl('', Validators.required),
+        dpk: new FormControl('', Validators.required),
     }, { asyncValidators: [this.dpkFormService.validSubmission] });
 
     ngOnInit() {
