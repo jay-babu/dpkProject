@@ -25,6 +25,7 @@ import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
+import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
 
 @NgModule({
     declarations: [
@@ -37,6 +38,7 @@ import { FirebaseService } from './services/firebase.service';
         SliderComponent,
         SliderItemDirective,
         SliderItemsComponent,
+        PdfSlideComponent,
     ],
     imports: [
         AngularMaterialModule,

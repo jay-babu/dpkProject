@@ -1,0 +1,80 @@
+.slide {
+    font-size: 2.5vh;
+    height: 215.9mm;
+    width: 279.4mm;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #141414;
+}
+
+.lyricDiv {
+    text-align: center;
+    padding-top: 1%;
+}
+
+.definitionDiv {
+    text-align: center;
+    padding-bottom: 1%;
+}
+
+.imageDiv {
+    text-align: center;
+
+}
+
+img {
+    vertical-align: middle;
+    width: 93vw;
+    height: auto;
+    object-fit: contain;
+}
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+.slide h1,
+.slide h2,
+.slide h3,
+.slide h4,
+.slide h5,
+.slide h6 {
+    margin: 0 0 0 0;
+    line-height: 1.5;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    text-shadow: none;
+    word-wrap: break-word;
+    color: white;
+}
+
+.slide h1 {
+    font-size: 2.5em;
+}
+
+.slide h2 {
+    font-size: 1.6em;
+}
+
+.slide h3 {
+    font-size: 1.6em;
+}
+
+.slide h4 {
+    font-size: 1em;
+}
+
+.slide h1 {
+    text-shadow: none;
+}
+
+/*********************************************
+ * OTHER
+ *********************************************/
+.slide p {
+    font-style: italic;
+    margin: 0;
+    line-height: 1.4;
+    color: lightgray;
+}

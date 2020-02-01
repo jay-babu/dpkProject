@@ -1,0 +1,15 @@
+<ng-container *ngIf="this.firebaseBhajan$ | async">
+    <div class="slide" *ngFor="let s of stanza; let i = index">
+        <div>
+            <div class="lyricDiv">
+                <h3 *ngFor="let line of stanza[i]">{{ line }}</h3>
+            </div>
+            <div class="imageDiv" *ngIf="this.driveBhajanImages$ | async">
+                <img [src]="images[i].src" alt="Slide Image" [style.max-height.vh]="this.imageMaxHeightDecrement(i)">
+            </div>
+            <div class="definitionDiv">
+                <p *ngFor="let definition of definitions[i]">{{ definition }}</p>
+            </div>
+        </div>
+    </div>
+</ng-container>
