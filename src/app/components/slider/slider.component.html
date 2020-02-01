@@ -11,6 +11,9 @@
 
                 <mat-card-actions class="actions">
                     <button mat-button color="primary">Like</button>
+                    <a [routerLink]="['/dpk', 'pdf', slide.type, slide.name]">
+                        <button mat-button color="primary">PDF</button>
+                    </a>
                     <button mat-button color="warn">Flag</button>
                 </mat-card-actions>
             </mat-card>

@@ -25,8 +25,6 @@ export class PdfSlideComponent implements OnInit {
     imagesURL: string;
     images: HTMLImageElement[];
 
-    hidden = true;
-
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
                 private slidesService: DpkParseService,
@@ -48,8 +46,6 @@ export class PdfSlideComponent implements OnInit {
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => this.imageDownload(driveFiles.files));
         });
-
-        this.hidden = false;
     }
 
     imageDownload(files: { id: string; name: string }[]) {

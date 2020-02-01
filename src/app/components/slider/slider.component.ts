@@ -43,7 +43,13 @@ export class SliderComponent implements OnInit {
                     const name = DPK.name;
                     this.driveAPIService.getListOfFiles(`'${DPK.id}' in parents`).subscribe(images => {
                         const imageID = images.files[0].id;
-                        dpk.push({ title: name, imgID: imageID, slidesLink: `http://localhost:4200/dpk/${type}/${name}` });
+                        dpk.push({
+                            title: name,
+                            imgID: imageID,
+                            slidesLink: `http://localhost:4200/dpk/${type}/${name}`,
+                            type,
+                            name,
+                        });
                     });
                 }
             }

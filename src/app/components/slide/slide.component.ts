@@ -23,7 +23,6 @@ export class SlideComponent implements OnInit {
     images: HTMLImageElement[];
 
     slideIndex: number;
-    imageMaxHeight: number;
     hidden = true;
 
     constructor(private router: Router, private activeRouter: ActivatedRoute, private driveAPIService: DriveAPIService) {
@@ -60,13 +59,14 @@ export class SlideComponent implements OnInit {
         Changes the Max Height of Img in CSS.
         4.5 was found to be a good number that worked for everything.
          */
-        this.imageMaxHeight = 100;
+        let imageMaxHeight = 100;
         for (const index of this.stanza[this.slideIndex]) {
-            this.imageMaxHeight -= 6;
+            imageMaxHeight -= 6;
         }
         for (const index of this.definitions[this.slideIndex]) {
-            this.imageMaxHeight -= 6;
+            imageMaxHeight -= 6;
         }
+        return imageMaxHeight;
     }
 
     edgeCheck(): number {
@@ -78,7 +78,6 @@ export class SlideComponent implements OnInit {
             this.slideIndex = this.stanza.length - 1;
             this.navigateID();
         }
-        this.imageMaxHeightDecrement();
         return this.slideIndex;
     }
 
