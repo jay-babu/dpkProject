@@ -27,7 +27,7 @@ export class SliderComponent implements OnInit {
     }
 
     onImgClick(type: string, name: string) {
-        window.open(`http://localhost:4200/dpk/${type}/${name}`, '_blank');
+        window.open(`https://jayp0521.github.io/dpkProject/dpk/${type}/${name}`, '_blank');
     }
 
     getImage(id: string) {
