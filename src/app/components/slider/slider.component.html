@@ -6,15 +6,18 @@
                     <mat-card-title>{{ slide.title }}</mat-card-title>
                 </mat-card-header>
 
-                <img mat-card-image [src]="this.getImage(slide.imgID).src" (click)="onImgClick(slide.slidesLink)"
+                <img mat-card-image [src]="this.getImage(slide.imgID).src" (click)="onImgClick(slide.type, slide.title)"
                      alt="Slides">
 
                 <mat-card-actions class="actions">
-                    <button mat-button color="primary">Like</button>
-                    <a [routerLink]="['/dpk', 'pdf', slide.type, slide.name]">
-                        <button mat-button color="primary">PDF</button>
+<!--                    <button mat-button color="primary">Like</button>-->
+                    <a [routerLink]="['/dpk', slide.type, slide.title]">
+                        <button mat-button color="primary">SlideShow</button>
                     </a>
-                    <button mat-button color="warn">Flag</button>
+                    <a [routerLink]="['/dpk', 'pdf', slide.type, slide.name]">
+                        <button mat-button color="accent">PDF</button>
+                    </a>
+<!--                    <button mat-button color="warn">Flag</button>-->
                 </mat-card-actions>
             </mat-card>
         </div>

@@ -26,8 +26,8 @@ export class SliderComponent implements OnInit {
         this.dpk = this.getSomething(this.DPK, this.dpkID);
     }
 
-    onImgClick(slidesLink: string) {
-        window.open(slidesLink, '_blank');
+    onImgClick(type: string, name: string) {
+        window.open(`http://localhost:4200/dpk/${type}/${name}`, '_blank');
     }
 
     getImage(id: string) {
@@ -46,9 +46,7 @@ export class SliderComponent implements OnInit {
                         dpk.push({
                             title: name,
                             imgID: imageID,
-                            slidesLink: `http://localhost:4200/dpk/${type}/${name}`,
                             type,
-                            name,
                         });
                     });
                 }
