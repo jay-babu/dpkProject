@@ -6,6 +6,7 @@ form {
     font-size: 1.1em;
     margin-bottom: 1%;
 }
+
 mat-toolbar {
     justify-content: center;
     font-size: 1.5em;
@@ -31,20 +32,28 @@ mat-toolbar {
     font-size: 1.3em;
 }
 
-.example-card {
-    max-width: 30vw;
+.cards {
+    display: flex;
+    justify-content: space-evenly;
 }
 
-.example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
+.video {
+    max-width: 27vw;
 }
 
 mat-card {
-    max-height: 50vh;
+    max-height: 40vh;
+    max-width: 30vw;
+    overflow: hidden;
 }
 
 mat-card > mat-card-content {
-    max-height: 44vh;
-    overflow: scroll;
+    max-height: 32vh;
+    overflow: auto;
+}
+
+#particles canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
