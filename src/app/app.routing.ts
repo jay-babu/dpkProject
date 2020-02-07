@@ -7,6 +7,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
+import { TestComponent } from './components/test/test.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'options' },
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
     { path: 'privacy-policy', component: PrivacyPolicyComponent },
     { path: 'login', component: PasswordlessAuthComponent },
     { path: 'slides', component: SliderItemsComponent },
+    { path: 'test', component: TestComponent }
 ];
 
 export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules });

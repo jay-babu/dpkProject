@@ -2,3 +2,8 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+canvas.particles-js-canvas-el {
+    height: 100vh !important;
+    width: 100vw !important;
+}

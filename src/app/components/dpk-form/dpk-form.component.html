@@ -1,121 +1,124 @@
-<div [style.min-height]="'100%'" class="mat-app-background">
-    <form [formGroup]="dpkForm" (ngSubmit)="onSubmit()" #form="ngForm">
-        <mat-toolbar color="primary">
-            <span>Submit a new DPK</span>
-        </mat-toolbar>
-
-        <div>
-            <label>Type: </label>
-            <mat-radio-group formControlName="dpk">
-                <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of DPKs | keyvalue"
-                                  value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
-            </mat-radio-group>
-            <mat-divider></mat-divider>
-            <a mat-flat-button *ngIf="form.value.dpk" [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
-               href="https://drive.google.com/open?id={{this.DPKs.get(form.value.dpk)}}" target="_blank">
-                Create a New Folder and
-                Upload your {{form.value.dpk}} Images Here!
-            </a>
-            <mat-divider></mat-divider>
-        </div>
-        <div class="form-field">
-            <mat-form-field class="text-fields">
-                <label>
-                    <input matInput placeholder="DPK Title" formControlName="title" class="mat-primary"
-                           [errorStateMatcher]="errorMatcher">
-                </label>
-                <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
-                    the {{ dpkForm.value.dpk }} folder in Google Drive
-                </mat-error>
-            </mat-form-field>
-            <mat-form-field class="text-fields">
-                <label>
+<div id="particles" style="background-color: #00002f">
+        <div [ngStyle]="{'width': '100vw', 'position': 'absolute', 'max-height': '100vh', 'overflow': 'auto'}">
+            <mat-toolbar color="primary">
+                <span>Submit a new DPK</span>
+            </mat-toolbar>
+            <form [formGroup]="dpkForm" (ngSubmit)="onSubmit()" #form="ngForm">
+                <div>
+                    <label>Type: </label>
+                    <mat-radio-group formControlName="dpk">
+                        <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of DPKs | keyvalue"
+                                          value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
+                    </mat-radio-group>
+                    <mat-divider></mat-divider>
+                    <a mat-flat-button *ngIf="form.value.dpk" [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
+                       href="https://drive.google.com/open?id={{this.DPKs.get(form.value.dpk)}}" target="_blank">
+                        Create a New Folder and
+                        Upload your {{form.value.dpk}} Images Here!
+                    </a>
+                    <mat-divider></mat-divider>
+                </div>
+                <div class="form-field">
+                    <mat-form-field class="text-fields">
+                        <label>
+                            <input matInput placeholder="DPK Title" formControlName="title" class="mat-primary"
+                                   [errorStateMatcher]="errorMatcher">
+                        </label>
+                        <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
+                            the {{ dpkForm.value.dpk }} folder in Google Drive
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="text-fields">
+                        <label>
                     <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics"
                               class="mat-primary" [errorStateMatcher]="errorMatcher"></textarea>
-                </label>
-                <mat-error *ngIf="dpkForm.hasError('lyricsDef')">Number of Stanzas for Lyrics and Definitions do not
-                    Match
-                </mat-error>
-                <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">The Number of Slides and Photos in Google Drive do
-                    not Match
-                </mat-error>
-            </mat-form-field>
+                        </label>
+                        <mat-error *ngIf="dpkForm.hasError('lyricsDef')">Number of Stanzas for Lyrics and Definitions do
+                            not
+                            Match
+                        </mat-error>
+                        <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">The Number of Slides and Photos in Google
+                            Drive do
+                            not Match
+                        </mat-error>
+                    </mat-form-field>
 
-            <mat-form-field class="text-fields">
-                <label>
+                    <mat-form-field class="text-fields">
+                        <label>
                 <textarea cdkTextareaAutosize matInput placeholder="Definitions" formControlName="definitions"
                           class="mat-primary"></textarea>
-                </label>
-            </mat-form-field>
+                        </label>
+                    </mat-form-field>
 
-            <mat-form-field class="text-fields">
-                <label>
-                    <input matInput placeholder="Images URL" formControlName="imagesURL" class="mat-primary">
-                </label>
-                <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
-                </mat-error>
-            </mat-form-field>
+                    <mat-form-field class="text-fields">
+                        <label>
+                            <input matInput placeholder="Images URL" formControlName="imagesURL" class="mat-primary">
+                        </label>
+                        <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="submission">
+                    <button color="warn" class="submission-btn" mat-raised-button type="reset">Reset</button>
+                    <button color="primary" class="submission-btn" mat-flat-button type="submit"
+                            [disabled]="!dpkForm.valid" (click)="openDPKSlides()">
+                        Submit
+                        <mat-icon *ngIf="dpkForm.valid">check_circle</mat-icon>
+                    </button>
+                </div>
+            </form>
+
+            <div class="cards">
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Ex: Lyrics</mat-card-title>
+                        <mat-card-subtitle>Empty Line <strong>equals</strong> New Slide</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>Sāchā sādhu re, sundar guṇdhām;</p>
+                        <p>Samjīne Satsang kījie...</p>
+                        <br>
+                        <p>Jī re Sant sulakshaṇnā bharyā, avguṇno re,</p>
+                        <p>'Urmā nahi lesh, mahānubhavī muni te kharā;'</p>
+                        <p>'Āpe sahune re, sācho upḍesh...'</p>
+                        <br>
+                        <p>Jī re sant sadā shītaḷ rahe, kyāre na tape re,</p>
+                        <p>Kām krodhnī jhāḷ, lobh tajī Harine bhaje;</p>
+                        <p>Dhāre urmā re, dradh karī Shrī Gopāḷ...</p>
+
+                    </mat-card-content>
+                </mat-card>
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Full Walk-Through</mat-card-title>
+                        <mat-card-subtitle>Video shows various error messages as well</mat-card-subtitle>
+                    </mat-card-header>
+                    <video controls class="video">
+                        <source src="../../../assets/DPK%20Tutorial.mp4" type="video/mp4">
+                    </video>
+                </mat-card>
+
+                <mat-card>
+                    <mat-card-header>
+                        <mat-card-title>Ex: Definitions (Optional)</mat-card-title>
+                        <mat-card-subtitle>Definitions must have the same number of slides as Lyrics</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        <p>The true sadhu is the wonderful abode of virtues.</p>
+                        <p>Understanding this, do Satsang.</p>
+                        <br>
+                        <p>The Sant is filled with good qualities.</p>
+                        <p>'There is not the slightest fault in his heart.'</p>
+                        <p>'That sadhu is truly experienced. He gives everyone true advice.'</p>
+                        <br>
+                        <p>The Sant always remains cool, calm, and at peace.</p>
+                        <p>He is never disturbed or bound by the nets of lust or anger.</p>
+                        <p>He has renounced all greed and worships Bhagwan. <br> He firmly holds Bhagwan in his heart.
+                        </p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
         </div>
-
-        <div class="submission">
-            <button color="warn" class="submission-btn" mat-raised-button type="reset">Reset</button>
-            <button color="primary" class="submission-btn" mat-flat-button type="submit"
-                    [disabled]="!dpkForm.valid" (click)="openDPKSlides()">
-                Submit
-                <mat-icon *ngIf="dpkForm.valid">check_circle</mat-icon>
-            </button>
-        </div>
-    </form>
-
-    <div [ngStyle]="{'display':'flex', 'justify-content': 'space-evenly'}">
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>Ex: Lyrics</mat-card-title>
-                <mat-card-subtitle>Empty Line == New Slide</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>Sāchā sādhu re, sundar guṇdhām;</p>
-                <p>Samjīne Satsang kījie...</p>
-                <br>
-                <p>Jī re Sant sulakshaṇnā bharyā, avguṇno re,</p>
-                <p>'Urmā nahi lesh, mahānubhavī muni te kharā;'</p>
-                <p>'Āpe sahune re, sācho upḍesh...'</p>
-                <br>
-                <p>Jī re sant sadā shītaḷ rahe, kyāre na tape re,</p>
-                <p>Kām krodhnī jhāḷ, lobh tajī Harine bhaje;</p>
-                <p>Dhāre urmā re, dradh karī Shrī Gopāḷ...</p>
-
-            </mat-card-content>
-        </mat-card>
-
-        <mat-card>
-            <mat-card-header>
-                <mat-card-title>Full Walk-Through</mat-card-title>
-                <mat-card-subtitle>Video shows various error messages as well</mat-card-subtitle>
-            </mat-card-header>
-            <video controls class="example-card">
-                <source src="../../../assets/DPK%20Tutorial.mp4" type="video/mp4">
-            </video>
-
-        </mat-card>
-
-        <mat-card class="example-card">
-            <mat-card-header>
-                <mat-card-title>Ex: Definitions (Optional)</mat-card-title>
-                <mat-card-subtitle>Definitions must have the same number of slides as Lyrics</mat-card-subtitle>
-            </mat-card-header>
-            <mat-card-content>
-                <p>The true sadhu is the wonderful abode of virtues.</p>
-                <p>Understanding this, do Satsang.</p>
-                <br>
-                <p>The Sant is filled with good qualities.</p>
-                <p>'There is not the slightest fault in his heart.'</p>
-                <p>'That sadhu is truly experienced. He gives everyone true advice.'</p>
-                <br>
-                <p>The Sant always remains cool, calm, and at peace.</p>
-                <p>He is never disturbed or bound by the nets of lust or anger.</p>
-                <p>He has renounced all greed and worships Bhagwan. <br> He firmly holds Bhagwan in his heart.</p>
-            </mat-card-content>
-        </mat-card>
-    </div>
 </div>
