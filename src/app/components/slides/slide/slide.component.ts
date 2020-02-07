@@ -1,10 +1,10 @@
 import { Component, HostListener, Input, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { fadeAnimation } from '../../animations/fade.animation';
-import { FirebaseBhajan } from '../../interfaces/bhajan';
-import { DriveImageList } from '../../interfaces/drive';
-import { DriveAPIService } from '../../services/drive-api.service';
+import { fadeAnimation } from '../../../animations/fade.animation';
+import { FirebaseBhajan } from '../../../interfaces/bhajan';
+import { DriveImageList } from '../../../interfaces/drive';
+import { DriveAPIService } from '../../../services/drive-api.service';
 
 @Component({
     selector: 'app-slide',
