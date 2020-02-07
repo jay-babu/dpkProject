@@ -45,6 +45,7 @@ mat-card {
     max-height: 40vh;
     max-width: 30vw;
     overflow: hidden;
+    background-color: rgba(1, 1, 31, 0.7);
 }
 
 mat-card > mat-card-content {
