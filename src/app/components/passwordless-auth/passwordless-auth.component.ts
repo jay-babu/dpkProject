@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 @Component({
     selector: 'app-passwordless-auth',
@@ -10,34 +12,46 @@ import { Observable } from 'rxjs';
 })
 export class PasswordlessAuthComponent implements OnInit {
     user: Observable<any>;
-    email: string;
     emailSent = false;
 
     errorMessage: string;
 
-    constructor(public afAuth: AngularFireAuth, private router: Router) {
+    emailForm: FormGroup;
+
+    constructor(public afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder) {
     }
 
     ngOnInit() {
         this.user = this.afAuth.authState;
 
         const url = this.router.url;
-
         this.confirmSignIn(url);
+
+        this.reactiveForm();
+    }
+
+    /* Reactive form */
+    reactiveForm() {
+        this.emailForm = this.fb.group({
+            email: ['', [Validators.required, Validators.email]],
+        });
     }
 
     async sendEmailLink() {
+        console.log(this.emailForm.value.email);
+        const email = this.emailForm.value.email;
         const actionCodeSettings = {
-            url: 'http://localhost:4200/login',
+            // Redirect URL
+            url: `${environment.url}signIn`,
             handleCodeInApp: true
         };
 
         try {
             await this.afAuth.auth.sendSignInLinkToEmail(
-                this.email,
+                email,
                 actionCodeSettings
             );
-            window.localStorage.setItem('emailForSignIn', this.email);
+            window.localStorage.setItem('emailForSignIn', email);
             this.emailSent = true;
 
         } catch (err) {
@@ -46,6 +60,7 @@ export class PasswordlessAuthComponent implements OnInit {
     }
 
     async confirmSignIn(url) {
+        console.log(url);
         try {
             if (this.afAuth.auth.isSignInWithEmailLink(url)) {
                 let email = window.localStorage.getItem('emailForSignIn');
@@ -74,8 +89,6 @@ export class PasswordlessAuthComponent implements OnInit {
                 this.emailSent = false;
             },
             (error: any) => {
-                // console.warn('Sign-out failure.');
-                // console.error(error);
                 this.errorMessage = error;
             }
         );
