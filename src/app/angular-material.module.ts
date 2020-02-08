@@ -18,27 +18,12 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
     imports: [
-        CommonModule,
-        MatButtonModule,
-        MatToolbarModule,
-        MatIconModule,
-        MatSidenavModule,
-        MatBadgeModule,
-        MatListModule,
-        MatGridListModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
-        MatRadioModule,
-        MatDatepickerModule,
-        MatChipsModule,
-        MatTooltipModule,
-        MatTableModule,
-        MatPaginatorModule,
-        MatCardModule
+        CommonModule
     ], exports: [
         MatButtonModule,
         MatToolbarModule,
@@ -56,7 +41,8 @@ import { MatTooltipModule } from '@angular/material/tooltip';
         MatTooltipModule,
         MatTableModule,
         MatPaginatorModule,
-        MatCardModule
+        MatCardModule,
+        MatDialogModule
     ]
 })
 
