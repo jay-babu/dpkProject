@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
 declare var particlesJS: any;
+
 @Component({
     selector: 'app-passwordless-auth',
     templateUrl: './passwordless-auth.component.html',
@@ -40,7 +41,6 @@ export class PasswordlessAuthComponent implements OnInit {
     }
 
     async sendEmailLink() {
-        // console.log(this.emailForm.value.email);
         const email = this.emailForm.value.email;
         const actionCodeSettings = {
             // Redirect URL
@@ -61,20 +61,25 @@ export class PasswordlessAuthComponent implements OnInit {
         }
     }
 
-    async confirmSignIn(url) {
+    confirmSignIn(url) {
         // console.log(url);
         try {
             if (this.afAuth.auth.isSignInWithEmailLink(url)) {
-                let email = window.localStorage.getItem('emailForSignIn');
+                const email = window.localStorage.getItem('emailForSignIn');
 
                 // If missing email, prompt user for it
-                if (!email) {
-                    email = window.prompt('Please provide your email for confirmation');
+                // if (!email) {
+                //     email = window.prompt('Please provide your email for confirmation');
+                // }
+
+                if (email) {
+                    this.afAuth.auth.signInWithEmailLink(email, url).then(
+                        () => setTimeout(() => this.router.navigate(['/dpkCreate']), 500)
+                    );
+                    window.localStorage.removeItem('emailForSignIn');
                 }
 
-                // Signin user and remove the email localStorage
-                await this.afAuth.auth.signInWithEmailLink(email, url);
-                window.localStorage.removeItem('emailForSignIn');
+                // Sign In user and remove the email localStorage
             }
         } catch (err) {
             this.errorMessage = err.message;
