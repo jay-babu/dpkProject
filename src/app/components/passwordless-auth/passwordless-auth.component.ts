@@ -40,7 +40,7 @@ export class PasswordlessAuthComponent implements OnInit {
     }
 
     async sendEmailLink() {
-        console.log(this.emailForm.value.email);
+        // console.log(this.emailForm.value.email);
         const email = this.emailForm.value.email;
         const actionCodeSettings = {
             // Redirect URL
@@ -62,7 +62,7 @@ export class PasswordlessAuthComponent implements OnInit {
     }
 
     async confirmSignIn(url) {
-        console.log(url);
+        // console.log(url);
         try {
             if (this.afAuth.auth.isSignInWithEmailLink(url)) {
                 let email = window.localStorage.getItem('emailForSignIn');
