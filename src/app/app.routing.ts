@@ -11,6 +11,7 @@ import { TestComponent } from './components/test/test.component';
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'options' },
+    { path: 'signIn', component: PasswordlessAuthComponent },
     { path: 'dpkCreate', component: DpkFormComponent },
     { path: 'dpk/pdf/:dpk/:name', component: PdfSlideComponent },
     { path: 'dpk/:dpk/:name', component: SlidesComponent },

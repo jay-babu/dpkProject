@@ -23,6 +23,7 @@ import { SliderComponent } from './components/slider-items/slider/slider.compone
 import { DpkParseService } from './components/slides/dpk-parse.service';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
+import { AuthGuardService } from './services/auth-guard.service';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
@@ -53,13 +54,14 @@ import { TestComponent } from './components/test/test.component';
         HttpClientModule,
         ReactiveFormsModule,
         RouterModule,
-        HammerModule
+        HammerModule,
     ],
     providers: [
+        AuthGuardService,
         FirebaseService,
         DpkFormService,
         DpkParseService,
-        DriveAPIService
+        DriveAPIService,
     ],
     bootstrap: [AppComponent],
 })
