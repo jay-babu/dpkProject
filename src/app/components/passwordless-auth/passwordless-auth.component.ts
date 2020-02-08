@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
+declare var particlesJS: any;
 @Component({
     selector: 'app-passwordless-auth',
     templateUrl: './passwordless-auth.component.html',
@@ -22,6 +23,7 @@ export class PasswordlessAuthComponent implements OnInit {
     }
 
     ngOnInit() {
+        particlesJS.load('particles', 'assets/data/particlesjs-config.json');
         this.user = this.afAuth.authState;
 
         const url = this.router.url;
