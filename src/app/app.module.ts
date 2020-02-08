@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
@@ -23,7 +24,6 @@ import { SliderComponent } from './components/slider-items/slider/slider.compone
 import { DpkParseService } from './components/slides/dpk-parse.service';
 import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
-import { AuthGuardService } from './services/auth-guard.service';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
@@ -57,7 +57,7 @@ import { TestComponent } from './components/test/test.component';
         HammerModule,
     ],
     providers: [
-        AuthGuardService,
+        AngularFireAuthGuard,
         FirebaseService,
         DpkFormService,
         DpkParseService,

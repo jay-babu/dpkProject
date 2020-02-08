@@ -42,7 +42,7 @@ export class PasswordlessAuthComponent implements OnInit {
         const email = this.emailForm.value.email;
         const actionCodeSettings = {
             // Redirect URL
-            url: `${environment.url}signIn`,
+            url: `${environment.url}login`,
             handleCodeInApp: true
         };
 
@@ -71,7 +71,7 @@ export class PasswordlessAuthComponent implements OnInit {
                 }
 
                 // Signin user and remove the email localStorage
-                const result = await this.afAuth.auth.signInWithEmailLink(email, url);
+                await this.afAuth.auth.signInWithEmailLink(email, url);
                 window.localStorage.removeItem('emailForSignIn');
             }
         } catch (err) {
