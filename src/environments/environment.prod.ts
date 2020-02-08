@@ -12,5 +12,6 @@ export const environment = {
     },
     driveConfig: {
         key: 'AIzaSyAU5WfIyMZ2vVmwsLmXaCe9JsocIctSUqk'
-    }
+    },
+    url: 'https://jayp0521.github.io/dpkProject'
 };
