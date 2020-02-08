@@ -1,4 +1,5 @@
 import { ModuleWithProviders } from '@angular/core';
+import { canActivate, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
@@ -9,9 +10,11 @@ import { SlidesComponent } from './components/slides/slides.component';
 import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 import { TestComponent } from './components/test/test.component';
 
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
+
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'options' },
-    { path: 'dpkCreate', component: DpkFormComponent },
+    { path: 'dpkCreate', component: DpkFormComponent, ...canActivate(redirectUnauthorizedToLogin()) },
     { path: 'dpk/pdf/:dpk/:name', component: PdfSlideComponent },
     { path: 'dpk/:dpk/:name', component: SlidesComponent },
     { path: 'options', component: TempOptionsComponent },

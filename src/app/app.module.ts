@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 // Firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule, HammerModule } from '@angular/platform-browser';
@@ -53,13 +54,14 @@ import { TestComponent } from './components/test/test.component';
         HttpClientModule,
         ReactiveFormsModule,
         RouterModule,
-        HammerModule
+        HammerModule,
     ],
     providers: [
+        AngularFireAuthGuard,
         FirebaseService,
         DpkFormService,
         DpkParseService,
-        DriveAPIService
+        DriveAPIService,
     ],
     bootstrap: [AppComponent],
 })

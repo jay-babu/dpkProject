@@ -16,7 +16,8 @@ export const environment = {
     },
     driveConfig: {
         key: 'AIzaSyAaEZBnfTEAIGhEgFQaj-f-R9uLQuow3MA'
-    }
+    },
+    url: 'http://localhost:4200/'
 }
 ;
 
