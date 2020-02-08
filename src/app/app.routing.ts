@@ -14,8 +14,7 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'options' },
-    { path: 'signIn', component: PasswordlessAuthComponent },
-    { path: 'dpkCreate', component: DpkFormComponent, ...canActivate(redirectUnauthorizedToLogin) },
+    { path: 'dpkCreate', component: DpkFormComponent, ...canActivate(redirectUnauthorizedToLogin()) },
     { path: 'dpk/pdf/:dpk/:name', component: PdfSlideComponent },
     { path: 'dpk/:dpk/:name', component: SlidesComponent },
     { path: 'options', component: TempOptionsComponent },
