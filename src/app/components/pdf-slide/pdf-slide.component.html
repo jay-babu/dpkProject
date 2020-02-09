@@ -1,5 +1,5 @@
 <ng-container *ngIf="this.firebaseBhajan$ | async">
-    <div class="slide" *ngFor="let s of stanza; let i = index">
+    <div class="slide" id="slide{{i}}" *ngFor="let s of stanza; let i = index">
         <div>
             <div class="lyricDiv">
                 <h3 *ngFor="let line of stanza[i]">{{ line }}</h3>
@@ -12,4 +12,5 @@
             </div>
         </div>
     </div>
+    <button mat-flat-button (click)="imageCreate()">Create</button>
 </ng-container>
