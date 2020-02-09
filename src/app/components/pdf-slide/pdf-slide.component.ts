@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import domtoimage from 'dom-to-image-even-more';
 import { Observable } from 'rxjs';
 import { FirebaseBhajan } from '../../interfaces/bhajan';
 import { DriveImageList } from '../../interfaces/drive';
@@ -70,19 +69,4 @@ export class PdfSlideComponent implements OnInit {
         }
         return imageMaxHeight;
     }
-
-    imageCreate() {
-        const node = document.getElementById('slide0');
-        domtoimage
-            .toPng(node, { scale: 2 })
-            .then(
-                dataUrl => {
-                    const img = new Image();
-                    img.src = dataUrl;
-                    img.width = 1300;
-                    document.body.appendChild(img);
-                })
-            .catch(error => console.error('oops, something went wrong!', error));
-    }
-
 }
