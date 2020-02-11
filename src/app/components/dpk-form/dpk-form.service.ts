@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { DriveAPIService } from '../../services/drive-api.service';
@@ -11,7 +12,7 @@ export class DpkFormService {
 
     DPKs = new Map<string, string>();
 
-    constructor(private fireDB: AngularFirestore, private driveAPIService: DriveAPIService) {
+    constructor(private fireDB: AngularFirestore, private driveAPIService: DriveAPIService, private afAuth: AngularFireAuth) {
     }
 
     validSubmission: (form: FormGroup) => Promise<ValidationErrors> = async (form: FormGroup) => {
@@ -56,7 +57,8 @@ export class DpkFormService {
                 lyrics: fg.value.lyrics.split(/\n{2,}/g),
                 definitions: fg.value.definitions.split(/\n{2,}/g),
                 imagesURL: fg.value.imagesURL,
-                title: fg.value.title
+                title: fg.value.title,
+                author_uid: this.afAuth.auth.currentUser.uid,
             }).then(_ => _, err => console.error(err));
     }
 

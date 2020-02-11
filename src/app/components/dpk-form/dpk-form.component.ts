@@ -35,9 +35,7 @@ export class DpkFormComponent implements OnInit {
 
     ngOnInit() {
         this.DPKs = this.getDPKRadio();
-        particlesJS.load('particles', 'assets/data/particlesjs-config.json', () => {
-            console.log('callback - particles.js config loaded');
-        });
+        particlesJS.load('particles', 'assets/data/particlesjs-config.json');
     }
 
     onSubmit() {

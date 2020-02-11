@@ -20,7 +20,7 @@ export class PasswordlessAuthComponent implements OnInit {
 
     emailForm: FormGroup;
 
-    constructor(public afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder) {
+    constructor(private afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder) {
     }
 
     ngOnInit() {
