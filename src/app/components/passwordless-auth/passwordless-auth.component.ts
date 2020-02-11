@@ -61,6 +61,17 @@ export class PasswordlessAuthComponent implements OnInit {
         }
     }
 
+    async anonSignIn() {
+        await this.afAuth.auth.signInAnonymously().then(
+            () => this.naviDPKCreate(),
+            err => console.error(err)
+        );
+    }
+
+    naviDPKCreate() {
+        return setTimeout(() => this.router.navigate(['/dpkCreate']), 500);
+    }
+
     confirmSignIn(url) {
         // console.log(url);
         try {
@@ -74,7 +85,7 @@ export class PasswordlessAuthComponent implements OnInit {
 
                 if (email) {
                     this.afAuth.auth.signInWithEmailLink(email, url).then(
-                        () => setTimeout(() => this.router.navigate(['/dpkCreate']), 500)
+                        () => this.naviDPKCreate()
                     );
                     window.localStorage.removeItem('emailForSignIn');
                 }
