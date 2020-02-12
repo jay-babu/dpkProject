@@ -24,7 +24,7 @@ export class PasswordlessAuthComponent implements OnInit {
     }
 
     ngOnInit() {
-        particlesJS.load('particles', 'assets/data/particlesjs-config.json');
+        particlesJS.load('particles', 'assets/data/particlesjs-image-config.json');
         this.user = this.afAuth.authState;
 
         const url = this.router.url;
