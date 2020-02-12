@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
+import { environment } from '../../../../environments/environment';
 import { DriveImageList } from '../../../interfaces/drive';
 import { Slider } from '../../../interfaces/slider';
 import { DriveAPIService } from '../../../services/drive-api.service';
@@ -27,7 +28,7 @@ export class SliderComponent implements OnInit {
     }
 
     onImgClick(type: string, name: string) {
-        window.open(`https://jayp0521.github.io/dpkProject/dpk/${type}/${name}`, '_blank');
+        window.open(`${environment.url}dpk/${type}/${name}`, '_blank');
     }
 
     getImage(id: string) {

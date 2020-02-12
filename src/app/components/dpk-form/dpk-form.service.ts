@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { DriveAPIService } from '../../services/drive-api.service';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable({
@@ -98,7 +99,7 @@ export class DpkFormService {
     }
 
     openDPKSlides(form: FormGroup) {
-        window.open('https://jayp0521.github.io/dpkProject/dpk/' + form.value.dpk + '/' + form.value.title, '_blank');
+        window.open(environment.url + 'dpk/' + form.value.dpk + '/' + form.value.title, '_blank');
     }
 
     getDPKRadio() {
