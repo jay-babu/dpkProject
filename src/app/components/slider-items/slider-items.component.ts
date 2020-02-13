@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { DriveAPIService } from '../../services/drive-api.service';
+import { SideNavToggleService } from '../../services/side-nav-toggle.service';
 
 @Component({
     selector: 'app-slider-items',
@@ -9,7 +10,7 @@ import { DriveAPIService } from '../../services/drive-api.service';
 export class SliderItemsComponent implements OnInit {
     DPKs = new Map<string, string>();
 
-    constructor(private driveAPIService: DriveAPIService) {
+    constructor(private driveAPIService: DriveAPIService, public sideNavToggleService: SideNavToggleService) {
     }
 
     ngOnInit() {
