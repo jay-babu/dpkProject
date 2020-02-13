@@ -29,6 +29,7 @@ import { FirebaseService } from './services/firebase.service';
 import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
 import { TestComponent } from './components/test/test.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { SideNavToggleService } from './services/side-nav-toggle.service';
 
 @NgModule({
     declarations: [
@@ -64,6 +65,7 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
         DpkFormService,
         DpkParseService,
         DriveAPIService,
+        SideNavToggleService,
     ],
     bootstrap: [AppComponent],
 })

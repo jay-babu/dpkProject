@@ -3,13 +3,6 @@ mat-toolbar {
     font-size: 1.5em;
 }
 
-.example-card {
-    max-width: 20vw;
-    min-height: 55vh;
-    margin-left: 1vw;
-    margin-right: 1vw;
-}
-
 mat-card-content {
     height: 15vh;
     overflow: scroll;
