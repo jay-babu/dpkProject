@@ -1,5 +1,5 @@
 mat-toolbar {
-    justify-content: center;
+    justify-content: space-between;
     font-size: 1.5em;
 }
 
