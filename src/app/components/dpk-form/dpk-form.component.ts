@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { SideNavToggleService } from '../../services/side-nav-toggle.service';
 import { DpkFormService } from './dpk-form.service';
 
 class CrossFieldMatcher implements ErrorStateMatcher {
@@ -22,7 +23,7 @@ export class DpkFormComponent implements OnInit {
     DPKs: Map<string, string>; // Key = Name, Value = Id
     errorMatcher = new CrossFieldMatcher();
 
-    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService) {
+    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService, public sideNavToggleService: SideNavToggleService) {
     }
 
     dpkForm = new FormGroup({

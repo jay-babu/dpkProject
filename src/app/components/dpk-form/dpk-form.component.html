@@ -1,6 +1,13 @@
 <div id="particles" style="background-color: #00002f">
-        <div [ngStyle]="{'width': '100vw', 'position': 'absolute', 'max-height': '100vh', 'overflow': 'auto'}">
+        <div [ngStyle]="{'width': '100%', 'position': 'absolute', 'max-height': '100vh', 'overflow': 'auto'}">
             <mat-toolbar color="primary">
+                <button
+                    type="button"
+                    aria-label="Toggle sidenav"
+                    mat-icon-button
+                    (click)="sideNavToggleService.toggleSidenav()">
+                    <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+                </button>
                 <span>Submit a new DPK</span>
             </mat-toolbar>
             <form [formGroup]="dpkForm" (ngSubmit)="onSubmit()" #form="ngForm">
@@ -73,7 +80,7 @@
                 <mat-card>
                     <mat-card-header>
                         <mat-card-title>Ex: Lyrics</mat-card-title>
-                        <mat-card-subtitle>Empty Line <strong>equals</strong> New Slide</mat-card-subtitle>
+                        <mat-card-subtitle>Empty Line / New Stanza <strong>equals</strong> New Slide</mat-card-subtitle>
                     </mat-card-header>
                     <mat-card-content>
                         <p>Sāchā sādhu re, sundar guṇdhām;</p>
@@ -86,7 +93,6 @@
                         <p>Jī re sant sadā shītaḷ rahe, kyāre na tape re,</p>
                         <p>Kām krodhnī jhāḷ, lobh tajī Harine bhaje;</p>
                         <p>Dhāre urmā re, dradh karī Shrī Gopāḷ...</p>
-
                     </mat-card-content>
                 </mat-card>
 
