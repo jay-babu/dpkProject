@@ -28,6 +28,7 @@ import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
 import { TestComponent } from './components/test/test.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
     declarations: [
@@ -42,6 +43,7 @@ import { TestComponent } from './components/test/test.component';
         SliderItemsComponent,
         PdfSlideComponent,
         TestComponent,
+        SidenavComponent,
     ],
     imports: [
         AngularMaterialModule,
