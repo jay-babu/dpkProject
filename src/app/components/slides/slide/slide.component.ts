@@ -91,7 +91,7 @@ export class SlideComponent implements OnInit {
 
     @HostListener('window:keyup', ['$event'])
     async slideMovement(event: KeyboardEvent) {
-        if (event.key === 'ArrowRight' && this.slideIndex < this.stanza.length - 1) {
+        if ((event.key === 'ArrowRight' || event.key === ' ') && this.slideIndex < this.stanza.length - 1) {
             this.upOrDown(true);
         } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             this.upOrDown(false);
