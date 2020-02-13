@@ -8,13 +8,12 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 import { SlidesComponent } from './components/slides/slides.component';
-import { TempOptionsComponent } from './components/temp-options/temp-options.component';
 import { TestComponent } from './components/test/test.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const appRoutes: Routes = [
-    { path: '', pathMatch: 'full', redirectTo: 'options' },
+    { path: '', pathMatch: 'full', redirectTo: 'slides' },
     {
         path: 'dpk', children: [
             { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
@@ -30,12 +29,12 @@ const appRoutes: Routes = [
                 canActivate: [AngularFireAuthGuard],
                 data: { authGuardPipe: redirectUnauthorizedToLogin },
             },
-            { path: 'options', component: TempOptionsComponent, },
             { path: 'privacy-policy', component: PrivacyPolicyComponent, },
             { path: 'slides', component: SliderItemsComponent, },
             { path: 'test', component: TestComponent, },
         ]
     },
+    { path: '**', redirectTo: 'slides' }
 ];
 
 export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(appRoutes, { preloadingStrategy: PreloadAllModules });

@@ -17,18 +17,17 @@ import { AppRoutingModule } from './app.routing';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { DpkFormService } from './components/dpk-form/dpk-form.service';
 import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
-import { SlideComponent } from './components/slides/slide/slide.component';
+import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 import { SliderItemDirective } from './components/slider-items/slider/slider-item.directive';
 import { SliderComponent } from './components/slider-items/slider/slider.component';
 import { DpkParseService } from './components/slides/dpk-parse.service';
+import { SlideComponent } from './components/slides/slide/slide.component';
 import { SlidesComponent } from './components/slides/slides.component';
-import { TempOptionsComponent } from './components/temp-options/temp-options.component';
+import { TestComponent } from './components/test/test.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
-import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
-import { TestComponent } from './components/test/test.component';
-import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
 
 @NgModule({
@@ -37,7 +36,6 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
         SlideComponent,
         SlidesComponent,
         DpkFormComponent,
-        TempOptionsComponent,
         PasswordlessAuthComponent,
         SliderComponent,
         SliderItemDirective,
