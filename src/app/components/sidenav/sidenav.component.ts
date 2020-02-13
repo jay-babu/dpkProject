@@ -1,21 +1,29 @@
-import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
+import { SideNavToggleService } from '../../services/side-nav-toggle.service';
 
 @Component({
-  selector: 'app-sidenav',
-  templateUrl: './sidenav.component.html',
-  styleUrls: ['./sidenav.component.css']
+    selector: 'app-sidenav',
+    templateUrl: './sidenav.component.html',
+    styleUrls: ['./sidenav.component.css']
 })
-export class SidenavComponent {
+export class SidenavComponent implements OnInit {
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches),
-      shareReplay()
-    );
+    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
+        .pipe(
+            map(result => result.matches),
+            shareReplay()
+        );
 
-  constructor(private breakpointObserver: BreakpointObserver) {}
+    opened: boolean;
+
+    constructor(private breakpointObserver: BreakpointObserver, public sideNavToggleService: SideNavToggleService) {
+    }
+
+    ngOnInit(): void {
+        this.sideNavToggleService.sideNavToggle$.subscribe(bool => this.opened = bool);
+    }
 
 }
