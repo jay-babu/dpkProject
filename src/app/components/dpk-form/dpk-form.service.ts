@@ -82,7 +82,6 @@ export class DpkFormService {
             const url = new URL(imagesURL);
             const path = url.pathname.split('/');
             const hostname = url.hostname;
-            const id = path[3];
             let status = null;
             if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
                 status = { badURL: true };
