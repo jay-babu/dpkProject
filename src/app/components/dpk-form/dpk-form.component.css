@@ -35,6 +35,7 @@ mat-toolbar {
 .cards {
     display: flex;
     justify-content: space-evenly;
+    overflow: auto;
 }
 
 .video {
@@ -42,13 +43,30 @@ mat-toolbar {
 }
 
 mat-card {
-    max-height: 40vh;
+    max-height: 100%;
     max-width: 30vw;
-    overflow: hidden;
+    overflow: auto;
     background-color: rgba(1, 1, 31, 0.7);
 }
 
 mat-card > mat-card-content {
     max-height: 32vh;
     overflow: auto;
+}
+
+@media (max-width: 750px) {
+    .cards {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    mat-card {
+        width: 80vw;
+        max-width: 80vw;
+    }
+
+    .submission > .submission-btn {
+        font-size: 1.1em;
+        width: 25vw;
+    }
 }
