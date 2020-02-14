@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
-import { DriveAPIService } from '../../services/drive-api.service';
 import { environment } from '../../../environments/environment';
+import { DriveAPIService } from '../../services/drive-api.service';
 
 
 @Injectable({
@@ -24,29 +24,34 @@ export class DpkFormService {
         const definitions = form.value.definitions;
 
         if (lyrics === null) {
-            form.patchValue({lyrics: ''});
+            form.patchValue({ lyrics: '' });
         }
         if (imagesURL === null) {
-            form.patchValue({imagesURL: ''});
+            form.patchValue({ imagesURL: '' });
         }
         if (definitions === null) {
-            form.patchValue({definitions: ''});
+            form.patchValue({ definitions: '' });
         }
 
         if (imagesURL) {
-            await this.verifyURL(imagesURL, lyrics).then(res => status = res);
+            await this.verifyURL(imagesURL).then(res => status = res);
         }
 
         if (status === null && form.value.title) {
             await this.verifyTitleInDrive(form.value.title, this.DPKs.get(`${form.value.dpk}`))
-                .then(res => status = (res.length !== 0) ? null : {titleNotInDrive: true});
+                .then(res => status = (res.length !== 0) ? null : { titleNotInDrive: true });
         }
+
+        if (status === null && form.value.title) {
+            await this.photosEqualSlides(imagesURL, lyrics).then(res => status = res);
+        }
+        console.log(status);
 
         const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
 
         if (status === null && definitions !== '') {
             const definitionsArr: string[] = definitions.split(/\n{2,}/g);
-            status = (lyricsArr.length === definitionsArr.length) ? null : {lyricsDef: true};
+            status = (lyricsArr.length === definitionsArr.length) ? null : { lyricsDef: true };
         }
         return status;
     };
@@ -71,7 +76,7 @@ export class DpkFormService {
         return filesArr;
     }
 
-    async verifyURL(imagesURL: string, lyrics: string) {
+    async verifyURL(imagesURL: string) {
         // Initial Style https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
         try {
             const url = new URL(imagesURL);
@@ -80,22 +85,31 @@ export class DpkFormService {
             const id = path[3];
             let status = null;
             if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
-                status = {badURL: true};
+                status = { badURL: true };
             }
             if (status) {
                 return status;
             }
-            await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
-                files => {
-                    if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
-                        status = {NotEqualPhotos: true};
-                    }
-                }
-            );
             return status;
         } catch {
-            return {badURL: true};
+            return { badURL: true };
         }
+    }
+
+    async photosEqualSlides(imagesURL: string, lyrics: string) {
+        const url = new URL(imagesURL);
+        const path = url.pathname.split('/');
+        const id = path[3];
+        let status = null;
+
+        await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
+            files => {
+                if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
+                    status = { NotEqualPhotos: true };
+                }
+            }
+        );
+        return status;
     }
 
     openDPKSlides(form: FormGroup) {
