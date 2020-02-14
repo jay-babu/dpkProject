@@ -4,6 +4,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
+import { SideNavToggleService } from '../../services/side-nav-toggle.service';
 
 declare var particlesJS: any;
 
@@ -20,11 +21,12 @@ export class PasswordlessAuthComponent implements OnInit {
 
     emailForm: FormGroup;
 
-    constructor(private afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder) {
+    constructor(private afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder, private sideNavToggleService: SideNavToggleService) {
     }
 
     ngOnInit() {
         particlesJS.load('particles', 'assets/data/particlesjs-image-config.json');
+        this.sideNavToggleService.toggleSidenav(true);
         this.user = this.afAuth.authState;
 
         const url = this.router.url;

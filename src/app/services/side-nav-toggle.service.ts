@@ -13,7 +13,7 @@ export class SideNavToggleService {
         this.sideNavToggle$ = this.sideNavToggleSubject.asObservable();
     }
 
-    toggleSidenav() {
-        this.sideNavToggleSubject.next(!this.sideNavToggleSubject.value);
+    toggleSidenav(show?: boolean) {
+        this.sideNavToggleSubject.next(show || !this.sideNavToggleSubject.value);
     }
 }
