@@ -21,18 +21,21 @@ export class PasswordlessAuthComponent implements OnInit {
 
     emailForm: FormGroup;
 
-    constructor(private afAuth: AngularFireAuth, private router: Router, private fb: FormBuilder, private sideNavToggleService: SideNavToggleService) {
+    constructor(private afAuth: AngularFireAuth,
+                private router: Router,
+                private fb: FormBuilder,
+                private sideNavToggleService: SideNavToggleService) {
     }
 
     ngOnInit() {
         particlesJS.load('particles', 'assets/data/particlesjs-image-config.json');
-        this.sideNavToggleService.toggleSidenav(true);
         this.user = this.afAuth.authState;
 
         const url = this.router.url;
         this.confirmSignIn(url);
 
         this.reactiveForm();
+        setTimeout(() => this.sideNavToggleService.toggleSidenav(true), 0);
     }
 
     /* Reactive form */
