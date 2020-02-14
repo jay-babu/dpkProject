@@ -45,7 +45,6 @@ export class DpkFormService {
         if (status === null && form.value.title) {
             await this.photosEqualSlides(imagesURL, lyrics).then(res => status = res);
         }
-        console.log(status);
 
         const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
 
