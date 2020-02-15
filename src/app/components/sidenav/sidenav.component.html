@@ -3,14 +3,12 @@
                  [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
                  [mode]="(isHandset$ | async) ? 'over' : 'side'"
                  [opened]="opened">
-        <div id="particles-side">
             <mat-toolbar>Menu</mat-toolbar>
             <mat-nav-list>
                 <a mat-list-item routerLink="/login">Login</a>
                 <a mat-list-item routerLink="/slides">Slides</a>
                 <a mat-list-item routerLink="/dpkCreate">Create a new DPK</a>
             </mat-nav-list>
-        </div>
     </mat-sidenav>
     <mat-sidenav-content>
         <!-- Add Content Here -->

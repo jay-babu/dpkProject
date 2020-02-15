@@ -4,7 +4,6 @@ import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import { SideNavToggleService } from '../../services/side-nav-toggle.service';
 
-declare var particlesJS: any;
 @Component({
     selector: 'app-sidenav',
     templateUrl: './sidenav.component.html',
@@ -25,7 +24,6 @@ export class SidenavComponent implements OnInit {
 
     ngOnInit(): void {
         this.sideNavToggleService.sideNavToggle$.subscribe(bool => this.opened = bool);
-        particlesJS.load('particles-side', 'assets/data/particlesjs-config.json');
     }
 
 }
