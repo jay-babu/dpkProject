@@ -13,7 +13,7 @@ export class OptionsComponent implements OnInit {
     onMouseMove() {
         clearTimeout(this.timer);
         this.toggleButton = true;
-        setTimeout(() => this.toggleButton = false, 1000);
+        setTimeout(() => this.toggleButton = false, 1300);
     }
 
     constructor() {
