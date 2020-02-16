@@ -83,14 +83,14 @@ $mat-dark-theme-foreground: (
 
 // Background config
 // Light bg
-$light-background:    #fafafa;
+$light-background:    #f5f5f5;
 $light-bg-darker-5:   darken($light-background, 5%);
 $light-bg-darker-10:  darken($light-background, 10%);
 $light-bg-darker-20:  darken($light-background, 20%);
 $light-bg-darker-30:  darken($light-background, 30%);
 $light-bg-lighter-5:  lighten($light-background, 5%);
-$dark-bg-alpha-4:     rgba(#2b2b2b, 0.04);
-$dark-bg-alpha-12:    rgba(#2b2b2b, 0.12);
+$dark-bg-alpha-4:     rgba(#2c2c2c, 0.04);
+$dark-bg-alpha-12:    rgba(#2c2c2c, 0.12);
 
 $mat-light-theme-background: (
     background:               $light-background,
@@ -110,13 +110,13 @@ $mat-light-theme-background: (
 );
 
 // Dark bg
-$dark-background:     #2b2b2b;
+$dark-background:     #2c2c2c;
 $dark-bg-lighter-5:   lighten($dark-background, 5%);
 $dark-bg-lighter-10:  lighten($dark-background, 10%);
 $dark-bg-lighter-20:  lighten($dark-background, 20%);
 $dark-bg-lighter-30:  lighten($dark-background, 30%);
-$light-bg-alpha-4:    rgba(#fafafa, 0.04);
-$light-bg-alpha-12:   rgba(#fafafa, 0.12);
+$light-bg-alpha-4:    rgba(#f5f5f5, 0.04);
+$light-bg-alpha-12:   rgba(#f5f5f5, 0.12);
 
 // Background palette for dark themes.
 $mat-dark-theme-background: (
@@ -164,19 +164,19 @@ $mat-primary: (
 $theme-primary: mat-palette($mat-primary, main, lighter, darker);
 
 body {
-    --accent-color: #00ff90;
-    --accent-lighter-color: #b3ffde;
-    --accent-darker-color: #00ff73;
+    --accent-color: #00e07f;
+    --accent-lighter-color: #b3f6d9;
+    --accent-darker-color: #00d362;
     --text-accent-color: #{$dark-primary-text};
     --text-accent-lighter-color: #{$dark-primary-text};
     --text-accent-darker-color: #{$dark-primary-text};
 }
 
 $mat-accent: (
-    main: #00ff90,
-    lighter: #b3ffde,
-    darker: #00ff73,
-    200: #00ff90, // For slide toggle,
+    main: #00e07f,
+    lighter: #b3f6d9,
+    darker: #00d362,
+    200: #00e07f, // For slide toggle,
     contrast : (
         main: $dark-primary-text,
         lighter: $dark-primary-text,
