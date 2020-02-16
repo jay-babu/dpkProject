@@ -29,6 +29,7 @@ import { TestComponent } from './components/test/test.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
+import { ThemeService } from './services/theme.service';
 
 @NgModule({
     declarations: [
@@ -64,6 +65,7 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
         DpkParseService,
         DriveAPIService,
         SideNavToggleService,
+        ThemeService,
     ],
     bootstrap: [AppComponent],
 })
