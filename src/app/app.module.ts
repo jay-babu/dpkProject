@@ -30,6 +30,7 @@ import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { ThemeService } from './services/theme.service';
+import { OptionsComponent } from './components/slides/options/options.component';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { ThemeService } from './services/theme.service';
         PdfSlideComponent,
         TestComponent,
         SidenavComponent,
+        OptionsComponent,
     ],
     imports: [
         AngularMaterialModule,
