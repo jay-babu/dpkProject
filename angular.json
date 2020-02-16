@@ -28,9 +28,7 @@
                             "src/styles.css",
                             "src/theme.scss"
                         ],
-                        "scripts": [
-                            "node_modules/particles.js/particles.js"
-                        ]
+                        "scripts": []
                     },
                     "configurations": {
                         "production": {

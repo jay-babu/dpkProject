@@ -3,11 +3,6 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-canvas.particles-js-canvas-el {
-    height: 100vh !important;
-    width: 100% !important;
-}
-
 :root {
     --particle-bg: #00002f;
 }
