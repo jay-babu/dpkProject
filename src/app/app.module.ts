@@ -31,6 +31,7 @@ import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { ThemeService } from './services/theme.service';
 import { OptionsFabComponent } from './components/slides/options-fab/options-fab.component';
+import { OptionsComponent } from './components/slides/options/options.component';
 
 @NgModule({
     declarations: [
@@ -46,6 +47,7 @@ import { OptionsFabComponent } from './components/slides/options-fab/options-fab
         TestComponent,
         SidenavComponent,
         OptionsFabComponent,
+        OptionsComponent,
     ],
     imports: [
         AngularMaterialModule,
