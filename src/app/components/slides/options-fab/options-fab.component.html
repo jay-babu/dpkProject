@@ -1,4 +1,5 @@
 <button mat-fab [style.opacity]="toggleButton ? '1' : '0'"
-        [style.visibility]="toggleButton ? 'visible' : 'hidden'">
+        [style.visibility]="toggleButton ? 'visible' : 'hidden'"
+        (click)="openDialog()">
     <mat-icon>settings</mat-icon>
 </button>

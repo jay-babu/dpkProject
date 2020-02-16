@@ -1,4 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { OptionsComponent } from '../options/options.component';
 
 @Component({
     selector: 'app-options-fab',
@@ -20,7 +22,7 @@ export class OptionsFabComponent implements OnInit {
             this.toggleButton = true;
         }
     }
-    constructor() {
+    constructor(public dialog: MatDialog) {
     }
 
     ngOnInit(): void {
@@ -29,5 +31,16 @@ export class OptionsFabComponent implements OnInit {
 
     timeClear() {
         clearTimeout(this.timer);
+    }
+
+    openDialog(): void {
+        const dialogRef = this.dialog.open(OptionsComponent, {
+            width: '250px',
+            position: {right: '1%'},
+        });
+
+        dialogRef.afterClosed().subscribe(() => {
+            console.log('The dialog was closed');
+        });
     }
 }
