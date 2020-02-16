@@ -2,10 +2,10 @@ import { Component, HostListener, OnInit } from '@angular/core';
 
 @Component({
     selector: 'app-options-fab',
-    templateUrl: './options.component.html',
-    styleUrls: ['./options.component.css']
+    templateUrl: './options-fab.component.html',
+    styleUrls: ['./options-fab.component.css']
 })
-export class OptionsComponent implements OnInit {
+export class OptionsFabComponent implements OnInit {
     toggleButton: boolean;
     timer: number;
 
