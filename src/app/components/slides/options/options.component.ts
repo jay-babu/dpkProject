@@ -10,12 +10,16 @@ export class OptionsComponent implements OnInit {
     timer: number;
 
     @HostListener('document:mousemove', ['$event'])
-    onMouseMove() {
-        clearTimeout(this.timer);
-        this.toggleButton = true;
-        setTimeout(() => this.toggleButton = false, 1300);
+    onMouseMove(e: MouseEvent) {
+        if (window.innerHeight - e.clientY > 100 && window.innerWidth - e.clientX > 100) {
+            this.timeClear();
+            this.toggleButton = true;
+            setTimeout(() => this.toggleButton = false, 1300);
+        } else {
+            this.timeClear();
+            this.toggleButton = true;
+        }
     }
-
     constructor() {
     }
 
@@ -23,4 +27,7 @@ export class OptionsComponent implements OnInit {
         this.toggleButton = false;
     }
 
+    timeClear() {
+        clearTimeout(this.timer);
+    }
 }
