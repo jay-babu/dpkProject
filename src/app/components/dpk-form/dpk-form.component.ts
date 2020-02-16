@@ -10,8 +10,6 @@ class CrossFieldMatcher implements ErrorStateMatcher {
     }
 }
 
-declare var particlesJS: any;
-
 @Component({
     selector: 'app-dpk-form',
     templateUrl: './dpk-form.component.html',
@@ -36,7 +34,6 @@ export class DpkFormComponent implements OnInit {
 
     ngOnInit() {
         this.DPKs = this.getDPKRadio();
-        particlesJS.load('particles', 'assets/data/particlesjs-config.json');
     }
 
     onSubmit() {
