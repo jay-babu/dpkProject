@@ -69,15 +69,18 @@ export class SlideComponent implements OnInit {
         4.5 was found to be a good number that worked for everything.
          */
         let imageMaxHeight = 100;
-        let heightDecrement = 6;
+        let heightDecrement = 7;
         for (const {} of this.stanza[this.slideIndex]) {
             imageMaxHeight -= heightDecrement;
         }
         if (!this.slideConfig.definitionShown) {
-            heightDecrement -= 4;
+            heightDecrement -= 3;
         }
-        for (const {} of this.definitions[this.slideIndex]) {
-            imageMaxHeight -= heightDecrement;
+
+        if (this.definitions[this.slideIndex]) {
+            for (const {} of this.definitions[this.slideIndex]) {
+                imageMaxHeight -= heightDecrement - 3;
+            }
         }
         return imageMaxHeight;
     }
