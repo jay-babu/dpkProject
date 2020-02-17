@@ -22,6 +22,7 @@ export class OptionsFabComponent implements OnInit {
             this.toggleButton = true;
         }
     }
+
     constructor(public dialog: MatDialog) {
     }
 
@@ -34,13 +35,9 @@ export class OptionsFabComponent implements OnInit {
     }
 
     openDialog(): void {
-        const dialogRef = this.dialog.open(OptionsComponent, {
+        this.dialog.open(OptionsComponent, {
             width: '250px',
-            position: {right: '1%'},
-        });
-
-        dialogRef.afterClosed().subscribe(() => {
-            console.log('The dialog was closed');
+            position: { right: '1%' },
         });
     }
 }
