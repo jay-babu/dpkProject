@@ -4,7 +4,9 @@ import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../../animations/fade.animation';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
 import { DriveImageList } from '../../../interfaces/drive';
+import { SlideConfigI } from '../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../services/drive-api.service';
+import { SlideConfigService } from '../../../services/slide-config.service';
 
 @Component({
     selector: 'app-slide',
@@ -25,7 +27,12 @@ export class SlideComponent implements OnInit {
     slideIndex: number;
     hidden = true;
 
-    constructor(private router: Router, private activeRouter: ActivatedRoute, private driveAPIService: DriveAPIService) {
+    slideConfig: SlideConfigI;
+
+    constructor(private router: Router,
+                private activeRouter: ActivatedRoute,
+                private driveAPIService: DriveAPIService,
+                public slideConfigService: SlideConfigService) {
     }
 
     ngOnInit() {
@@ -41,6 +48,8 @@ export class SlideComponent implements OnInit {
         });
 
         this.hidden = false;
+
+        this.slideConfigService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }
 
     imageDownload(files: { id: string; name: string }[]) {
