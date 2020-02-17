@@ -1,7 +1,20 @@
-<h1 mat-dialog-title>Hi</h1>
+<h1 mat-dialog-title>Slides Options</h1>
 <div mat-dialog-content>
-    <p>What's your favorite animal?</p>
-</div>
-<div mat-dialog-actions>
-    <button mat-button>No Thanks</button>
+    <form [formGroup]="customForm">
+        <mat-form-field>
+            <label>
+                <input matInput placeholder="Background Color" formControlName="bgColor">
+            </label>
+        </mat-form-field>
+        <mat-form-field>
+            <mat-select formControlName="fontStyle" placeholder="Font Style">
+                <mat-option *ngFor="let fontStyle of fontStyles" [value]="fontStyle">
+                    {{ fontStyle }}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-slide-toggle formControlName="definitionShown" labelPosition="before" checked="definitionShown">
+            Definition Shown
+        </mat-slide-toggle>
+    </form>
 </div>
