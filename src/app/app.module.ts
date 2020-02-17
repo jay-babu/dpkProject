@@ -32,6 +32,7 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { ThemeService } from './services/theme.service';
 import { OptionsFabComponent } from './components/slides/options-fab/options-fab.component';
 import { OptionsComponent } from './components/slides/options/options.component';
+import { ColorPickerModule } from 'ngx-color-picker';
 
 @NgModule({
     declarations: [
@@ -61,6 +62,7 @@ import { OptionsComponent } from './components/slides/options/options.component'
         ReactiveFormsModule,
         RouterModule,
         HammerModule,
+        ColorPickerModule,
     ],
     providers: [
         AngularFireAuthGuard,

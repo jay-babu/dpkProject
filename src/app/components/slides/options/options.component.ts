@@ -17,7 +17,7 @@ export class OptionsComponent implements OnInit {
     ngOnInit(): void {
         this.fontStyles = new Set(['Roboto', 'cursive', 'Avenir', 'Montserrat', 'Calibri', 'Helvetica Neue']);
         this.customForm = this.fb.group({
-            bgColor: '',
+            bgColor: '#141414',
             fontStyle: '',
             definitionShown: true,
         });

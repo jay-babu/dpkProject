@@ -3,7 +3,12 @@
     <form [formGroup]="customForm">
         <mat-form-field>
             <label>
-                <input matInput placeholder="Background Color" formControlName="bgColor">
+                <input
+                    matInput cpPosition="top-left" class="colorPicker" formControlName="bgColor"
+                    [colorPicker]="customForm.get('bgColor').value"
+                    [value]="customForm.get('bgColor').value"
+                    [style.background]="customForm.get('bgColor').value"
+                    (colorPickerChange)="customForm.get('bgColor').setValue($event)">
             </label>
         </mat-form-field>
         <mat-form-field>
