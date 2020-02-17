@@ -1,6 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { environment } from '../../../../environments/environment';
 import { DriveImageList } from '../../../interfaces/drive';
 import { Slider } from '../../../interfaces/slider';
 import { DriveAPIService } from '../../../services/drive-api.service';
