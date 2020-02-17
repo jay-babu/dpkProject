@@ -75,7 +75,7 @@
     <div class="submission">
         <button color="warn" class="submission-btn" mat-raised-button type="reset">Reset</button>
         <button color="primary" class="submission-btn" mat-flat-button type="submit"
-                [disabled]="!dpkForm.valid" (click)="openDPKSlides()">
+                [disabled]="!dpkForm.valid">
             Submit
             <mat-icon *ngIf="dpkForm.valid">check_circle</mat-icon>
         </button>

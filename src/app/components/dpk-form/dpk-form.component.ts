@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
+import { Router } from '@angular/router';
 import { SideNavToggleService } from '../../services/side-nav-toggle.service';
 import { DpkFormService } from './dpk-form.service';
 
@@ -21,7 +22,10 @@ export class DpkFormComponent implements OnInit {
     DPKs: Map<string, string>; // Key = Name, Value = Id
     errorMatcher = new CrossFieldMatcher();
 
-    constructor(private fb: FormBuilder, private dpkFormService: DpkFormService, public sideNavToggleService: SideNavToggleService) {
+    constructor(private fb: FormBuilder,
+                private dpkFormService: DpkFormService,
+                public sideNavToggleService: SideNavToggleService,
+                private router: Router,) {
     }
 
     dpkForm = new FormGroup({
@@ -38,11 +42,14 @@ export class DpkFormComponent implements OnInit {
 
     onSubmit() {
         this.dpkFormService.submitDPK(this.dpkForm);
+        this.openDPKSlides();
         this.dpkFullForm.resetForm();
     }
 
     openDPKSlides() {
-        this.dpkFormService.openDPKSlides(this.dpkForm);
+        const dpk = this.dpkForm.value.dpk;
+        const title = this.dpkForm.value.title;
+        setTimeout(() => this.router.navigate(['/dpk', dpk, title]), 1000);
     }
 
     getDPKRadio() {
