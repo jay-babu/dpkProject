@@ -6,7 +6,7 @@
                     <mat-card-title>{{ slide.title }}</mat-card-title>
                 </mat-card-header>
 
-                <img mat-card-image [src]="this.getImage(slide.imgID).src" (click)="onImgClick(slide.type, slide.title)"
+                <img mat-card-image [src]="this.getImage(slide.imgID).src" [routerLink]="['/dpk', slide.type, slide.title]"
                      alt="Slides">
 
                 <mat-card-actions class="actions">

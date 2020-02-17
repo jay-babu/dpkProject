@@ -27,10 +27,6 @@ export class SliderComponent implements OnInit {
         this.dpk = this.getSomething(this.DPK, this.dpkID);
     }
 
-    onImgClick(type: string, name: string) {
-        window.open(`${environment.url}dpk/${type}/${name}`, '_blank');
-    }
-
     getImage(id: string) {
         return this.driveAPIService.getThumbnail(id);
     }
