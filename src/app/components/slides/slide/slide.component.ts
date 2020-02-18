@@ -47,13 +47,11 @@ export class SlideComponent implements OnInit {
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => {
                 this.imagePaths = driveFiles.files.map(file => this.driveAPIService.exportImageDriveURL(file.id));
-                console.log(this.imagePaths);
                 this.imageDownload(this.imagePaths);
             });
         });
 
         this.hidden = false;
-
         this.slideConfigService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }
 
@@ -74,7 +72,7 @@ export class SlideComponent implements OnInit {
         4.5 was found to be a good number that worked for everything.
          */
         let imageMaxHeight = 100;
-        let heightDecrement = 7;
+        let heightDecrement = 7.5;
         for (const {} of this.stanza[this.slideIndex]) {
             imageMaxHeight -= heightDecrement;
         }
