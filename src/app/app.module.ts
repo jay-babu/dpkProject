@@ -25,7 +25,6 @@ import { SliderComponent } from './components/slider-items/slider/slider.compone
 import { DpkParseService } from './components/slides/dpk-parse.service';
 import { SlideComponent } from './components/slides/slide/slide.component';
 import { SlidesComponent } from './components/slides/slides.component';
-import { TestComponent } from './components/test/test.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
@@ -45,7 +44,6 @@ import { ColorPickerModule } from 'ngx-color-picker';
         SliderItemDirective,
         SliderItemsComponent,
         PdfSlideComponent,
-        TestComponent,
         SidenavComponent,
         OptionsFabComponent,
         OptionsComponent,

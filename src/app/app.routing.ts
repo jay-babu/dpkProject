@@ -8,7 +8,6 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 import { SlidesComponent } from './components/slides/slides.component';
-import { TestComponent } from './components/test/test.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -31,7 +30,6 @@ const appRoutes: Routes = [
             },
             { path: 'privacy-policy', component: PrivacyPolicyComponent, },
             { path: 'slides', component: SliderItemsComponent, },
-            { path: 'test', component: TestComponent, },
         ]
     },
     { path: '**', redirectTo: 'slides' }
