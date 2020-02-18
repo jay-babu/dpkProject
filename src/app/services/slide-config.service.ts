@@ -12,7 +12,7 @@ export class SlideConfigService {
     constructor() {
         this._slideConfig = new BehaviorSubject<any>({
             bgColor: '#141414',
-            fontStyle: 'Roboto',
+            fontStyle: 'Avenir',
             definitionShown: true,
         });
         this.slideConfig$ = this._slideConfig.asObservable();
