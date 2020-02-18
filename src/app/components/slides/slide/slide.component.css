@@ -5,7 +5,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
+    justify-content: space-evenly;
     position: fixed;
     top: 0;
     left: 0;
@@ -13,7 +13,12 @@
 
 .lyricDiv {
     text-align: center;
-    padding-top: 1%;
+}
+
+.lyricDiv, .definitionDiv {
+    padding: 0 15%;
+    background: rgb(0, 0, 0);
+    background: radial-gradient(circle, rgba(0, 0, 0, 0.9766281512605042) 23%, rgba(227, 227, 227, 0) 100%);
 }
 
 .definitionDiv {
@@ -77,6 +82,7 @@ img {
  *********************************************/
 .slide p {
     font-style: italic;
+    font-size: 1.2em;
     margin: 0;
     line-height: 1.4;
     color: lightgray;
