@@ -17,6 +17,7 @@
 
 .lyricDiv, .definitionDiv {
     padding: 0 15%;
+    white-space: nowrap;
     background: rgb(0, 0, 0);
     background: radial-gradient(circle, rgba(0, 0, 0, 0.9766281512605042) 23%, rgba(227, 227, 227, 0) 100%);
 }
