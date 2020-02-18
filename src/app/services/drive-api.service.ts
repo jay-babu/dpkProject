@@ -22,9 +22,13 @@ export class DriveAPIService {
         return this.http.get<DriveImageList>(this.driveURL, { params });
     }
 
-    getImage(id: string) {
+    exportImageDriveURL(id: string) {
+        return `https://drive.google.com/uc?export=view&id=${id}`;
+    }
+
+    getImage(driveFileURL: string) {
         const image = new Image();
-        image.src = `https://drive.google.com/uc?export=view&id=${id}`;
+        image.src = driveFileURL;
         return image;
     }
 
