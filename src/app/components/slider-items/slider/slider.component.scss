@@ -32,11 +32,17 @@ p {
     font-family: Lato, serif;
 }
 
-.example-card {
+mat-card {
     max-width: 20vw;
     min-height: 30vh;
     margin-left: 1vw;
     margin-right: 1vw;
+
+    @media (max-width: 450px) {
+        min-width: 40vw;
+        max-height: 30vh;
+        min-height: auto;
+    }
 }
 
 .slide {
