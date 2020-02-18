@@ -16,10 +16,10 @@ export class OptionsComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.fontStyles = new Set(['Roboto', 'cursive', 'Avenir', 'Montserrat', 'Calibri', 'Helvetica Neue']);
+        this.fontStyles = new Set(['Avenir', 'cursive', 'Roboto', 'Montserrat', 'Calibri', 'Helvetica Neue']);
         this.customForm = this.fb.group({
             bgColor: '#141414',
-            fontStyle: 'Roboto',
+            fontStyle: 'Avenir',
             definitionShown: true,
         });
         this.customForm.valueChanges.subscribe(customForm => this.slideConfigService.updateSlideConfig(customForm as SlideConfigI));
