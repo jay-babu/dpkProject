@@ -1,17 +1,21 @@
-<ng-container *ngIf="this.firebaseBhajan$ | async">
-    <div class="slide" [style.background-color]="slideConfig.bgColor"
-         *ngIf="this.slideConfigService.slideConfig$ | async">
-        <div [@openClose]="hidden ? 'closed' : 'open'">
+<div class="mat-app-background">
+    <div *ngIf="this.firebaseBhajan$ | async" [@openClose]="hidden ? 'closed' : 'open'">
+        <div class="bg-image" *ngIf="this.driveBhajanImages$ | async"
+             [ngStyle]="{backgroundImage: imageToURLL(edgeCheck())}"></div>
+        <div class="slide"
+             *ngIf="this.slideConfigService.slideConfig$ | async">
             <div class="lyricDiv" [style.font-family]="slideConfig.fontStyle">
                 <h3 *ngFor="let line of stanza[edgeCheck()]">{{ line }}</h3>
             </div>
+
             <div class="imageDiv" *ngIf="this.driveBhajanImages$ | async">
                 <img [src]="images[edgeCheck()].src" alt="Slide Image"
                      [style.max-height.vh]="this.imageMaxHeightDecrement()">
             </div>
+
             <div *ngIf="slideConfig.definitionShown" class="definitionDiv">
                 <p *ngFor="let definition of definitions[edgeCheck()]">{{ definition }}</p>
             </div>
         </div>
     </div>
-</ng-container>
+</div>

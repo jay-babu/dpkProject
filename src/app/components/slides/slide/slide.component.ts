@@ -23,6 +23,7 @@ export class SlideComponent implements OnInit {
     definitions: string[][];
     imagesURL: string;
     images: HTMLImageElement[];
+    imagePaths: string[];
 
     slideIndex: number;
     hidden = true;
@@ -44,7 +45,11 @@ export class SlideComponent implements OnInit {
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
             this.imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
-            this.driveBhajanImages$.subscribe(driveFiles => this.imageDownload(driveFiles.files));
+            this.driveBhajanImages$.subscribe(driveFiles => {
+                this.imagePaths = driveFiles.files.map(file => this.driveAPIService.exportImageDriveURL(file.id));
+                console.log(this.imagePaths);
+                this.imageDownload(this.imagePaths);
+            });
         });
 
         this.hidden = false;
@@ -52,13 +57,13 @@ export class SlideComponent implements OnInit {
         this.slideConfigService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }
 
-    imageDownload(files: { id: string; name: string }[]) {
+    imageDownload(files: string[]) {
         this.images = [];
-        this.images[this.slideIndex] = this.driveAPIService.getImage(files[this.slideIndex].id);
+        this.images[this.slideIndex] = this.driveAPIService.getImage(files[this.slideIndex]);
 
         for (const [index, driveFile] of files.entries()) {
             if (this.slideIndex !== index) {
-                this.images[index] = this.driveAPIService.getImage(driveFile.id);
+                this.images[index] = this.driveAPIService.getImage(driveFile);
             }
         }
     }
@@ -116,5 +121,9 @@ export class SlideComponent implements OnInit {
 
     navigateID() {
         this.router.navigate([`./`, { id: this.slideIndex }], { relativeTo: this.activeRouter }).then(_ => _, err => console.log(err));
+    }
+
+    imageToURLL(index: number) {
+        return `url(${this.imagePaths[index]})`;
     }
 }

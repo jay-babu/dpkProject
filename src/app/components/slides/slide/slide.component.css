@@ -1,10 +1,14 @@
 .slide {
     font-size: 2.5vh;
-    height: 100vh;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
 }
 
 .lyricDiv {
@@ -19,6 +23,7 @@
 
 .imageDiv {
     text-align: center;
+    filter: drop-shadow(0 0 0.75rem #1d1d1d);
 
 }
 
@@ -75,4 +80,21 @@ img {
     margin: 0;
     line-height: 1.4;
     color: lightgray;
+}
+
+.bg-image {
+    /*Image Defined in HTML with [ngStyle]*/
+
+    /* Add the blur effect */
+    filter: blur(50px);
+    -webkit-filter: blur(50px);
+
+    /* Full height */
+    height: 100vh;
+    width: 100vw;
+
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
