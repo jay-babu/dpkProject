@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SlideConfigI } from '../../../interfaces/slide-config-i';
-import { SlideConfigService } from '../../../services/slide-config.service';
+import { SlideService } from '../../../services/slide.service';
 
 @Component({
     selector: 'app-options',
@@ -12,7 +12,7 @@ export class OptionsComponent implements OnInit {
     customForm: FormGroup;
     fontStyles: Set<string>;
 
-    constructor(private fb: FormBuilder, private slideConfigService: SlideConfigService) {
+    constructor(private fb: FormBuilder, private slideService: SlideService) {
     }
 
     ngOnInit(): void {
@@ -22,6 +22,6 @@ export class OptionsComponent implements OnInit {
             fontStyle: 'Avenir',
             definitionShown: true,
         });
-        this.customForm.valueChanges.subscribe(customForm => this.slideConfigService.updateSlideConfig(customForm as SlideConfigI));
+        this.customForm.valueChanges.subscribe(customForm => this.slideService.updateSlideConfig(customForm as SlideConfigI));
     }
 }
