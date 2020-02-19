@@ -5,6 +5,7 @@
         "ng": "ng",
         "start": "ng serve",
         "build": "ng build",
+        "deploy": "ng deploy",
         "deploy:prod": "ng deploy --base-href=/dpkProject/",
         "test": "ng test",
         "lint": "ng lint",

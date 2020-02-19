@@ -27,7 +27,7 @@ jobs:
     - name: Install Dependencies
       run: npm install
     - name: Build and Deploy
-      run: npm run deploy:prod
+      run:  npm run deploy -- --name="jayp0521" --email="jay.r.patel2115@gmail.com" --base-href=/dpkProject/
       env:
         CI: true
         GH_TOKEN: ${{ secrets.GH_TOKEN }}
