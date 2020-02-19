@@ -6,7 +6,7 @@ import { FirebaseBhajan } from '../../../interfaces/bhajan';
 import { DriveImageList } from '../../../interfaces/drive';
 import { SlideConfigI } from '../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../services/drive-api.service';
-import { SlideConfigService } from '../../../services/slide-config.service';
+import { SlideService } from '../../../services/slide.service';
 
 @Component({
     selector: 'app-slide',
@@ -88,22 +88,11 @@ export class SlideComponent implements OnInit {
         return imageMaxHeight;
     }
 
-    edgeCheck(): number {
-        if (this.slideIndex < 0) {
-            this.slideIndex = 0;
-            this.navigateID();
-        }
-        if (this.slideIndex > this.stanza.length - 1) {
-            this.slideIndex = this.stanza.length - 1;
-            this.navigateID();
-        }
-        return this.slideIndex;
-    }
-
     async upOrDown(bool: boolean) {
         this.hidden = true;
         await new Promise(done => setTimeout(() => done(), 500));
         (bool) ? ++this.slideIndex : --this.slideIndex;
+        this.slideIndex = this.slideService.edgeCheck(this.slideIndex, this.stanza.length);
         this.hidden = false;
         this.navigateID();
     }

@@ -1,20 +1,20 @@
 <div class="mat-app-background">
     <div *ngIf="this.firebaseBhajan$ | async" [@openClose]="hidden ? 'closed' : 'open'">
         <div class="bg-image" *ngIf="this.driveBhajanImages$ | async"
-             [ngStyle]="{backgroundImage: imageToURLL(edgeCheck())}"></div>
+             [ngStyle]="{backgroundImage: imageToURLL(slideIndex)}"></div>
         <div class="slide"
-             *ngIf="this.slideConfigService.slideConfig$ | async">
+             *ngIf="this.slideService.slideConfig$ | async">
             <div class="lyricDiv" [style.font-family]="slideConfig.fontStyle">
-                <h2 *ngFor="let line of stanza[edgeCheck()]">{{ line }}</h2>
+                <h2 *ngFor="let line of stanza[slideIndex]">{{ line }}</h2>
             </div>
 
             <div class="imageDiv" *ngIf="this.driveBhajanImages$ | async">
-                <img [src]="images[edgeCheck()].src" alt="Slide Image"
+                <img [src]="images[slideIndex].src" alt="Slide Image"
                      [style.max-height.vh]="this.imageMaxHeightDecrement()">
             </div>
 
             <div *ngIf="slideConfig.definitionShown" class="definitionDiv">
-                <p *ngFor="let definition of definitions[edgeCheck()]">{{ definition }}</p>
+                <p *ngFor="let definition of definitions[slideIndex]">{{ definition }}</p>
             </div>
         </div>
     </div>
