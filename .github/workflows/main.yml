@@ -27,6 +27,8 @@ jobs:
     - name: Install Dependencies
       run: npm install
     - name: Build and Deploy
-      run: npm run deploy:prod
+      run: |
+      npm run deploy:prod
+      env:
       CI: true
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
