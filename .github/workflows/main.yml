@@ -27,4 +27,4 @@ jobs:
     - name: Install Dependencies
       run: npm install
     - name: Build and Deploy
-      run: ng deploy --base-href=/dpkProject/
+      run: npm run deploy:prod
