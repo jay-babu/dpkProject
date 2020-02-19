@@ -3,6 +3,7 @@ import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Valida
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SideNavToggleService } from '../../services/side-nav-toggle.service';
+import { SlideService } from '../../services/slide.service';
 import { DpkFormService } from './dpk-form.service';
 
 class CrossFieldMatcher implements ErrorStateMatcher {
@@ -25,7 +26,8 @@ export class DpkFormComponent implements OnInit {
     constructor(private fb: FormBuilder,
                 private dpkFormService: DpkFormService,
                 public sideNavToggleService: SideNavToggleService,
-                private router: Router,) {
+                private router: Router,
+                private slideService: SlideService,) {
     }
 
     dpkForm = new FormGroup({
@@ -49,6 +51,7 @@ export class DpkFormComponent implements OnInit {
     openDPKSlides() {
         const dpk = this.dpkForm.value.dpk;
         const title = this.dpkForm.value.title;
+        this.slideService.updatePrevLocation([this.router.url]);
         setTimeout(() => this.router.navigate(['/dpk', dpk, title]), 1000);
     }
 
