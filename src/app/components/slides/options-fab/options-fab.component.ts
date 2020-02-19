@@ -1,5 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { SlideService } from '../../../services/slide.service';
 import { OptionsComponent } from '../options/options.component';
 
 @Component({
@@ -10,6 +11,8 @@ import { OptionsComponent } from '../options/options.component';
 export class OptionsFabComponent implements OnInit {
     toggleButton: boolean;
     timer: number;
+
+    prevLocation: string[];
 
     @HostListener('document:mousemove', ['$event'])
     onMouseMove(e: MouseEvent) {
@@ -23,11 +26,12 @@ export class OptionsFabComponent implements OnInit {
         }
     }
 
-    constructor(public dialog: MatDialog) {
+    constructor(public dialog: MatDialog, private slideService: SlideService) {
     }
 
     ngOnInit(): void {
         this.toggleButton = false;
+        this.slideService.prevLocation$.subscribe(prevLocation => this.prevLocation = prevLocation);
     }
 
     timeClear() {
