@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SlideConfigService } from './slide-config.service';
+import { SlideService } from './slide.service';
 
 describe('SlideConfigService', () => {
-  let service: SlideConfigService;
+  let service: SlideService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(SlideConfigService);
+    service = TestBed.inject(SlideService);
   });
 
   it('should be created', () => {

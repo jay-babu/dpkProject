@@ -28,6 +28,7 @@ import { SlidesComponent } from './components/slides/slides.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
+import { SlideService } from './services/slide.service';
 import { ThemeService } from './services/theme.service';
 import { OptionsFabComponent } from './components/slides/options-fab/options-fab.component';
 import { OptionsComponent } from './components/slides/options/options.component';
@@ -70,6 +71,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
         DriveAPIService,
         SideNavToggleService,
         ThemeService,
+        SlideService,
     ],
     bootstrap: [AppComponent],
 })
