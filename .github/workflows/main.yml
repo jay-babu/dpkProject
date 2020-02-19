@@ -33,4 +33,4 @@ jobs:
         BASE_BRANCH: master
         BRANCH: gh-pages
         FOLDER: dist/dpkProject
-        BUILD_SCRIPT: npm install && npm run build -- --prod
+        BUILD_SCRIPT: npm install && npm run build:prod
