@@ -21,7 +21,6 @@ export class SlideComponent implements OnInit {
 
     stanza: string[][];
     definitions: string[][];
-    imagesURL: string;
     images: HTMLImageElement[];
     imagePaths: string[];
 
@@ -33,7 +32,7 @@ export class SlideComponent implements OnInit {
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
                 private driveAPIService: DriveAPIService,
-                public slideConfigService: SlideConfigService) {
+                public slideService: SlideService,) {
     }
 
     ngOnInit() {
@@ -43,8 +42,8 @@ export class SlideComponent implements OnInit {
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
-            this.imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
-            this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
+            const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
+            this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => {
                 this.imagePaths = driveFiles.files.map(file => this.driveAPIService.exportImageDriveURL(file.id));
                 this.imageDownload(this.imagePaths);
@@ -52,7 +51,7 @@ export class SlideComponent implements OnInit {
         });
 
         this.hidden = false;
-        this.slideConfigService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
+        this.slideService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }
 
     imageDownload(files: string[]) {
