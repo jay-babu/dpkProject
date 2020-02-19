@@ -6,9 +6,7 @@ on:
       - master
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Use Node.js 13.8.0
@@ -26,11 +24,7 @@ jobs:
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
           ${{ runner.os }}-
+    - name: Install Dependencies
+      run: npm install
     - name: Build and Deploy
-      uses: JamesIves/github-pages-deploy-action@releases/v2
-      env:
-        ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
-        BASE_BRANCH: master
-        BRANCH: gh-pages
-        FOLDER: dist/dpkProject
-        BUILD_SCRIPT: npm install && npm run build:prod
+      run: ng deploy --base-href=/dpkProject/
