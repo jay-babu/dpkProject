@@ -12,8 +12,8 @@ import { DpkParseService } from '../dpk-parse.service';
 @Component({
     selector: 'app-slide',
     templateUrl: './slide.component.html',
-    styleUrls: ['./slide.component.css'],
-    animations: [fadeAnimation]
+    styleUrls: [ './slide.component.css' ],
+    animations: [ fadeAnimation ]
 })
 export class SlideComponent implements OnInit {
     @Input()
@@ -60,7 +60,7 @@ export class SlideComponent implements OnInit {
         this.images = [];
         this.images[this.slideIndex] = this.driveAPIService.getImage(files[this.slideIndex]);
 
-        for (const [index, driveFile] of files.entries()) {
+        for (const [ index, driveFile ] of files.entries()) {
             if (this.slideIndex !== index) {
                 this.images[index] = this.driveAPIService.getImage(driveFile);
             }
@@ -73,7 +73,7 @@ export class SlideComponent implements OnInit {
         4.5 was found to be a good number that worked for everything.
          */
         let imageMaxHeight = 100;
-        let heightDecrement = 7.5;
+        let heightDecrement = 7.1;
         for (const {} of this.stanza[this.slideIndex]) {
             imageMaxHeight -= heightDecrement;
         }
@@ -83,8 +83,10 @@ export class SlideComponent implements OnInit {
 
         if (this.definitions[this.slideIndex]) {
             for (const {} of this.definitions[this.slideIndex]) {
-                imageMaxHeight -= heightDecrement - 3;
+                imageMaxHeight -= heightDecrement - 1.5;
             }
+        } else {
+            imageMaxHeight -= heightDecrement - 3;
         }
         return imageMaxHeight;
     }
@@ -98,7 +100,7 @@ export class SlideComponent implements OnInit {
         this.navigateID();
     }
 
-    @HostListener('window:keyup', ['$event'])
+    @HostListener('window:keyup', [ '$event' ])
     async slideMovement(event: KeyboardEvent) {
         if ((event.key === 'ArrowRight' || event.key === ' ') && this.slideIndex < this.stanza.length - 1) {
             this.upOrDown(true);
@@ -108,7 +110,7 @@ export class SlideComponent implements OnInit {
     }
 
     navigateID() {
-        this.router.navigate([`./`, { id: this.slideIndex }], { relativeTo: this.activeRouter }).then(_ => _, err => console.log(err));
+        this.router.navigate([ `./`, {id: this.slideIndex} ], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
     }
 
     imageToURLL(index: number) {
