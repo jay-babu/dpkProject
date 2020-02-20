@@ -34,7 +34,7 @@ export class SlideComponent implements OnInit {
                 private activeRouter: ActivatedRoute,
                 private driveAPIService: DriveAPIService,
                 public slideService: SlideService,
-                private dpkParseService: DpkParseService) {
+                private dpkParseService: DpkParseService,) {
     }
 
     ngOnInit() {
