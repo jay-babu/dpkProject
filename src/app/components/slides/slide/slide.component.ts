@@ -7,6 +7,7 @@ import { DriveImageList } from '../../../interfaces/drive';
 import { SlideConfigI } from '../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../services/drive-api.service';
 import { SlideService } from '../../../services/slide.service';
+import { DpkParseService } from '../dpk-parse.service';
 
 @Component({
     selector: 'app-slide',
@@ -32,7 +33,8 @@ export class SlideComponent implements OnInit {
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
                 private driveAPIService: DriveAPIService,
-                public slideService: SlideService,) {
+                public slideService: SlideService,
+                private dpkParseService: DpkParseService) {
     }
 
     ngOnInit() {
@@ -40,8 +42,8 @@ export class SlideComponent implements OnInit {
             this.slideIndex = (params.id === undefined) ? 0 : params.id;
         });
         this.firebaseBhajan$.subscribe(bhajan => {
-            this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
-            this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
+            this.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
+            this.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => {
