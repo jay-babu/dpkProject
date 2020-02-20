@@ -1,0 +1,7 @@
+<ng-container *ngIf="this.firebaseBhajan$ | async">
+    <div class="mat-app-background slide">
+        <div class="lyricDiv" *ngFor="let lyrics of stanza">
+            <h2 *ngFor="let line of lyrics">{{ line }}</h2>
+        </div>
+    </div>
+</ng-container>
