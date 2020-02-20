@@ -1,0 +1,28 @@
+.slide {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.lyricDiv {
+    margin: 5vh 0;
+}
+
+/*********************************************
+ * HEADERS
+ *********************************************/
+h2 {
+    margin: 0 0 11px 0;
+    line-height: 1.4;
+    letter-spacing: normal;
+    text-transform: capitalize;
+    text-shadow: none;
+    word-wrap: break-word;
+    color: white;
+}
+
+h2 {
+    font-size: 1.6em;
+}
