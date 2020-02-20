@@ -49,7 +49,7 @@ export class PdfSlideComponent implements OnInit {
     imageDownload(files: { id: string; name: string }[]) {
         this.images = [];
         for (const [index, driveFile] of files.entries()) {
-            this.images[index] = this.driveAPIService.getImage(driveFile.id);
+            this.images[index] = this.driveAPIService.preloadImage(driveFile.id);
         }
     }
 

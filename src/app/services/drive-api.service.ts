@@ -26,16 +26,14 @@ export class DriveAPIService {
         return `https://drive.google.com/uc?export=view&id=${id}`;
     }
 
-    getImage(driveFileURL: string) {
+    preloadImage(driveFileURL: string) {
         const image = new Image();
         image.src = driveFileURL;
         return image;
     }
 
-    getThumbnail(id: string) {
-        const image = new Image();
-        image.src = `https://drive.google.com/thumbnail?id=${id}&sz=h210`;
-        return image;
+    exportThumbnailDriveURL(id: string) {
+        return `https://drive.google.com/thumbnail?id=${id}&sz=h210`;
     }
 
     getFile(id: string) {

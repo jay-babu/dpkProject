@@ -58,11 +58,11 @@ export class SlideComponent implements OnInit {
 
     imageDownload(files: string[]) {
         this.images = [];
-        this.images[this.slideIndex] = this.driveAPIService.getImage(files[this.slideIndex]);
+        this.images[this.slideIndex] = this.driveAPIService.preloadImage(files[this.slideIndex]);
 
         for (const [ index, driveFile ] of files.entries()) {
             if (this.slideIndex !== index) {
-                this.images[index] = this.driveAPIService.getImage(driveFile);
+                this.images[index] = this.driveAPIService.preloadImage(driveFile);
             }
         }
     }
