@@ -33,6 +33,7 @@ import { ThemeService } from './services/theme.service';
 import { OptionsFabComponent } from './components/slides/options-fab/options-fab.component';
 import { OptionsComponent } from './components/slides/options/options.component';
 import { ColorPickerModule } from 'ngx-color-picker';
+import { SingerViewComponent } from './components/singer-view/singer-view.component';
 
 @NgModule({
     declarations: [
@@ -48,6 +49,7 @@ import { ColorPickerModule } from 'ngx-color-picker';
         SidenavComponent,
         OptionsFabComponent,
         OptionsComponent,
+        SingerViewComponent,
     ],
     imports: [
         AngularMaterialModule,

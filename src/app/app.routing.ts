@@ -8,6 +8,7 @@ import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-poli
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 import { SlidesComponent } from './components/slides/slides.component';
+import { SingerViewComponent } from './components/singer-view/singer-view.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
@@ -17,6 +18,7 @@ const appRoutes: Routes = [
         path: 'dpk', children: [
             { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
             { path: ':dpk/:name', component: SlidesComponent, },
+            { path: 'singerView/:dpk/:name', component: SingerViewComponent, },
         ]
     },
     {
