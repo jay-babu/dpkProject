@@ -5,8 +5,10 @@
                  [opened]="opened">
         <mat-toolbar>
             Menu
-            <mat-slide-toggle [checked]="this.isDarkTheme$ | async"
-                              (change)="this.toggleDarkTheme($event.checked)"></mat-slide-toggle>
+            <button mat-icon-button>
+                <mat-icon *ngIf="!(isDarkTheme$ | async)" (click)="this.toggleDarkTheme(true)">wb_sunny</mat-icon>
+                <mat-icon *ngIf="isDarkTheme$ | async" (click)="this.toggleDarkTheme(false)">nights_stay</mat-icon>
+            </button>
         </mat-toolbar>
         <mat-nav-list>
             <a mat-list-item routerLink="/login">Login</a>
