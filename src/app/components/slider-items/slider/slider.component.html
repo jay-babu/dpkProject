@@ -6,8 +6,8 @@
                     <mat-card-title>{{ slide.title }}</mat-card-title>
                 </mat-card-header>
 
-                <img mat-card-image [src]="this.getImage(slide.imgID).src" [routerLink]="['/dpk', slide.type, slide.title]"
-                     alt="Slides">
+                <img mat-card-image [src]="this.exportThumbnailDriveURL(slide.imgID)" [routerLink]="['/dpk', slide.type, slide.title]"
+                     alt="{{slide.title}}">
 
                 <mat-card-actions class="actions">
 <!--                    <button mat-button color="primary">Like</button>-->

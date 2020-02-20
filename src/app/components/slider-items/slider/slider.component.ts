@@ -26,8 +26,8 @@ export class SliderComponent implements OnInit {
         this.dpk = this.getSomething(this.DPK, this.dpkID);
     }
 
-    getImage(id: string) {
-        return this.driveAPIService.getThumbnail(id);
+    exportThumbnailDriveURL(id: string) {
+        return this.driveAPIService.exportThumbnailDriveURL(id);
     }
 
     getSomething(type: string, id: string) {
