@@ -6,8 +6,8 @@
         <mat-toolbar>
             Menu
             <button mat-icon-button>
-                <mat-icon *ngIf="isDarkTheme$ | async" (click)="this.toggleDarkTheme(false)">wb_sunny</mat-icon>
-                <mat-icon *ngIf="!(isDarkTheme$ | async)" (click)="this.toggleDarkTheme(true)">nights_stay</mat-icon>
+                <mat-icon *ngIf="!(isDarkTheme$ | async)" (click)="this.toggleDarkTheme(true)">wb_sunny</mat-icon>
+                <mat-icon *ngIf="isDarkTheme$ | async" (click)="this.toggleDarkTheme(false)">nights_stay</mat-icon>
             </button>
         </mat-toolbar>
         <mat-nav-list>
