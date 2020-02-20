@@ -59,10 +59,10 @@ export class PdfSlideComponent implements OnInit {
         4.5 was found to be a good number that worked for everything.
          */
         let imageMaxHeight = 100;
-        for (const index of this.stanza[i]) {
+        for (const {} of this.stanza[i]) {
             imageMaxHeight -= 6;
         }
-        for (const index of this.definitions[i]) {
+        for (const {} of this.definitions[i]) {
             imageMaxHeight -= 6;
         }
         return imageMaxHeight;
