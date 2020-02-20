@@ -15,9 +15,6 @@ export class PdfSlideComponent implements OnInit {
 
     firebaseBhajan$: Observable<FirebaseBhajan>;
 
-    slideName: string;
-    slideDPK: string;
-
     driveBhajanImages$: Observable<DriveImageList>;
 
     stanza: string[][];
@@ -32,12 +29,13 @@ export class PdfSlideComponent implements OnInit {
     }
 
     ngOnInit(): void {
-
+        let slideName;
+        let slideDPK;
         this.activeRouter.params.subscribe(params => {
-            this.slideName = (params.name === undefined) ? '' : params.name;
-            this.slideDPK = params.dpk;
+            slideName = (params.name === undefined) ? '' : params.name;
+            slideDPK = params.dpk;
         });
-        this.firebaseBhajan$ = this.slidesService.getDPK(this.slideDPK, this.slideName);
+        this.firebaseBhajan$ = this.slidesService.getDPK(slideName, slideName);
 
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.lyrics.map(paragraph => paragraph.split(`\n`));
