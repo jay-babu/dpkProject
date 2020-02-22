@@ -6,7 +6,7 @@ import { AudioControlService } from './audio-control.service';
     templateUrl: './audio.component.html',
     styleUrls: [ './audio.component.css' ]
 })
-export class AudioComponentComponent implements OnInit, AfterViewChecked {
+export class AudioComponent implements OnInit, AfterViewChecked {
     @Input()
     bhajanSource: string;
 

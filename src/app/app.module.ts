@@ -34,7 +34,7 @@ import { OptionsFabComponent } from './components/slides/options-fab/options-fab
 import { OptionsComponent } from './components/slides/options/options.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { SingerViewComponent } from './components/singer-view/singer-view.component';
-import { AudioComponentComponent } from './components/audio-component/audio-component.component';
+import { AudioComponent } from './components/audio-component/audio.component';
 import { AudioControlService } from './components/audio-component/audio-control.service';
 
 @NgModule({
@@ -52,7 +52,7 @@ import { AudioControlService } from './components/audio-component/audio-control.
         OptionsFabComponent,
         OptionsComponent,
         SingerViewComponent,
-        AudioComponentComponent,
+        AudioComponent,
     ],
     imports: [
         AngularMaterialModule,
