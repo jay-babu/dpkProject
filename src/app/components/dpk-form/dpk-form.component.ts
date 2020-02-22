@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SideNavToggleService } from '../../services/side-nav-toggle.service';
@@ -23,8 +23,7 @@ export class DpkFormComponent implements OnInit {
     DPKs: Map<string, string>; // Key = Name, Value = Id
     errorMatcher = new CrossFieldMatcher();
 
-    constructor(private fb: FormBuilder,
-                private dpkFormService: DpkFormService,
+    constructor(private dpkFormService: DpkFormService,
                 public sideNavToggleService: SideNavToggleService,
                 private router: Router,
                 private slideService: SlideService,) {
@@ -36,6 +35,8 @@ export class DpkFormComponent implements OnInit {
         definitions: new FormControl(''),
         imagesURL: new FormControl('', Validators.required),
         dpk: new FormControl('', Validators.required),
+        audioUploaded: new FormControl(false),
+        audioTimings: new FormControl(''),
     }, { asyncValidators: [this.dpkFormService.validSubmission] });
 
     ngOnInit() {
