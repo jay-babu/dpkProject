@@ -34,6 +34,8 @@ import { OptionsFabComponent } from './components/slides/options-fab/options-fab
 import { OptionsComponent } from './components/slides/options/options.component';
 import { ColorPickerModule } from 'ngx-color-picker';
 import { SingerViewComponent } from './components/singer-view/singer-view.component';
+import { AudioComponentComponent } from './components/audio-component/audio-component.component';
+import { AudioControlService } from './components/audio-component/audio-control.service';
 
 @NgModule({
     declarations: [
@@ -50,6 +52,7 @@ import { SingerViewComponent } from './components/singer-view/singer-view.compon
         OptionsFabComponent,
         OptionsComponent,
         SingerViewComponent,
+        AudioComponentComponent,
     ],
     imports: [
         AngularMaterialModule,
@@ -74,8 +77,9 @@ import { SingerViewComponent } from './components/singer-view/singer-view.compon
         SideNavToggleService,
         ThemeService,
         SlideService,
+        AudioControlService,
     ],
-    bootstrap: [AppComponent],
+    bootstrap: [ AppComponent ],
 })
 export class AppModule {
 }
