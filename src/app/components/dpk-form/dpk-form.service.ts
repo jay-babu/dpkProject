@@ -18,30 +18,36 @@ export class DpkFormService {
     validSubmission: (form: FormGroup) => Promise<ValidationErrors> = async (form: FormGroup) => {
         let status: ValidationErrors = null;
 
+        const title = form.value.title;
         const lyrics = form.value.lyrics;
         const imagesURL = form.value.imagesURL;
         const definitions = form.value.definitions;
+        const audioTimings = form.value.audioTimings;
 
         if (lyrics === null) {
-            form.patchValue({ lyrics: '' });
+            form.patchValue({lyrics: ''});
         }
         if (imagesURL === null) {
-            form.patchValue({ imagesURL: '' });
+            form.patchValue({imagesURL: ''});
         }
         if (definitions === null) {
-            form.patchValue({ definitions: '' });
+            form.patchValue({definitions: ''});
+        }
+
+        if (audioTimings === null) {
+            form.patchValue({audioTimings: ''});
         }
 
         if (imagesURL) {
             await this.verifyURL(imagesURL).then(res => status = res);
         }
 
-        if (status === null && form.value.title) {
+        if (status === null && title) {
             await this.verifyTitleInDrive(form.value.title, this.DPKs.get(`${form.value.dpk}`))
-                .then(res => status = (res.length !== 0) ? null : { titleNotInDrive: true });
+                .then(res => status = (res.length !== 0) ? null : {titleNotInDrive: true});
         }
 
-        if (status === null && form.value.title) {
+        if (status === null && title) {
             await this.photosEqualSlides(imagesURL, lyrics).then(res => status = res);
         }
 
@@ -49,7 +55,17 @@ export class DpkFormService {
 
         if (status === null && definitions !== '') {
             const definitionsArr: string[] = definitions.split(/\n{2,}/g);
-            status = (lyricsArr.length === definitionsArr.length) ? null : { lyricsDef: true };
+            status = (lyricsArr.length === definitionsArr.length) ? null : {lyricsDef: true};
+        }
+
+        if (status === null && title) {
+            await this.photosEqualSlides(imagesURL, lyrics).then(res => status = res);
+        }
+
+        const audioTimingsArr = audioTimings.split(/\n{2,}/g);
+
+        if (status === null && title && form.value.audioUploaded) {
+            status = this.audioTimingValidate(lyricsArr, audioTimingsArr);
         }
         return status;
     };
@@ -82,14 +98,14 @@ export class DpkFormService {
             const hostname = url.hostname;
             let status = null;
             if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
-                status = { badURL: true };
+                status = {badURL: true};
             }
             if (status) {
                 return status;
             }
             return status;
         } catch {
-            return { badURL: true };
+            return {badURL: true};
         }
     }
 
@@ -102,7 +118,7 @@ export class DpkFormService {
         await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
             files => {
                 if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
-                    status = { NotEqualPhotos: true };
+                    status = {NotEqualPhotos: true};
                 }
             }
         );
@@ -118,5 +134,16 @@ export class DpkFormService {
                 }
             });
         return this.DPKs;
+    }
+
+    audioTimingValidate(lyricsArr, audioTimingsArr) {
+        const nums = audioTimingsArr.map(num => +num);
+        if (!nums.every(num => !isNaN(num))) {
+            return {NumbersOnly: true};
+        }
+        if (lyricsArr.length !== audioTimingsArr.length) {
+            return {IncorrectSize: true};
+        }
+        return null;
     }
 }
