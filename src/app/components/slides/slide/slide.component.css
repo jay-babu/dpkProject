@@ -11,11 +11,11 @@
     left: 0;
 }
 
-.lyricDiv {
+.stanzaDiv {
     text-align: center;
 }
 
-.lyricDiv, .definitionDiv {
+.stanzaDiv, .definitionDiv {
     padding: 0 15%;
     white-space: nowrap;
     background: rgb(0, 0, 0);
