@@ -63,9 +63,30 @@
             </label>
         </mat-form-field>
 
+        <mat-slide-toggle formControlName="audioUploaded" labelPosition="before" checked="audioUploaded">
+            Audio Uploaded
+        </mat-slide-toggle>
+
+        <mat-form-field *ngIf="dpkForm.value.audioUploaded" class="text-fields">
+            <label>
+                <textarea cdkTextareaAutosize matInput placeholder="Audio Timings (Seconds Only)"
+                          formControlName="audioTimings"
+                          class="mat-primary" [errorStateMatcher]="errorMatcher">
+                </textarea>
+            </label>
+            <mat-error *ngIf="dpkForm.hasError('NumbersOnly')">
+                All field elements should be a number. Separated by an empty line :)
+            </mat-error>
+            <mat-error *ngIf="dpkForm.hasError('IncorrectSize')">
+                Number of Audio Timings does not match number of slides.
+                Hint first timing should be 0 or when the audio actually starts
+            </mat-error>
+        </mat-form-field>
+
         <mat-form-field class="text-fields">
             <label>
-                <input matInput placeholder="Images URL" formControlName="imagesURL" class="mat-primary">
+                <input matInput placeholder="Bhajan Material URL" formControlName="imagesURL" class="mat-primary"
+                       [errorStateMatcher]="errorMatcher">
             </label>
             <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
             </mat-error>
