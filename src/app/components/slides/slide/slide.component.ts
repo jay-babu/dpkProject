@@ -23,7 +23,7 @@ export class SlideComponent implements OnInit {
     stanza: string[][];
     definitions: string[][];
     images: HTMLImageElement[];
-    imagePaths: string[];
+    imagePaths: URL[];
 
     slideIndex: number;
     hidden = true;
@@ -56,7 +56,7 @@ export class SlideComponent implements OnInit {
         this.slideService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }
 
-    imageDownload(files: string[]) {
+    imageDownload(files: URL[]) {
         this.images = [];
         this.images[this.slideIndex] = this.driveAPIService.preloadImage(files[this.slideIndex]);
 
