@@ -20,6 +20,7 @@ export class PdfSlideComponent implements OnInit {
     stanza: string[][];
     definitions: string[][];
     imagesURL: string;
+    imagePaths: URL[];
     images: HTMLImageElement[];
 
     constructor(private router: Router,
@@ -42,14 +43,17 @@ export class PdfSlideComponent implements OnInit {
             this.definitions = bhajan.definitions.map(paragraph => paragraph.split(`\n`));
             this.imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${this.imagesURL}' in parents`);
-            this.driveBhajanImages$.subscribe(driveFiles => this.imageDownload(driveFiles.files));
+            this.driveBhajanImages$.subscribe(driveFiles => {
+                this.imagePaths = driveFiles.files.map(file => this.driveAPIService.exportImageDriveURL(file.id));
+                this.imageDownload(this.imagePaths);
+            });
         });
     }
 
-    imageDownload(files: { id: string; name: string }[]) {
+    imageDownload(files: URL[]) {
         this.images = [];
         for (const [index, driveFile] of files.entries()) {
-            this.images[index] = this.driveAPIService.preloadImage(driveFile.id);
+            this.images[index] = this.driveAPIService.preloadImage(driveFile);
         }
     }
 
