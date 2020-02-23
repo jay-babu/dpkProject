@@ -13,6 +13,7 @@ export class DpkFormService {
     DPKs = new Map<string, string>();
 
     constructor(private fireDB: AngularFirestore, private driveAPIService: DriveAPIService, private afAuth: AngularFireAuth) {
+        this.getDPK();
     }
 
     validSubmission: (form: FormGroup) => Promise<ValidationErrors> = async (form: FormGroup) => {
@@ -125,8 +126,8 @@ export class DpkFormService {
         return status;
     }
 
-    getDPKRadio() {
-        this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`)
+    getDPK() {
+        this.driveAPIService.getDPKFolder(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`)
             .subscribe(foldersObject => {
                 const folders = foldersObject.files;
                 for (const folder of folders) {
