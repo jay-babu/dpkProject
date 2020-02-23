@@ -18,10 +18,10 @@ export class SingerViewComponent implements OnInit {
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
                 private slidesService: DpkParseService,
-                private audioControlService: AudioControlService) {
+                private audioControlService: AudioControlService,) {
     }
 
-    listTimes = [ 31, 83, 153, 217, 286, 351 ];
+    // listTimes = [ 31, 83, 153, 217, 286, 351 ];
 
     ngOnInit(): void {
         let slideName;
@@ -37,8 +37,8 @@ export class SingerViewComponent implements OnInit {
             this.bhajan = this.slidesService.parseSlideText(bhajan.lyrics);
         });
     }
-
-    seekPosition(time: number) {
-        this.audioControlService.seekTime(time);
-    }
+    //
+    // seekPosition(time: number) {
+    //     this.audioControlService.seekTime(time);
+    // }
 }
