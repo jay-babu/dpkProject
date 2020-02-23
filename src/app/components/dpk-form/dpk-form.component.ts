@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SideNavToggleService } from '../../services/side-nav-toggle.service';
@@ -18,13 +18,10 @@ class CrossFieldMatcher implements ErrorStateMatcher {
     styleUrls: ['./dpk-form.component.css']
 })
 export class DpkFormComponent implements OnInit {
-    @ViewChild('form') dpkFullForm: { resetForm: () => void; };
 
-    DPKs: Map<string, string>; // Key = Name, Value = Id
     errorMatcher = new CrossFieldMatcher();
 
-    constructor(private fb: FormBuilder,
-                private dpkFormService: DpkFormService,
+    constructor(public dpkFormService: DpkFormService,
                 public sideNavToggleService: SideNavToggleService,
                 private router: Router,
                 private slideService: SlideService,) {
@@ -36,16 +33,16 @@ export class DpkFormComponent implements OnInit {
         definitions: new FormControl(''),
         imagesURL: new FormControl('', Validators.required),
         dpk: new FormControl('', Validators.required),
+        audioUploaded: new FormControl(false),
+        audioTimings: new FormControl(''),
     }, { asyncValidators: [this.dpkFormService.validSubmission] });
 
     ngOnInit() {
-        this.DPKs = this.getDPKRadio();
     }
 
     onSubmit() {
         this.dpkFormService.submitDPK(this.dpkForm);
         this.openDPKSlides();
-        this.dpkFullForm.resetForm();
     }
 
     openDPKSlides() {
@@ -53,9 +50,5 @@ export class DpkFormComponent implements OnInit {
         const title = this.dpkForm.value.title;
         this.slideService.updatePrevLocation([this.router.url]);
         setTimeout(() => this.router.navigate(['/dpk', dpk, title]), 1000);
-    }
-
-    getDPKRadio() {
-        return this.dpkFormService.getDPKRadio();
     }
 }

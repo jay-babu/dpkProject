@@ -4,7 +4,7 @@
              [ngStyle]="{backgroundImage: imageToURLL(slideIndex)}"></div>
         <div class="slide"
              *ngIf="this.slideService.slideConfig$ | async">
-            <div class="lyricDiv" [style.font-family]="slideConfig.fontStyle">
+            <div class="stanzaDiv" [style.font-family]="slideConfig.fontStyle">
                 <h2 *ngFor="let line of stanza[slideIndex]">{{ line }}</h2>
             </div>
 

@@ -18,7 +18,7 @@ export class SliderItemsComponent implements OnInit {
     }
 
     async DPKItems() {
-        await this.driveAPIService.getDPKRadio(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`).toPromise().then(DPKs => {
+        await this.driveAPIService.getDPKFolder(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`).toPromise().then(DPKs => {
             for (const DPK of DPKs.files) {
                 this.DPKs.set(DPK.name, DPK.id);
             }

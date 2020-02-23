@@ -1,7 +1,17 @@
 <ng-container *ngIf="this.firebaseBhajan$ | async">
     <div class="mat-app-background slide">
-        <div class="lyricDiv" *ngFor="let lyrics of stanza">
-            <h2 *ngFor="let line of lyrics">{{ line }}</h2>
+        <div class="stanzaDiv" *ngFor="let stanza of bhajan; let i = index">
+<!--            <button mat-icon-button color="primary" (click)="seekPosition(listTimes[i])">-->
+<!--                <mat-icon>play_circle_filled</mat-icon>-->
+<!--            </button>-->
+            <div class="lyricDiv">
+                <h2 *ngFor="let line of stanza">
+                    {{ line }}
+                </h2>
+            </div>
         </div>
+<!--        <app-audio-->
+<!--            [bhajanSource]="'./assets/audio/Vandan Yogiji Vandan Pramukhji.mp3'">-->
+<!--        </app-audio>-->
     </div>
 </ng-container>

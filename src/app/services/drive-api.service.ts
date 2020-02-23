@@ -12,11 +12,11 @@ export class DriveAPIService {
     constructor(private http: HttpClient) {
     }
 
-    getDPKRadio(rootFolderId: string) {
+    getDPKFolder(rootFolderId: string) {
         return this.getListOfFiles(`'${rootFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder'`);
     }
 
-    getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id)') {
+    getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id, mimeType)') {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
         return this.http.get<DriveImageList>(this.driveURL, { params });
@@ -34,11 +34,5 @@ export class DriveAPIService {
 
     exportThumbnailDriveURL(id: string) {
         return `https://drive.google.com/thumbnail?id=${id}&sz=h210`;
-    }
-
-    getFile(id: string) {
-        const key = environment.driveConfig.key;
-        const params: HttpParams = new HttpParams().set('key', key).set('alt', 'media');
-        return this.http.get(this.driveURL + id, { params });
     }
 }
