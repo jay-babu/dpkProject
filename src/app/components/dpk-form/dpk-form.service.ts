@@ -23,6 +23,7 @@ export class DpkFormService {
         const lyrics = form.value.lyrics;
         const imagesURL = form.value.imagesURL;
         const definitions = form.value.definitions;
+        const audioUploaded: boolean = form.value.audioUploaded;
         const audioTimings = form.value.audioTimings;
 
         if (lyrics === null) {
@@ -43,29 +44,24 @@ export class DpkFormService {
             await this.verifyURL(imagesURL).then(res => status = res);
         }
 
-        if (status === null && title) {
+        if (!status && title) {
             await this.verifyTitleInDrive(form.value.title, this.DPKs.get(`${form.value.dpk}`))
                 .then(res => status = (res.length !== 0) ? null : {titleNotInDrive: true});
         }
 
-        if (status === null && title) {
-            await this.photosEqualSlides(imagesURL, lyrics).then(res => status = res);
+        if (!status && title) {
+            await this.photosEqualSlides(imagesURL, lyrics, audioUploaded).then(res => status = res);
         }
 
         const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
 
-        if (status === null && definitions !== '') {
+        if (!status && definitions !== '') {
             const definitionsArr: string[] = definitions.split(/\n{2,}/g);
             status = (lyricsArr.length === definitionsArr.length) ? null : {lyricsDef: true};
         }
 
-        if (status === null && title) {
-            await this.photosEqualSlides(imagesURL, lyrics).then(res => status = res);
-        }
-
-        const audioTimingsArr = audioTimings.split(/\n{2,}/g);
-
-        if (status === null && title && form.value.audioUploaded) {
+        if (!status && title && audioUploaded) {
+            const audioTimingsArr = audioTimings.split(/\n{2,}/g);
             status = this.audioTimingValidate(lyricsArr, audioTimingsArr);
         }
         return status;
@@ -116,16 +112,13 @@ export class DpkFormService {
             if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
                 status = {badURL: true};
             }
-            if (status) {
-                return status;
-            }
             return status;
         } catch {
             return {badURL: true};
         }
     }
 
-    async photosEqualSlides(imagesURL: string, lyrics: string) {
+    async photosEqualSlides(imagesURL: string, lyrics: string, audioUploaded: boolean) {
         const url = new URL(imagesURL);
         const path = url.pathname.split('/');
         const id = path[3];
@@ -133,8 +126,25 @@ export class DpkFormService {
 
         await this.driveAPIService.getListOfFiles(`'${id}' in parents`).toPromise().then(
             files => {
-                if (lyrics.split(/\n{2,}/g).length !== files.files.length) {
+                const filesArr = files.files;
+                const imageArr: object[] = [];
+                for (const item of filesArr) {
+                    if (item.mimeType.split('/')[0] === 'image') {
+                        imageArr.push(item);
+                    }
+                }
+                if (lyrics.split(/\n{2,}/g).length !== imageArr.length) {
                     status = {NotEqualPhotos: true};
+                }
+
+                if (!status && audioUploaded) {
+                    for (const item of filesArr) {
+                        if (item.mimeType.split('/')[0] === 'audio') {
+                            status = null;
+                            return;
+                        }
+                        status = {AudioNotFound: true};
+                    }
                 }
             }
         );
@@ -149,13 +159,13 @@ export class DpkFormService {
                     this.DPKs.set(folder.name, folder.id);
                 }
             });
-        return this.DPKs;
     }
 
-    audioTimingValidate(lyricsArr, audioTimingsArr) {
-        const nums = audioTimingsArr.map(num => +num);
-        if (!nums.every(num => !isNaN(num))) {
-            return {NumbersOnly: true};
+    audioTimingValidate(lyricsArr: string | any[], audioTimingsArr: any[]) {
+        for (const time of audioTimingsArr) {
+            if (!(/^\d{1,2}:\d{1,2}$/.test(time))) {
+                return {IncorrectFormat: true};
+            }
         }
         if (lyricsArr.length !== audioTimingsArr.length) {
             return {IncorrectSize: true};
