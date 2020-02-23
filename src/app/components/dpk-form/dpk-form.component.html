@@ -20,14 +20,15 @@
     <div>
         <label>Type: </label>
         <mat-radio-group formControlName="dpk">
-            <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of DPKs | keyvalue"
+            <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of this.dpkFormService.DPKs | keyvalue"
                               value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
         </mat-radio-group>
         <mat-divider></mat-divider>
-        <a mat-flat-button *ngIf="form.value.dpk" [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
-           href="https://drive.google.com/open?id={{this.DPKs.get(form.value.dpk)}}" target="_blank">
-            Create a New Folder and
-            Upload your {{form.value.dpk}} Images Here!
+        <a mat-flat-button *ngIf="dpkForm.value.dpk" [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}" color="accent"
+           href="https://drive.google.com/open?id={{this.dpkFormService.DPKs.get(dpkForm.value.dpk)}}"
+           target="_blank">
+            Create a New Folder and Upload your {{dpkForm.value.dpk}} Images & Audio Here!<br>
+            Copy and Paste Link in Bhajan Material URL
         </a>
         <mat-divider></mat-divider>
     </div>
@@ -46,13 +47,11 @@
                     <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics"
                               class="mat-primary" [errorStateMatcher]="errorMatcher"></textarea>
             </label>
-            <mat-error *ngIf="dpkForm.hasError('lyricsDef')">Number of Stanzas for Lyrics and Definitions do
-                not
-                Match
+            <mat-error *ngIf="dpkForm.hasError('lyricsDef')">
+                Number of Stanzas for Lyrics and Definitions do not Match
             </mat-error>
-            <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">The Number of Slides and Photos in Google
-                Drive do
-                not Match
+            <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">
+                The Number of Slides and Photos in Google Drive do not Match
             </mat-error>
         </mat-form-field>
 
@@ -64,22 +63,25 @@
         </mat-form-field>
 
         <mat-slide-toggle formControlName="audioUploaded" labelPosition="before" checked="audioUploaded">
-            Audio Uploaded
+            Upload Audio?
         </mat-slide-toggle>
 
         <mat-form-field *ngIf="dpkForm.value.audioUploaded" class="text-fields">
             <label>
-                <textarea cdkTextareaAutosize matInput placeholder="Audio Timings (Seconds Only)"
+                <textarea cdkTextareaAutosize matInput placeholder="Audio Timings (HH:MM)"
                           formControlName="audioTimings"
                           class="mat-primary" [errorStateMatcher]="errorMatcher">
                 </textarea>
             </label>
-            <mat-error *ngIf="dpkForm.hasError('NumbersOnly')">
-                All field elements should be a number. Separated by an empty line :)
+            <mat-error *ngIf="dpkForm.hasError('IncorrectFormat')">
+                Each time should be of HH:MM, H:M, H:MM, or HH:M format
             </mat-error>
             <mat-error *ngIf="dpkForm.hasError('IncorrectSize')">
                 Number of Audio Timings does not match number of slides.
-                Hint first timing should be 0 or when the audio actually starts
+                Hint first timing should be 00:00 or when the audio actually starts
+            </mat-error>
+            <mat-error *ngIf="dpkForm.hasError('AudioNotFound')">
+                Audio File Not Found. Upload to the same place as Images
             </mat-error>
         </mat-form-field>
 
