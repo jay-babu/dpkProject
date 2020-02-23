@@ -79,8 +79,23 @@ export class DpkFormService {
                 definitions: fg.value.definitions.split(/\n{2,}/g),
                 imagesURL: fg.value.imagesURL,
                 title: fg.value.title,
+                audioUploaded: fg.value.audioUploaded,
+                audioTimings: this.timingsToSeconds(fg.value.audioTimings.split(/\n{2,}/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
             }).then(_ => _, err => console.error(err));
+    }
+
+    timingsToSeconds(audioTimings: string[]) {
+        const secondsArr = [];
+        for (const time of audioTimings) {
+            let minutes;
+            let seconds;
+            [ minutes, seconds ] = time.split(':');
+            seconds = +seconds;
+            seconds += +minutes * 60;
+            secondsArr.push(seconds);
+        }
+        return secondsArr;
     }
 
     async verifyTitleInDrive(title: string, dpkId: string) {
