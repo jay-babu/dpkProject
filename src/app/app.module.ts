@@ -23,6 +23,7 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
         SidenavComponent,
     ],
     imports: [
+        AngularMaterialModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
@@ -30,6 +31,7 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        ReactiveFormsModule,
         RouterModule,
         HammerModule,
     ],
