@@ -68,13 +68,13 @@
 
         <mat-form-field *ngIf="dpkForm.value.audioUploaded" class="text-fields">
             <label>
-                <textarea cdkTextareaAutosize matInput placeholder="Audio Timings (HH:MM)"
+                <textarea cdkTextareaAutosize matInput placeholder="Audio Timings (MM:SS) M means Minutes. S means Seconds"
                           formControlName="audioTimings"
                           class="mat-primary" [errorStateMatcher]="errorMatcher">
                 </textarea>
             </label>
             <mat-error *ngIf="dpkForm.hasError('IncorrectFormat')">
-                Each time should be of HH:MM, H:M, H:MM, or HH:M format
+                Each time should be of MM:SS, M:S, M:SS, or MM:S format
             </mat-error>
             <mat-error *ngIf="dpkForm.hasError('IncorrectSize')">
                 Number of Audio Timings does not match number of slides.
