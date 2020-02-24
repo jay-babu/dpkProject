@@ -11,6 +11,7 @@
             <div class="imageDiv" *ngIf="this.driveBhajanImages$ | async">
                 <img [src]="images[slideIndex].src" alt="Slide Image"
                      [style.max-height.vh]="this.imageMaxHeightDecrement()">
+                <app-audio [bhajanSource]="bhajanSource" [hidden]="true"></app-audio>
             </div>
 
             <div *ngIf="slideConfig.definitionShown" class="definitionDiv">
@@ -19,3 +20,4 @@
         </div>
     </div>
 </div>
+

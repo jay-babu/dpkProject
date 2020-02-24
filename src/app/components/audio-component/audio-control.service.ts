@@ -18,4 +18,8 @@ export class AudioControlService {
         this.bhajanAudio.play();
         this.bhajanAudio.currentTime = time;
     }
+
+    pause() {
+        if (this.bhajanAudio) this.bhajanAudio.pause();
+    }
 }

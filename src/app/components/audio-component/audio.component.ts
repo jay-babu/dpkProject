@@ -8,7 +8,7 @@ import { AudioControlService } from './audio-control.service';
 })
 export class AudioComponent implements OnInit, AfterViewChecked {
     @Input()
-    bhajanSource: string;
+    bhajanSource: URL;
 
     @ViewChild('bhajanAudio') audioPlayerRef: ElementRef<HTMLAudioElement>;
 
