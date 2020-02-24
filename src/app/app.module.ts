@@ -16,24 +16,24 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
 import { DpkFormService } from './components/dpk-form/dpk-form.service';
-import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
-import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
+import { LoginComponent } from './components/login/login.component';
+import { PdfSlideComponent } from './components/dpk/pdf-slide/pdf-slide.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
 import { SliderItemDirective } from './components/slider-items/slider/slider-item.directive';
 import { SliderComponent } from './components/slider-items/slider/slider.component';
-import { DpkParseService } from './components/slides/dpk-parse.service';
-import { SlideComponent } from './components/slides/slide/slide.component';
-import { SlidesComponent } from './components/slides/slides.component';
+import { DpkParseService } from './components/dpk/slides/dpk-parse.service';
+import { SlideComponent } from './components/dpk/slides/slide/slide.component';
+import { SlidesComponent } from './components/dpk/slides/slides.component';
 import { DriveAPIService } from './services/drive-api.service';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { SlideService } from './services/slide.service';
 import { ThemeService } from './services/theme.service';
-import { OptionsFabComponent } from './components/slides/options-fab/options-fab.component';
-import { OptionsComponent } from './components/slides/options/options.component';
+import { OptionsFabComponent } from './components/dpk/slides/options-fab/options-fab.component';
+import { OptionsComponent } from './components/dpk/slides/options/options.component';
 import { ColorPickerModule } from 'ngx-color-picker';
-import { SingerViewComponent } from './components/singer-view/singer-view.component';
+import { SingerViewComponent } from './components/dpk/singer-view/singer-view.component';
 import { AudioComponent } from './components/audio-component/audio.component';
 import { AudioControlService } from './components/audio-component/audio-control.service';
 
@@ -43,7 +43,7 @@ import { AudioControlService } from './components/audio-component/audio-control.
         SlideComponent,
         SlidesComponent,
         DpkFormComponent,
-        PasswordlessAuthComponent,
+        LoginComponent,
         SliderComponent,
         SliderItemDirective,
         SliderItemsComponent,

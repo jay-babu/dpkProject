@@ -2,8 +2,8 @@ import { ModuleWithProviders } from '@angular/core';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
-import { PasswordlessAuthComponent } from './components/passwordless-auth/passwordless-auth.component';
-import { PdfSlideComponent } from './components/pdf-slide/pdf-slide.component';
+import { LoginComponent } from './components/login/login.component';
+import { PdfSlideComponent } from './components/dpk/pdf-slide/pdf-slide.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/slider-items/slider-items.component';
@@ -23,7 +23,7 @@ const appRoutes: Routes = [
     },
     {
         path: '', component: SidenavComponent, children: [
-            { path: 'login', component: PasswordlessAuthComponent, },
+            { path: 'login', component: LoginComponent, },
             {
                 path: 'dpkCreate',
                 component: DpkFormComponent,
