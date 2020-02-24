@@ -23,7 +23,8 @@ export class SlideComponent implements OnInit {
     stanza: string[][];
     definitions: string[][];
     images: HTMLImageElement[];
-    imagePaths: URL[];
+    imagePaths: URL[] = [];
+    bhajanSource: URL;
 
     slideIndex: number;
     hidden = true;
@@ -47,11 +48,17 @@ export class SlideComponent implements OnInit {
             const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => {
-                this.imagePaths = driveFiles.files.map(file => this.driveAPIService.exportImageDriveURL(file.id));
+                for (const item of driveFiles.files) {
+                    const mimeType = item.mimeType.split('/')[0];
+                    if (mimeType === 'audio') {
+                        this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
+                    } else if (mimeType === 'image') {
+                        this.imagePaths.push(this.driveAPIService.exportImageDriveURL(item.id));
+                    }
+                }
                 this.imageDownload(this.imagePaths);
             });
         });
-
         this.hidden = false;
         this.slideService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }

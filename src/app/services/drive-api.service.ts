@@ -31,7 +31,7 @@ export class DriveAPIService {
 
     preloadImage(driveFileURL: URL) {
         const image = new Image();
-        image.src = driveFileURL.toString();
+        image.src = driveFileURL.href;
         return image;
     }
 

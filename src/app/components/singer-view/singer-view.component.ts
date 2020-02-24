@@ -46,7 +46,8 @@ export class SingerViewComponent implements OnInit {
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => {
                 for (const item of driveFiles.files) {
-                    if (item.mimeType.split('/')[0] === 'audio') {
+                    const mimeType = item.mimeType.split('/')[0];
+                    if (mimeType === 'audio') {
                         this.bhajanSource = `https://www.googleapis.com/drive/v3/files/${item.id}?key=${environment.driveConfig.key}&alt=media`;
                         break;
                     }
