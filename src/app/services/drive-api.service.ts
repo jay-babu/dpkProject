@@ -23,12 +23,15 @@ export class DriveAPIService {
     }
 
     exportImageDriveURL(id: string) {
-        return `https://drive.google.com/uc?export=view&id=${id}`;
+        const url = new URL(`${this.driveURL}/${id}`);
+        url.searchParams.set('key', environment.driveConfig.key);
+        url.searchParams.set('alt', 'media');
+        return url;
     }
 
-    preloadImage(driveFileURL: string) {
+    preloadImage(driveFileURL: URL) {
         const image = new Image();
-        image.src = driveFileURL;
+        image.src = driveFileURL.href;
         return image;
     }
 

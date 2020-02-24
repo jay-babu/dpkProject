@@ -23,10 +23,14 @@ export class SlideComponent implements OnInit {
     stanza: string[][];
     definitions: string[][];
     images: HTMLImageElement[];
-    imagePaths: string[];
+    imagePaths: URL[] = [];
+    bhajanSource: URL;
+    audioTimings: number[];
+    audio: HTMLAudioElement;
 
     slideIndex: number;
     hidden = true;
+    timeOuts = [];
 
     slideConfig: SlideConfigI;
 
@@ -38,25 +42,64 @@ export class SlideComponent implements OnInit {
     }
 
     ngOnInit() {
+        this.audio = new Audio();
+
         this.activeRouter.params.subscribe(params => {
             this.slideIndex = (params.id === undefined) ? 0 : params.id;
         });
         this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
+            this.audioTimings = bhajan.audioTimings;
             const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
             this.driveBhajanImages$.subscribe(driveFiles => {
-                this.imagePaths = driveFiles.files.map(file => this.driveAPIService.exportImageDriveURL(file.id));
+                for (const item of driveFiles.files) {
+                    const mimeType = item.mimeType.split('/')[0];
+                    if (mimeType === 'audio') {
+                        this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
+                    } else if (mimeType === 'image') {
+                        this.imagePaths.push(this.driveAPIService.exportImageDriveURL(item.id));
+                    }
+                }
                 this.imageDownload(this.imagePaths);
+                this.audioSetup(this.bhajanSource);
             });
         });
-
+        this.slideService.slideConfig$.subscribe(slideConfig => {
+            this.slideConfig = slideConfig;
+            if (this.slideConfig.playback && this.audioTimings) {
+                this.audioPlay();
+            } else {
+                this.audio.pause();
+                this.timeOuts.forEach(times => clearTimeout(times));
+            }
+        });
         this.hidden = false;
-        this.slideService.slideConfig$.subscribe(slideConfig => this.slideConfig = slideConfig);
     }
 
-    imageDownload(files: string[]) {
+    audioSetup(bhajanSource: URL) {
+        if (bhajanSource) {
+            this.audio.src = bhajanSource.href;
+        }
+    }
+
+    audioPlay() {
+        this.audio.play();
+        this.audio.currentTime = this.audioTimings[this.slideIndex];
+        this.nextSlideAudio();
+    }
+
+    nextSlideAudio() {
+        this.timeOuts.forEach(times => clearTimeout(times));
+        let index = this.slideIndex;
+        const removeSecond = -this.audioTimings[index++];
+        for (const seconds of this.audioTimings.slice(index)) {
+            this.timeOuts.push(setTimeout(() => this.upOrDown(true), (removeSecond+seconds) * 1000));
+        }
+    }
+
+    imageDownload(files: URL[]) {
         this.images = [];
         this.images[this.slideIndex] = this.driveAPIService.preloadImage(files[this.slideIndex]);
 
@@ -106,6 +149,11 @@ export class SlideComponent implements OnInit {
             this.upOrDown(true);
         } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             this.upOrDown(false);
+        }
+
+        if (this.slideConfig.playback && this.audioTimings) {
+            await new Promise(done => setTimeout(() => done(), 500));
+            this.audioPlay();
         }
     }
 
