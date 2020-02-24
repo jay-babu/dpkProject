@@ -8,6 +8,7 @@ import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
 import { DpkParseService } from '../dpk-parse.service';
+import { AudioControlService } from '../../../audio-component/audio-control.service';
 
 @Component({
     selector: 'app-slide',
@@ -16,8 +17,7 @@ import { DpkParseService } from '../dpk-parse.service';
     animations: [ fadeAnimation ]
 })
 export class SlideComponent implements OnInit {
-    @Input()
-    firebaseBhajan$: Observable<FirebaseBhajan>;
+    @Input() firebaseBhajan$: Observable<FirebaseBhajan>;
     driveBhajanImages$: Observable<DriveImageList>;
 
     stanza: string[][];
@@ -26,7 +26,6 @@ export class SlideComponent implements OnInit {
     imagePaths: URL[] = [];
     bhajanSource: URL;
     audioTimings: number[];
-    audio: HTMLAudioElement;
 
     slideIndex: number;
     hidden = true;
@@ -38,11 +37,11 @@ export class SlideComponent implements OnInit {
                 private activeRouter: ActivatedRoute,
                 private driveAPIService: DriveAPIService,
                 public slideService: SlideService,
-                private dpkParseService: DpkParseService,) {
+                private dpkParseService: DpkParseService,
+                private audioControlService: AudioControlService,) {
     }
 
     ngOnInit() {
-        this.audio = new Audio();
 
         this.activeRouter.params.subscribe(params => {
             this.slideIndex = (params.id === undefined) ? 0 : params.id;
@@ -63,39 +62,27 @@ export class SlideComponent implements OnInit {
                     }
                 }
                 this.imageDownload(this.imagePaths);
-                this.audioSetup(this.bhajanSource);
             });
         });
         this.slideService.slideConfig$.subscribe(slideConfig => {
             this.slideConfig = slideConfig;
             if (this.slideConfig.playback && this.audioTimings) {
-                this.audioPlay();
+                this.nextSlideAudio();
             } else {
-                this.audio.pause();
+                this.audioControlService.pause();
                 this.timeOuts.forEach(times => clearTimeout(times));
             }
         });
         this.hidden = false;
     }
 
-    audioSetup(bhajanSource: URL) {
-        if (bhajanSource) {
-            this.audio.src = bhajanSource.href;
-        }
-    }
-
-    audioPlay() {
-        this.audio.play();
-        this.audio.currentTime = this.audioTimings[this.slideIndex];
-        this.nextSlideAudio();
-    }
-
     nextSlideAudio() {
         this.timeOuts.forEach(times => clearTimeout(times));
         let index = this.slideIndex;
+        this.audioControlService.seekTime(this.audioTimings[index]);
         const removeSecond = -this.audioTimings[index++];
         for (const seconds of this.audioTimings.slice(index)) {
-            this.timeOuts.push(setTimeout(() => this.upOrDown(true), (removeSecond+seconds) * 1000));
+            this.timeOuts.push(setTimeout(() => this.upOrDown(true), (removeSecond + seconds) * 1000));
         }
     }
 
@@ -147,14 +134,18 @@ export class SlideComponent implements OnInit {
     async slideMovement(event: KeyboardEvent) {
         if ((event.key === 'ArrowRight' || event.key === ' ') && this.slideIndex < this.stanza.length - 1) {
             this.upOrDown(true);
+            if (this.slideConfig.playback && this.audioTimings) {
+                await new Promise(done => setTimeout(() => done(), 500));
+                this.nextSlideAudio();
+            }
         } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             this.upOrDown(false);
+            if (this.slideConfig.playback && this.audioTimings) {
+                await new Promise(done => setTimeout(() => done(), 500));
+                this.nextSlideAudio();
+            }
         }
 
-        if (this.slideConfig.playback && this.audioTimings) {
-            await new Promise(done => setTimeout(() => done(), 500));
-            this.audioPlay();
-        }
     }
 
     navigateID() {
