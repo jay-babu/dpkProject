@@ -2,16 +2,6 @@
 <div mat-dialog-content>
     <form [formGroup]="customForm">
         <mat-form-field>
-            <label>
-                <input
-                    matInput cpPosition="top-left" class="colorPicker" formControlName="bgColor"
-                    [colorPicker]="customForm.get('bgColor').value"
-                    [value]="customForm.get('bgColor').value"
-                    [style.background]="customForm.get('bgColor').value"
-                    (colorPickerChange)="customForm.get('bgColor').setValue($event)">
-            </label>
-        </mat-form-field>
-        <mat-form-field>
             <mat-select formControlName="fontStyle" placeholder="Font Style">
                 <mat-option *ngFor="let fontStyle of fontStyles" [value]="fontStyle">
                     {{ fontStyle }}
@@ -20,6 +10,9 @@
         </mat-form-field>
         <mat-slide-toggle formControlName="definitionShown" labelPosition="before" checked="definitionShown">
             Definition Shown
+        </mat-slide-toggle>
+        <mat-slide-toggle formControlName="playback" labelPosition="before" checked="playback">
+            Audio Playback
         </mat-slide-toggle>
     </form>
 </div>
