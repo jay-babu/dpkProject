@@ -19,7 +19,7 @@ export class SingerViewComponent implements OnInit {
     definitions: string[][];
     keyframes: number[];
     driveBhajanImages$: Observable<DriveImageList>;
-    bhajanSource: string;
+    bhajanSource: URL;
 
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
@@ -48,7 +48,7 @@ export class SingerViewComponent implements OnInit {
                 for (const item of driveFiles.files) {
                     const mimeType = item.mimeType.split('/')[0];
                     if (mimeType === 'audio') {
-                        this.bhajanSource = `https://www.googleapis.com/drive/v3/files/${item.id}?key=${environment.driveConfig.key}&alt=media`;
+                        this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
                         break;
                     }
                 }
