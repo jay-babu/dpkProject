@@ -3,23 +3,16 @@ import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 import { DpkFormComponent } from './components/sidenav/dpk-form/dpk-form.component';
 import { LoginComponent } from './components/sidenav/login/login.component';
-import { PdfSlideComponent } from './components/dpk/pdf-slide/pdf-slide.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { SliderItemsComponent } from './components/sidenav/slider-items/slider-items.component';
-import { SlidesComponent } from './components/dpk/slides/slides.component';
-import { SingerViewComponent } from './components/dpk/singer-view/singer-view.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 
 const appRoutes: Routes = [
     { path: '', pathMatch: 'full', redirectTo: 'slides' },
     {
-        path: 'dpk', children: [
-            { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
-            { path: ':dpk/:name', component: SlidesComponent, },
-            { path: 'singerView/:dpk/:name', component: SingerViewComponent, },
-        ]
+        path: 'dpk', loadChildren: () => import('./components/dpk/dpk.module').then(m => m.DpkModule),
     },
     {
         path: '', component: SidenavComponent, children: [
