@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FirebaseBhajan } from '../../interfaces/bhajan';
-import { DriveImageList } from '../../interfaces/drive';
-import { DriveAPIService } from '../../services/drive-api.service';
+import { FirebaseBhajan } from '../../../interfaces/bhajan';
+import { DriveImageList } from '../../../interfaces/drive';
+import { DriveAPIService } from '../../../services/drive-api.service';
 import { DpkParseService } from '../slides/dpk-parse.service';
 
 @Component({

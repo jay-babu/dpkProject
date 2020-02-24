@@ -3,17 +3,17 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { SideNavToggleService } from '../../services/side-nav-toggle.service';
+import { environment } from '../../../../environments/environment';
+import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
 
 declare var particlesJS: any;
 
 @Component({
     selector: 'app-passwordless-auth',
-    templateUrl: './passwordless-auth.component.html',
-    styleUrls: ['./passwordless-auth.component.css']
+    templateUrl: './login.component.html',
+    styleUrls: ['./login.component.css']
 })
-export class PasswordlessAuthComponent implements OnInit {
+export class LoginComponent implements OnInit {
     user: Observable<any>;
     emailSent = false;
 

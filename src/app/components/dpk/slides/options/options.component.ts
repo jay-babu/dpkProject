@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { SlideConfigI } from '../../../interfaces/slide-config-i';
-import { SlideService } from '../../../services/slide.service';
+import { SlideConfigI } from '../../../../interfaces/slide-config-i';
+import { SlideService } from '../../../../services/slide.service';
 
 @Component({
     selector: 'app-options',

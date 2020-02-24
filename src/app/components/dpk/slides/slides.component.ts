@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FirebaseBhajan } from '../../interfaces/bhajan';
+import { FirebaseBhajan } from '../../../interfaces/bhajan';
 import { DpkParseService } from './dpk-parse.service';
 
 @Component({
