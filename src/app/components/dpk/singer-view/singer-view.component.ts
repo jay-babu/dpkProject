@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DpkParseService } from '../slides/dpk-parse.service';
 import { Observable } from 'rxjs';
-import { FirebaseBhajan } from '../../interfaces/bhajan';
-import { AudioControlService } from '../audio-component/audio-control.service';
-import { DriveImageList } from '../../interfaces/drive';
-import { DriveAPIService } from '../../services/drive-api.service';
-import { environment } from '../../../environments/environment';
+import { FirebaseBhajan } from '../../../interfaces/bhajan';
+import { AudioControlService } from '../../audio-component/audio-control.service';
+import { DriveImageList } from '../../../interfaces/drive';
+import { DriveAPIService } from '../../../services/drive-api.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
     selector: 'app-singer-view',

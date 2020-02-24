@@ -41,7 +41,7 @@ mat-form-field {
 }
 
 #particles {
-    background-image: url("src/assets/img/Sāchā Sādhu Re.jpg");
+    background-image: url("../../../../assets/img/Sāchā Sādhu Re.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-color: var(--particle-bg);

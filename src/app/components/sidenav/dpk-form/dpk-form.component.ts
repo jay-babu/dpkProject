@@ -2,8 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
-import { SideNavToggleService } from '../../services/side-nav-toggle.service';
-import { SlideService } from '../../services/slide.service';
+import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
+import { SlideService } from '../../../services/slide.service';
 import { DpkFormService } from './dpk-form.service';
 
 class CrossFieldMatcher implements ErrorStateMatcher {

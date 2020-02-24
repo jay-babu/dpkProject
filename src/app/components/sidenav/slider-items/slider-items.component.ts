@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { DriveAPIService } from '../../services/drive-api.service';
-import { SideNavToggleService } from '../../services/side-nav-toggle.service';
+import { DriveAPIService } from '../../../services/drive-api.service';
+import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
 
 @Component({
     selector: 'app-slider-items',

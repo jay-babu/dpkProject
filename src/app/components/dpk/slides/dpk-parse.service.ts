@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FirebaseBhajan } from '../../interfaces/bhajan';
+import { FirebaseBhajan } from '../../../interfaces/bhajan';
 import { Observable } from 'rxjs';
 
 @Injectable({

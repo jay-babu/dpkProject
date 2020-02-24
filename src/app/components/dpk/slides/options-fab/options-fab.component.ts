@@ -1,6 +1,6 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { SlideService } from '../../../services/slide.service';
+import { SlideService } from '../../../../services/slide.service';
 import { OptionsComponent } from '../options/options.component';
 
 @Component({

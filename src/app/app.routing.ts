@@ -1,14 +1,14 @@
 import { ModuleWithProviders } from '@angular/core';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
-import { DpkFormComponent } from './components/dpk-form/dpk-form.component';
-import { LoginComponent } from './components/login/login.component';
+import { DpkFormComponent } from './components/sidenav/dpk-form/dpk-form.component';
+import { LoginComponent } from './components/sidenav/login/login.component';
 import { PdfSlideComponent } from './components/dpk/pdf-slide/pdf-slide.component';
 import { PrivacyPolicyComponent } from './components/privacy-policy/privacy-policy.component';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
-import { SliderItemsComponent } from './components/slider-items/slider-items.component';
-import { SlidesComponent } from './components/slides/slides.component';
-import { SingerViewComponent } from './components/singer-view/singer-view.component';
+import { SliderItemsComponent } from './components/sidenav/slider-items/slider-items.component';
+import { SlidesComponent } from './components/dpk/slides/slides.component';
+import { SingerViewComponent } from './components/dpk/singer-view/singer-view.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['login']);
 

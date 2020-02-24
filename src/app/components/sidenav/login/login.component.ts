@@ -3,8 +3,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
-import { SideNavToggleService } from '../../services/side-nav-toggle.service';
+import { environment } from '../../../../environments/environment';
+import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
 
 declare var particlesJS: any;
 
