@@ -1,28 +1,35 @@
 <div *ngIf="dpkObservable | async" class="slider-container">
     <div class="slides">
-        <div *ngFor="let slide of dpk" class="slide">
-            <mat-card>
-                <mat-card-header>
-                    <mat-card-title>{{ slide.title }}</mat-card-title>
-                </mat-card-header>
+        <mat-card *ngFor="let slide of dpk" class="slide">
+            <mat-card-header>
+                <mat-card-title>{{ slide.title }}</mat-card-title>
+            </mat-card-header>
 
-                <img mat-card-image [src]="this.exportThumbnailDriveURL(slide.imgID)" [routerLink]="['/dpk', slide.type, slide.title]"
-                     alt="{{slide.title}}">
+            <img mat-card-image [src]="this.exportThumbnailDriveURL(slide.imgID).href"
+                 [routerLink]="['/dpk', slide.type, slide.title]"
+                 alt="{{slide.title}}">
 
-                <mat-card-actions class="actions">
-<!--                    <button mat-button color="primary">Like</button>-->
-                    <a [routerLink]="['/dpk', 'singerView', slide.type, slide.title]">
-                        <button mat-button color="accent"><mat-icon>mic</mat-icon> View</button>
-                    </a>
-                    <a [routerLink]="['/dpk', slide.type, slide.title]">
-                        <button mat-button color="primary"><mat-icon>slideshow</mat-icon> SlideShow</button>
-                    </a>
-                    <a [routerLink]="['/dpk', 'pdf', slide.type, slide.title]">
-                        <button mat-icon-button color="accent"><mat-icon>picture_as_pdf</mat-icon></button>
-                    </a>
-<!--                    <button mat-button color="warn">Flag</button>-->
-                </mat-card-actions>
-            </mat-card>
-        </div>
+            <mat-card-actions class="actions">
+                <!--                    <button mat-button color="primary">Like</button>-->
+                <a [routerLink]="['/dpk', 'singerView', slide.type, slide.title]">
+                    <button mat-button color="accent">
+                        <mat-icon>mic</mat-icon>
+                        View
+                    </button>
+                </a>
+                <a [routerLink]="['/dpk', slide.type, slide.title]">
+                    <button mat-button color="primary">
+                        <mat-icon>slideshow</mat-icon>
+                        SlideShow
+                    </button>
+                </a>
+                <a [routerLink]="['/dpk', 'pdf', slide.type, slide.title]">
+                    <button mat-icon-button color="accent">
+                        <mat-icon>picture_as_pdf</mat-icon>
+                    </button>
+                </a>
+                <!--                    <button mat-button color="warn">Flag</button>-->
+            </mat-card-actions>
+        </mat-card>
     </div>
 </div>
