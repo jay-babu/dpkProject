@@ -5,13 +5,14 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
+import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 declare var particlesJS: any;
 
 @Component({
-    selector: 'app-passwordless-auth',
+    selector: 'app-login',
     templateUrl: './login.component.html',
-    styleUrls: ['./login.component.css']
+    styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit {
     user: Observable<any>;
@@ -24,11 +25,11 @@ export class LoginComponent implements OnInit {
     constructor(private afAuth: AngularFireAuth,
                 private router: Router,
                 private fb: FormBuilder,
-                private sideNavToggleService: SideNavToggleService) {
+                private sideNavToggleService: SideNavToggleService,
+                private analytics: AngularFireAnalytics,) {
     }
 
     ngOnInit() {
-        particlesJS.load('particles', 'assets/data/particlesjs-image-config.json');
         this.user = this.afAuth.authState;
 
         const url = this.router.url;
@@ -36,12 +37,13 @@ export class LoginComponent implements OnInit {
 
         this.reactiveForm();
         setTimeout(() => this.sideNavToggleService.toggleSidenav(true), 0);
+        particlesJS.load('particles', 'assets/data/particlesjs-image-config.json');
     }
 
     /* Reactive form */
     reactiveForm() {
         this.emailForm = this.fb.group({
-            email: ['', [Validators.required, Validators.email]],
+            email: [ '', [ Validators.required, Validators.email ] ],
         });
     }
 
@@ -68,17 +70,20 @@ export class LoginComponent implements OnInit {
 
     async anonSignIn() {
         await this.afAuth.auth.signInAnonymously().then(
-            () => this.naviDPKCreate(),
+            user => {
+                this.naviDPKCreate();
+                const method = user.credential.signInMethod;
+                this.analytics.logEvent('login', {method});
+            },
             err => console.error(err)
         );
     }
 
     naviDPKCreate() {
-        return setTimeout(() => this.router.navigate(['/dpkCreate']), 500);
+        return setTimeout(() => this.router.navigate([ '/dpkCreate' ]), 500);
     }
 
-    confirmSignIn(url) {
-        // console.log(url);
+    confirmSignIn(url: string) {
         try {
             if (this.afAuth.auth.isSignInWithEmailLink(url)) {
                 const email = window.localStorage.getItem('emailForSignIn');
@@ -90,7 +95,11 @@ export class LoginComponent implements OnInit {
 
                 if (email) {
                     this.afAuth.auth.signInWithEmailLink(email, url).then(
-                        () => this.naviDPKCreate()
+                        user => {
+                            this.naviDPKCreate();
+                            const method = user.credential.signInMethod;
+                            this.analytics.logEvent('login', {method});
+                        }
                     );
                     window.localStorage.removeItem('emailForSignIn');
                 }
@@ -117,6 +126,4 @@ export class LoginComponent implements OnInit {
         );
 
     }
-
-
 }

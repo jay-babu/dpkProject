@@ -16,6 +16,7 @@ import { AppRoutingModule } from './app.routing';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
+import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
 
 @NgModule({
     declarations: [
@@ -28,6 +29,7 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         AngularFireAuthModule,
+        AngularFireAnalyticsModule,
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
