@@ -1,7 +1,7 @@
 <ng-container *ngIf="this.firebaseBhajan$ | async">
     <div class="mat-app-background slide">
         <div class="stanzaDiv" *ngFor="let stanza of bhajan; let i = index">
-            <button mat-icon-button color="primary" (click)="seekPosition(keyframes[i])">
+            <button mat-icon-button color="primary" (click)="seekPosition(keyframes[i])" *ngIf="bhajanSource">
                 <mat-icon>play_circle_filled</mat-icon>
             </button>
             <div class="lyricDiv">
