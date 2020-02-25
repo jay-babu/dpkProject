@@ -36,6 +36,9 @@ export class DriveAPIService {
     }
 
     exportThumbnailDriveURL(id: string) {
-        return `https://drive.google.com/thumbnail?id=${id}&sz=h210`;
+        const url = new URL(`https://drive.google.com/thumbnail`);
+        url.searchParams.set('id', id);
+        url.searchParams.set('sz', 'h210');
+        return url;
     }
 }
