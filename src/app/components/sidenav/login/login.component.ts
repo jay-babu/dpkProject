@@ -71,9 +71,9 @@ export class LoginComponent implements OnInit {
     async anonSignIn() {
         await this.afAuth.auth.signInAnonymously().then(
             user => {
-                this.naviDPKCreate();
-                const method = user.credential.signInMethod;
+                const method = user.user.isAnonymous;
                 this.analytics.logEvent('login', {method});
+                this.naviDPKCreate();
             },
             err => console.error(err)
         );
@@ -96,13 +96,13 @@ export class LoginComponent implements OnInit {
                 if (email) {
                     this.afAuth.auth.signInWithEmailLink(email, url).then(
                         user => {
-                            this.naviDPKCreate();
                             const newUser = user.additionalUserInfo.isNewUser;
-                            const method = user.credential.signInMethod;
+                            const method = user.user.isAnonymous;
                             this.analytics.logEvent('login', {method});
                             if (newUser) {
                                 this.analytics.logEvent('sign_up', {newUser});
                             }
+                            this.naviDPKCreate();
                         }
                     );
                     window.localStorage.removeItem('emailForSignIn');
