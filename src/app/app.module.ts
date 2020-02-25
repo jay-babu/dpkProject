@@ -16,7 +16,7 @@ import { AppRoutingModule } from './app.routing';
 import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
-import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
+import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 
 @NgModule({
     declarations: [
@@ -40,6 +40,7 @@ import { AngularFireAnalyticsModule } from '@angular/fire/analytics';
     providers: [
         FirebaseService,
         SideNavToggleService,
+        ScreenTrackingService,
 
     ],
     bootstrap: [ AppComponent ],
