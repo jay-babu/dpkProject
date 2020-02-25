@@ -97,8 +97,12 @@ export class LoginComponent implements OnInit {
                     this.afAuth.auth.signInWithEmailLink(email, url).then(
                         user => {
                             this.naviDPKCreate();
+                            const newUser = user.additionalUserInfo.isNewUser;
                             const method = user.credential.signInMethod;
                             this.analytics.logEvent('login', {method});
+                            if (newUser) {
+                                this.analytics.logEvent('sign_up', {newUser});
+                            }
                         }
                     );
                     window.localStorage.removeItem('emailForSignIn');
