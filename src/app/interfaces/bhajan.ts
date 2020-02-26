@@ -1,6 +1,3 @@
-import { Observable } from 'rxjs';
-import { DriveImageList } from './drive';
-
 export interface FirebaseBhajan {
     lyrics: string[];
     imagesURL: string;
@@ -12,5 +9,10 @@ export interface Bhajan {
     stanza: string[][];
     definitions: string[][];
     audioTimings: number[];
-    driveBhajanImages$: Observable<DriveImageList>;
+}
+
+export interface DriveMaterial {
+    bhajanSource: URL;
+    imagePaths: URL[];
+    images: HTMLImageElement[];
 }
