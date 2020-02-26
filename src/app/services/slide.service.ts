@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { SlideConfigI } from '../interfaces/slide-config-i';
-import { ActivatedRoute, NavigationEnd, Router, UrlSegment } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
 import { DpkParseService } from '../components/dpk/slides/dpk-parse.service';
 import { Bhajan, FirebaseBhajan } from '../interfaces/bhajan';
-import { DriveImageList } from '../interfaces/drive';
 import { DriveAPIService } from './drive-api.service';
+import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
+import { filter, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -18,16 +17,27 @@ export class SlideService {
     private _prevLocation: BehaviorSubject<string[]>;
     prevLocation$: Observable<string[]>;
 
+    dpk: string;
+    name: string;
+    private _path: BehaviorSubject<string[]>;
+    path$: Observable<string[]>;
+
     dpkDriveFolder: Set<string>;
     firebaseBhajan$: Observable<FirebaseBhajan>;
-    bhajan: Bhajan;
+    private readonly bhajan: Bhajan;
 
-    constructor(private activatedRoute: ActivatedRoute,
+    private _bhajan: Subject<Bhajan>;
+    bhajan$: Observable<Bhajan>;
+
+    constructor(private dpkParseService: DpkParseService,
+                private driveAPIService: DriveAPIService,
                 private router: Router,
-                private dpkParseService: DpkParseService,
-                private driveAPIService: DriveAPIService,) {
-        this.bhajan = {driveBhajanImages$: undefined, audioTimings: [], definitions: [], imagePaths: [], images: [], stanza: []};
+                private activatedRoute: ActivatedRoute,) {
+        this.bhajan = {driveBhajanImages$: undefined, audioTimings: [], definitions: [], stanza: []};
         this.dpkDriveFolder = new Set<string>().add('Dhun').add('Prathana').add('Kirtan');
+
+        this._path = new BehaviorSubject<string[]>([ 'test', 'test' ]);
+        this.path$ = this._path.asObservable();
 
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
@@ -39,7 +49,9 @@ export class SlideService {
                 return route;
             }),
             map(route => route.url)
-        ).subscribe(activeRouter => activeRouter.subscribe(urlSegments => this.requestSlideData(urlSegments)));
+        ).subscribe(activeRouter => activeRouter.subscribe(urlSegments => {
+            if (urlSegments.length === 2) this.updatePath(urlSegments[0].path, urlSegments[1].path)
+        }));
 
         this._slideConfig = new BehaviorSubject<any>({
             fontStyle: 'Avenir',
@@ -50,13 +62,30 @@ export class SlideService {
 
         this._prevLocation = new BehaviorSubject<string[]>([ '/dpk', 'slides' ]);
         this.prevLocation$ = this._prevLocation.asObservable();
+
+        this._bhajan = new Subject<Bhajan>();
+        this.bhajan$ = this._bhajan.asObservable();
     }
 
-    private requestSlideData(urlSegments: UrlSegment[]) {
-        if (this.dpkDriveFolder.has(urlSegments[0].path)) {
-            this.firebaseBhajan$ = this.dpkParseService.getDPK(urlSegments[0].path, urlSegments[1].path);
-            this.organizeSlideData(this.firebaseBhajan$);
+    updatePath(dpk: string, name: string) {
+        if (dpk !== this.dpk || name !== this.name) {
+            this.dpk = dpk;
+            this.name = name;
+            this._path.next([ dpk, name ]);
+            this.requestSlideData(this._path.value);
         }
+    }
+
+    updateBhajan(bhajan: Bhajan) {
+        this._bhajan.next(bhajan);
+    }
+
+    private requestSlideData(path: string[]) {
+        let dpk;
+        let name;
+        [ dpk, name ] = path;
+        this.firebaseBhajan$ = this.dpkParseService.getDPK(dpk, name);
+        this.organizeSlideData(this.firebaseBhajan$);
     }
 
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
@@ -66,31 +95,8 @@ export class SlideService {
             this.bhajan.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             this.bhajan.audioTimings = bhajan.audioTimings;
-            this.bhajanImages(this.bhajan.driveBhajanImages$);
+            this.updateBhajan(this.bhajan);
         });
-    }
-
-    private bhajanImages(driveBhajanImages$: Observable<DriveImageList>) {
-        if (this.bhajan.images.length < this.bhajan.stanza.length) {
-            driveBhajanImages$.subscribe(driveFiles => {
-                for (const item of driveFiles.files) {
-                    const mimeType = item.mimeType.split('/')[0];
-                    if (mimeType === 'audio') {
-                        this.bhajan.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
-                    } else if (mimeType === 'image') {
-                        this.bhajan.imagePaths.push(this.driveAPIService.exportImageDriveURL(item.id));
-                    }
-                }
-                this.imageDownload(this.bhajan.imagePaths);
-            });
-        }
-    }
-
-    imageDownload(files: URL[]) {
-        this.bhajan.images = [];
-        for (const [ index, driveFile ] of files.entries()) {
-            this.bhajan.images[index] = this.driveAPIService.preloadImage(driveFile);
-        }
     }
 
     updateSlideConfig(slideConfigForm: SlideConfigI) {
