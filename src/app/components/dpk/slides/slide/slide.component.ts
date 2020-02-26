@@ -1,14 +1,14 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../../../animations/fade.animation';
 import { FirebaseBhajan } from '../../../../interfaces/bhajan';
-import { DriveImageList } from '../../../../interfaces/drive';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
 import { DpkParseService } from '../dpk-parse.service';
 import { AudioControlService } from '../../../audio-component/audio-control.service';
+import { DriveImageList } from '../../../../interfaces/drive';
 
 @Component({
     selector: 'app-slide',
@@ -16,8 +16,8 @@ import { AudioControlService } from '../../../audio-component/audio-control.serv
     styleUrls: [ './slide.component.css' ],
     animations: [ fadeAnimation ]
 })
-export class SlideComponent implements OnInit {
-    @Input() firebaseBhajan$: Observable<FirebaseBhajan>;
+export class SlideComponent implements OnInit, OnDestroy {
+    firebaseBhajan$: Observable<FirebaseBhajan>;
     driveBhajanImages$: Observable<DriveImageList>;
 
     stanza: string[][];
@@ -46,24 +46,16 @@ export class SlideComponent implements OnInit {
         this.activeRouter.params.subscribe(params => {
             this.slideIndex = (params.id === undefined) ? 0 : params.id;
         });
-        this.firebaseBhajan$.subscribe(bhajan => {
-            this.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
-            this.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
+        this.firebaseBhajan$ = this.slideService.firebaseBhajan$;
+
+        this.slideService.bhajan$.subscribe(bhajan => {
+            this.stanza = bhajan.stanza;
+            this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
-            const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
-            this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
-            this.driveBhajanImages$.subscribe(driveFiles => {
-                for (const item of driveFiles.files) {
-                    const mimeType = item.mimeType.split('/')[0];
-                    if (mimeType === 'audio') {
-                        this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
-                    } else if (mimeType === 'image') {
-                        this.imagePaths.push(this.driveAPIService.exportImageDriveURL(item.id));
-                    }
-                }
-                this.imageDownload(this.imagePaths);
-            });
+            this.driveBhajanImages$ = bhajan.driveBhajanImages$;
+            this.bhajanImages(this.driveBhajanImages$);
         });
+
         this.slideService.slideConfig$.subscribe(slideConfig => {
             this.slideConfig = slideConfig;
             if (this.slideConfig.playback && this.audioTimings) {
@@ -76,6 +68,32 @@ export class SlideComponent implements OnInit {
         this.hidden = false;
     }
 
+    ngOnDestroy(): void {
+        this.images.forEach(image => image.remove());
+        delete this.images;
+    }
+
+    private bhajanImages(driveBhajanImages$: Observable<DriveImageList>) {
+        driveBhajanImages$.subscribe(driveFiles => {
+            for (const item of driveFiles.files) {
+                const mimeType = item.mimeType.split('/')[0];
+                if (mimeType === 'audio') {
+                    this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
+                } else if (mimeType === 'image') {
+                    this.imagePaths.push(this.driveAPIService.exportImageDriveURL(item.id));
+                }
+            }
+            this.imageDownload(this.imagePaths);
+        });
+    }
+
+    imageDownload(files: URL[]) {
+        this.images = [];
+        for (const [ index, driveFile ] of files.entries()) {
+            this.images[index] = this.driveAPIService.preloadImage(driveFile);
+        }
+    }
+
     nextSlideAudio() {
         this.timeOuts.forEach(times => clearTimeout(times));
         let index = this.slideIndex;
@@ -83,17 +101,6 @@ export class SlideComponent implements OnInit {
         const removeSecond = -this.audioTimings[index++];
         for (const seconds of this.audioTimings.slice(index)) {
             this.timeOuts.push(setTimeout(() => this.upOrDown(true), (removeSecond + seconds) * 1000));
-        }
-    }
-
-    imageDownload(files: URL[]) {
-        this.images = [];
-        this.images[this.slideIndex] = this.driveAPIService.preloadImage(files[this.slideIndex]);
-
-        for (const [ index, driveFile ] of files.entries()) {
-            if (this.slideIndex !== index) {
-                this.images[index] = this.driveAPIService.preloadImage(driveFile);
-            }
         }
     }
 
@@ -145,7 +152,6 @@ export class SlideComponent implements OnInit {
                 this.nextSlideAudio();
             }
         }
-
     }
 
     navigateID() {
@@ -153,6 +159,6 @@ export class SlideComponent implements OnInit {
     }
 
     imageToURLL(index: number) {
-        return `url(${this.imagePaths[index]})`;
+        return `url(${this.imagePaths[index].href})`;
     }
 }

@@ -38,7 +38,6 @@ const dpkRoutes: Routes = [
     providers: [
         AudioControlService,
         SlideService,
-
     ]
 })
 
