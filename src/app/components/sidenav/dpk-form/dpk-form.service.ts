@@ -68,7 +68,7 @@ export class DpkFormService {
     };
 
     submitDPK(fg: FormGroup) {
-        this.fireDB
+        return this.fireDB
             .collection(fg.value.dpk).doc(fg.value.title)
             .set({
                 lyrics: fg.value.lyrics.split(/\n{2,}/g),
@@ -77,7 +77,7 @@ export class DpkFormService {
                 title: fg.value.title,
                 audioTimings: this.timingsToSeconds(fg.value.audioTimings.split(/\n{2,}/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
-            }).then(_ => _, err => console.error(err));
+            });
     }
 
     timingsToSeconds(audioTimings: string[]) {
