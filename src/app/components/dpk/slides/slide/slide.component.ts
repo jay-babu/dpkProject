@@ -1,14 +1,12 @@
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../../../animations/fade.animation';
-import { FirebaseBhajan } from '../../../../interfaces/bhajan';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
-import { DpkParseService } from '../dpk-parse.service';
 import { AudioControlService } from '../../../audio-component/audio-control.service';
-import { DriveImageList } from '../../../../interfaces/drive';
+import { Bhajan } from '../../../../interfaces/bhajan';
 
 @Component({
     selector: 'app-slide',
@@ -16,16 +14,17 @@ import { DriveImageList } from '../../../../interfaces/drive';
     styleUrls: [ './slide.component.css' ],
     animations: [ fadeAnimation ]
 })
-export class SlideComponent implements OnInit, OnDestroy {
-    firebaseBhajan$: Observable<FirebaseBhajan>;
-    driveBhajanImages$: Observable<DriveImageList>;
+export class SlideComponent implements OnInit {
+    firebaseBhajan$: Observable<Bhajan>;
+    driveBhajanImages$: Observable<any>;
 
     stanza: string[][];
     definitions: string[][];
-    images: HTMLImageElement[];
-    imagePaths: URL[] = [];
-    bhajanSource: URL;
     audioTimings: number[];
+
+    images: HTMLImageElement[];
+    imagePaths: URL[];
+    bhajanSource: URL;
 
     slideIndex: number;
     hidden = true;
@@ -37,23 +36,28 @@ export class SlideComponent implements OnInit, OnDestroy {
                 private activeRouter: ActivatedRoute,
                 private driveAPIService: DriveAPIService,
                 public slideService: SlideService,
-                private dpkParseService: DpkParseService,
                 private audioControlService: AudioControlService,) {
     }
 
     ngOnInit() {
-
         this.activeRouter.params.subscribe(params => {
-            this.slideIndex = (params.id === undefined) ? 0 : params.id;
+            this.slideIndex = params.id || 0;
         });
-        this.firebaseBhajan$ = this.slideService.firebaseBhajan$;
+        this.firebaseBhajan$ = this.slideService.bhajan$;
+        this.driveBhajanImages$ = this.driveAPIService.driveMaterial$;
 
-        this.slideService.bhajan$.subscribe(bhajan => {
+        this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.stanza;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
-            this.driveBhajanImages$ = bhajan.driveBhajanImages$;
-            this.bhajanImages(this.driveBhajanImages$);
+        });
+
+        this.driveBhajanImages$.subscribe(material => {
+            if (material) {
+                this.bhajanSource = material.bhajanSource;
+                this.imagePaths = material.imagePaths;
+                this.images = material.images;
+            }
         });
 
         this.slideService.slideConfig$.subscribe(slideConfig => {
@@ -66,32 +70,6 @@ export class SlideComponent implements OnInit, OnDestroy {
             }
         });
         this.hidden = false;
-    }
-
-    ngOnDestroy(): void {
-        this.images.forEach(image => image.remove());
-        delete this.images;
-    }
-
-    private bhajanImages(driveBhajanImages$: Observable<DriveImageList>) {
-        driveBhajanImages$.subscribe(driveFiles => {
-            for (const item of driveFiles.files) {
-                const mimeType = item.mimeType.split('/')[0];
-                if (mimeType === 'audio') {
-                    this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
-                } else if (mimeType === 'image') {
-                    this.imagePaths.push(this.driveAPIService.exportImageDriveURL(item.id));
-                }
-            }
-            this.imageDownload(this.imagePaths);
-        });
-    }
-
-    imageDownload(files: URL[]) {
-        this.images = [];
-        for (const [ index, driveFile ] of files.entries()) {
-            this.images[index] = this.driveAPIService.preloadImage(driveFile);
-        }
     }
 
     nextSlideAudio() {
@@ -111,17 +89,14 @@ export class SlideComponent implements OnInit, OnDestroy {
          */
         let imageMaxHeight = 100;
         let heightDecrement = 7.1;
-        for (const {} of this.stanza[this.slideIndex]) {
-            imageMaxHeight -= heightDecrement;
-        }
+        imageMaxHeight -= heightDecrement * this.stanza[this.slideIndex].length;
+
         if (!this.slideConfig.definitionShown) {
             heightDecrement -= 3;
         }
 
         if (this.definitions[this.slideIndex]) {
-            for (const {} of this.definitions[this.slideIndex]) {
-                imageMaxHeight -= heightDecrement - 1.5;
-            }
+            imageMaxHeight -= (heightDecrement - 1.5) * this.definitions[this.slideIndex].length;
         } else {
             imageMaxHeight -= heightDecrement - 3;
         }
