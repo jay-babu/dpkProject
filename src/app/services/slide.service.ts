@@ -23,7 +23,6 @@ export class SlideService {
     path$: Observable<string[]>;
 
     dpkDriveFolder: Set<string>;
-    firebaseBhajan$: Observable<FirebaseBhajan>;
     private readonly bhajan: Bhajan;
 
     private _bhajan: Subject<Bhajan>;
@@ -33,7 +32,7 @@ export class SlideService {
                 private driveAPIService: DriveAPIService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,) {
-        this.bhajan = {driveBhajanImages$: undefined, audioTimings: [], definitions: [], stanza: []};
+        this.bhajan = {audioTimings: [], definitions: [], stanza: []};
         this.dpkDriveFolder = new Set<string>().add('Dhun').add('Prathana').add('Kirtan');
 
         this._path = new BehaviorSubject<string[]>([ 'test', 'test' ]);
@@ -81,17 +80,16 @@ export class SlideService {
     }
 
     private requestSlideData(path: string[]) {
-        let dpk;
-        let name;
+        let dpk: string;
+        let name: string;
         [ dpk, name ] = path;
-        this.firebaseBhajan$ = this.dpkParseService.getDPK(dpk, name);
-        this.organizeSlideData(this.firebaseBhajan$);
+        const firebaseBhajan$ = this.dpkParseService.getDPK(dpk, name);
+        this.organizeSlideData(firebaseBhajan$);
     }
 
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
         firebaseBhajan.subscribe(bhajan => {
-            const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
-            this.bhajan.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${imagesURL}' in parents`);
+            this.driveAPIService.bhajanID = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.bhajan.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             this.bhajan.audioTimings = bhajan.audioTimings;
@@ -101,10 +99,6 @@ export class SlideService {
 
     updateSlideConfig(slideConfigForm: SlideConfigI) {
         this._slideConfig.next(slideConfigForm);
-    }
-
-    updatePrevLocation(routerLink: string[]) {
-        this._prevLocation.next(routerLink);
     }
 
     edgeCheck(slideIndex, stanzaLength): number {
