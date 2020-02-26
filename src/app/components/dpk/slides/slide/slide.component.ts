@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { fadeAnimation } from '../../../../animations/fade.animation';
@@ -16,7 +16,7 @@ import { DriveImageList } from '../../../../interfaces/drive';
     styleUrls: [ './slide.component.css' ],
     animations: [ fadeAnimation ]
 })
-export class SlideComponent implements OnInit {
+export class SlideComponent implements OnInit, OnDestroy {
     firebaseBhajan$: Observable<FirebaseBhajan>;
     driveBhajanImages$: Observable<DriveImageList>;
 
@@ -66,6 +66,11 @@ export class SlideComponent implements OnInit {
             }
         });
         this.hidden = false;
+    }
+
+    ngOnDestroy(): void {
+        this.images.forEach(image => image.remove());
+        delete this.images;
     }
 
     private bhajanImages(driveBhajanImages$: Observable<DriveImageList>) {
@@ -147,7 +152,6 @@ export class SlideComponent implements OnInit {
                 this.nextSlideAudio();
             }
         }
-
     }
 
     navigateID() {
