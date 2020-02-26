@@ -12,6 +12,7 @@ import { AngularMaterialModule } from '../../angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AudioControlService } from '../audio-component/audio-control.service';
 import { SlideService } from '../../services/slide.service';
+import { DriveAPIService } from '../../services/drive-api.service';
 
 const dpkRoutes: Routes = [
     {path: 'pdf/:dpk/:name', component: PdfSlideComponent,},
@@ -37,6 +38,7 @@ const dpkRoutes: Routes = [
     ],
     providers: [
         AudioControlService,
+        DriveAPIService,
         SlideService,
     ]
 })

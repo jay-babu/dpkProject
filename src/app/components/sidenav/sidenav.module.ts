@@ -10,7 +10,6 @@ import { SliderItemDirective } from './slider-items/slider/slider-item.directive
 import { SliderComponent } from './slider-items/slider/slider.component';
 import { DpkFormService } from './dpk-form/dpk-form.service';
 import { DpkParseService } from '../dpk/slides/dpk-parse.service';
-import { DriveAPIService } from '../../services/drive-api.service';
 import { ThemeService } from '../../services/theme.service';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -48,7 +47,6 @@ const sidenavRoutes: Routes = [
         AngularFireAuthGuard,
         DpkFormService,
         DpkParseService,
-        DriveAPIService,
         ThemeService,
     ],
 })

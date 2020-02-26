@@ -3,7 +3,6 @@ import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
-import { SlideService } from '../../../services/slide.service';
 import { DpkFormService } from './dpk-form.service';
 
 class CrossFieldMatcher implements ErrorStateMatcher {
@@ -15,7 +14,7 @@ class CrossFieldMatcher implements ErrorStateMatcher {
 @Component({
     selector: 'app-dpk-form',
     templateUrl: './dpk-form.component.html',
-    styleUrls: ['./dpk-form.component.css']
+    styleUrls: [ './dpk-form.component.css' ]
 })
 export class DpkFormComponent implements OnInit {
 
@@ -23,8 +22,7 @@ export class DpkFormComponent implements OnInit {
 
     constructor(public dpkFormService: DpkFormService,
                 public sideNavToggleService: SideNavToggleService,
-                private router: Router,
-                private slideService: SlideService,) {
+                private router: Router,) {
     }
 
     dpkForm = new FormGroup({
@@ -35,20 +33,20 @@ export class DpkFormComponent implements OnInit {
         dpk: new FormControl('', Validators.required),
         audioUploaded: new FormControl(false),
         audioTimings: new FormControl(''),
-    }, { asyncValidators: [this.dpkFormService.validSubmission] });
+    }, {asyncValidators: [ this.dpkFormService.validSubmission ]});
 
     ngOnInit() {
     }
 
     onSubmit() {
-        this.dpkFormService.submitDPK(this.dpkForm);
-        this.openDPKSlides();
+        this.dpkFormService.submitDPK(this.dpkForm).then(
+            () => this.openDPKSlides(), err => console.error(err)
+        );
     }
 
     openDPKSlides() {
         const dpk = this.dpkForm.value.dpk;
         const title = this.dpkForm.value.title;
-        this.slideService.updatePrevLocation([this.router.url]);
-        setTimeout(() => this.router.navigate(['/dpk', dpk, title]), 1000);
+        this.router.navigate([ '/dpk', dpk, title ]);
     }
 }
