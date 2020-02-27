@@ -14,6 +14,7 @@ import { AudioControlService } from '../audio-component/audio-control.service';
 import { SlideService } from '../../services/slide.service';
 import { DriveAPIService } from '../../services/drive-api.service';
 import { LottieModule } from 'ngx-lottie';
+import { LottieAudioFabComponent } from './slides/options-fab/lottie-audio-fab/lottie-audio-fab.component';
 
 const dpkRoutes: Routes = [
     {path: 'pdf/:dpk/:name', component: PdfSlideComponent,},
@@ -30,6 +31,7 @@ const dpkRoutes: Routes = [
         OptionsComponent,
         OptionsFabComponent,
         AudioComponent,
+        LottieAudioFabComponent,
     ],
     imports: [
         CommonModule,
