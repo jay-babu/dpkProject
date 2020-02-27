@@ -25,17 +25,12 @@ export class DriveAPIService {
 
         this._driveMaterial = new Subject<DriveMaterial>();
         this.driveMaterial$ = this._driveMaterial.asObservable();
-
-        this.bhajanImage$.subscribe(materialID => {
-            if (materialID) {
-                const driveBhajanImages$ = this.getListOfFiles(`'${materialID}' in parents`);
-                this.bhajanImages(driveBhajanImages$);
-            }
-        });
     }
 
     set bhajanID(materialID: string) {
-        this.driveMaterial = {bhajanSource: undefined, imagePaths: [], images: []};
+        this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
+        const driveBhajanImages$ = this.getListOfFiles(`'${ materialID }' in parents`);
+        this.bhajanImages(driveBhajanImages$);
         this._bhajanImage.next(materialID);
     }
 
@@ -65,18 +60,18 @@ export class DriveAPIService {
     }
 
     getDPKFolder(rootFolderId: string) {
-        return this.getListOfFiles(`'${rootFolderId}' in parents and mimeType = 'application/vnd.google-apps.folder'`);
+        return this.getListOfFiles(`'${ rootFolderId }' in parents and mimeType = 'application/vnd.google-apps.folder'`);
     }
 
     getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id, mimeType)') {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
-        return this.http.get<DriveImageList>(this.driveURL, {params});
+        return this.http.get<DriveImageList>(this.driveURL, { params });
     }
 
     // TODO Turn into Private afterwards
     exportImageDriveURL(id: string) {
-        const url = new URL(`${this.driveURL}/${id}`);
+        const url = new URL(`${ this.driveURL }/${ id }`);
         url.searchParams.set('key', environment.driveConfig.key);
         url.searchParams.set('alt', 'media');
         return url;
