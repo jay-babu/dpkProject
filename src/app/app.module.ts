@@ -17,6 +17,11 @@ import { SidenavComponent } from './components/sidenav/sidenav.component';
 import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
+import { LottieModule } from 'ngx-lottie';
+
+export function playerFactory() {
+    return import('lottie-web');
+}
 
 @NgModule({
     declarations: [
@@ -33,6 +38,7 @@ import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire
         BrowserModule,
         BrowserAnimationsModule,
         HttpClientModule,
+        LottieModule.forRoot({ player: playerFactory }),
         ReactiveFormsModule,
         RouterModule,
         HammerModule,
