@@ -1,6 +1,6 @@
-import { Component, HostListener, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { fadeAnimation } from '../../../../animations/fade.animation';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../../services/drive-api.service';
@@ -14,7 +14,7 @@ import { Bhajan } from '../../../../interfaces/bhajan';
     styleUrls: [ './slide.component.css' ],
     animations: [ fadeAnimation ]
 })
-export class SlideComponent implements OnInit {
+export class SlideComponent implements OnInit, OnDestroy {
     firebaseBhajan$: Observable<Bhajan>;
     driveBhajanImages$: Observable<any>;
 
@@ -25,6 +25,8 @@ export class SlideComponent implements OnInit {
     images: HTMLImageElement[];
     imagePaths: URL[];
     bhajanSource: URL;
+
+    subscriptions: Subscription[] = [];
 
     slideIndex: number;
     hidden = true;
@@ -47,33 +49,37 @@ export class SlideComponent implements OnInit {
         this.firebaseBhajan$ = this.slideService.bhajan$;
         this.driveBhajanImages$ = this.driveAPIService.driveMaterial$;
 
-        this.firebaseBhajan$.subscribe(bhajan => {
+        this.subscriptions.push(this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.stanza;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
-        });
+        }));
 
-        this.driveBhajanImages$.subscribe(material => {
+        this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
             if (material) {
                 this.bhajanSource = material.bhajanSource;
                 this.imagePaths = material.imagePaths;
                 this.images = material.images;
             }
-        });
+        }));
 
-        this.slideService.slideConfig$.subscribe(slideConfig => {
+        this.subscriptions.push(this.slideService.slideConfig$.subscribe(slideConfig => {
             this.slideConfig = slideConfig;
-        });
+        }));
 
-        this.audioControlService.paused$.subscribe(off => {
+        this.subscriptions.push(this.audioControlService.paused$.subscribe(off => {
             this.playBack = !off;
             if (off) {
                 this.timeOuts.forEach(times => clearTimeout(times));
             } else {
                 this.nextSlideAudio();
             }
-        });
+        }));
         this.hidden = false;
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 
     nextSlideAudio() {

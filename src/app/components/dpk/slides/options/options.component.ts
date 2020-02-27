@@ -1,26 +1,35 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { SlideService } from '../../../../services/slide.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-options',
     templateUrl: './options.component.html',
-    styleUrls: ['./options.component.css']
+    styleUrls: [ './options.component.css' ]
 })
-export class OptionsComponent implements OnInit {
+export class OptionsComponent implements OnInit, OnDestroy {
     customForm: FormGroup;
     fontStyles: Set<string>;
+
+    subscriptions: Subscription[] = [];
+
 
     constructor(private fb: FormBuilder, private slideService: SlideService) {
     }
 
     ngOnInit(): void {
-        this.fontStyles = new Set(['Avenir', 'cursive', 'Roboto', 'Montserrat', 'Calibri', 'Helvetica Neue']);
+        this.fontStyles = new Set([ 'Avenir', 'cursive', 'Roboto', 'Montserrat', 'Calibri', 'Helvetica Neue' ]);
         this.customForm = this.fb.group({
             fontStyle: 'Avenir',
             definitionShown: true,
         });
-        this.customForm.valueChanges.subscribe(customForm => this.slideService.updateSlideConfig(customForm as SlideConfigI));
+        this.subscriptions.push(
+            this.customForm.valueChanges.subscribe(customForm => this.slideService.updateSlideConfig(customForm as SlideConfigI)));
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
     }
 }

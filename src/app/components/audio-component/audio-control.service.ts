@@ -14,10 +14,6 @@ export class AudioControlService {
     constructor() {
         this._paused = new Subject<boolean>();
         this.paused$ = this._paused.asObservable();
-
-        this.paused$.subscribe(off => {
-            (off) ? this.bhajanAudio.pause() : this.bhajanAudio.play();
-        });
     }
 
     get audioExist() {
@@ -34,6 +30,8 @@ export class AudioControlService {
     }
 
     toggleAudio() {
-        this._paused.next(!this.bhajanAudio.paused);
+        const pause = !this.bhajanAudio.paused;
+        (pause) ? this.bhajanAudio.pause() : this.bhajanAudio.play();
+        this._paused.next(pause);
     }
 }
