@@ -1,6 +1,8 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { OptionsComponent } from '../options/options.component';
+import { AnimationOptions } from 'ngx-lottie';
+import { AnimationDirection, AnimationItem } from 'lottie-web';
 
 @Component({
     selector: 'app-options-fab',
@@ -9,18 +11,23 @@ import { OptionsComponent } from '../options/options.component';
 })
 export class OptionsFabComponent implements OnInit {
     toggleButton: boolean;
-    timer: number;
+    timer: any;
+
+    options: AnimationOptions = {
+        path: './assets/animation.json',
+        autoplay: false,
+        loop: false,
+    };
+
+    direction: AnimationDirection = -1;
+
+    animation: AnimationItem;
 
     @HostListener('document:mousemove', [ '$event' ])
-    onMouseMove(e: MouseEvent) {
-        if (window.innerHeight - e.clientY > 100 && window.innerWidth - e.clientX > 100) {
-            this.timeClear();
-            this.toggleButton = true;
-            setTimeout(() => this.toggleButton = false, 1300);
-        } else {
-            this.timeClear();
-            this.toggleButton = true;
-        }
+    onMouseMove() {
+        this.toggleButton = true;
+        this.timeClear();
+        this.timer = setTimeout(() => this.toggleButton = false, 1300);
     }
 
     constructor(public dialog: MatDialog,) {
@@ -37,7 +44,21 @@ export class OptionsFabComponent implements OnInit {
     openDialog(): void {
         this.dialog.open(OptionsComponent, {
             width: '250px',
-            position: {right: '1%'},
+            position: { right: '1%' },
         });
+    }
+
+    animationCreated(animationItem: AnimationItem) {
+        this.animation = animationItem;
+    }
+
+    play() {
+        if (this.direction === 1) {
+            this.direction = -1;
+        } else {
+            this.direction = 1;
+        }
+        this.animation.setDirection(this.direction);
+        this.animation.play();
     }
 }

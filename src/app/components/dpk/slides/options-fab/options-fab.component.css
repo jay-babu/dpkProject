@@ -1,5 +1,4 @@
-button {
-    z-index: 1;
+div {
     transition: .7s;
 }
 
@@ -14,4 +13,14 @@ button {
     position: fixed;
     top: 10px;
     left: 10px;
+}
+
+.playButton {
+    position: fixed;
+    bottom: 10px;
+    left: 10px;
+}
+
+::ng-deep .playButton > .mat-button-wrapper {
+    padding: 0 !important;
 }

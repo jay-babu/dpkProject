@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { AudioControlService } from '../audio-component/audio-control.service';
 import { SlideService } from '../../services/slide.service';
 import { DriveAPIService } from '../../services/drive-api.service';
+import { LottieModule } from 'ngx-lottie';
 
 const dpkRoutes: Routes = [
     {path: 'pdf/:dpk/:name', component: PdfSlideComponent,},
@@ -35,6 +36,7 @@ const dpkRoutes: Routes = [
         RouterModule.forChild(dpkRoutes),
         AngularMaterialModule,
         ReactiveFormsModule,
+        LottieModule,
     ],
     providers: [
         AudioControlService,
