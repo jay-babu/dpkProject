@@ -1,11 +1,14 @@
-<button class="slideSettings" mat-fab (click)="openDialog()"
-        [style.opacity]="toggleButton ? '1' : '0'"
-        [style.visibility]="toggleButton ? 'visible' : 'hidden'">
-    <mat-icon>settings</mat-icon>
-</button>
+<div [style.opacity]="toggleButton ? '1' : '0'"
+     [style.visibility]="toggleButton ? 'visible' : 'hidden'">
+    <button class="slideSettings" mat-fab (click)="openDialog()">
+        <mat-icon>settings</mat-icon>
+    </button>
 
-<button class="backButton" mat-mini-fab [routerLink]="['/slides']"
-        [style.opacity]="toggleButton ? '1' : '0'"
-        [style.visibility]="toggleButton ? 'visible' : 'hidden'">
-    <mat-icon>arrow_back_ios</mat-icon>
-</button>
+    <button class="backButton" mat-mini-fab [routerLink]="['/slides']">
+        <mat-icon>arrow_back_ios</mat-icon>
+    </button>
+
+    <button class="playButton" mat-fab (click)="this.play()">
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+    </button>
+</div>
