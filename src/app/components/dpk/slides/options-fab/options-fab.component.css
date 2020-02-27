@@ -2,25 +2,29 @@ div {
     transition: .7s;
 }
 
-.slideSettings {
+.bottomRight {
+    margin: 1vh 0;
     position: fixed;
-    z-index: 10;
     bottom: 10px;
     right: 10px;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
-.backButton {
+.topLeft {
     position: fixed;
     top: 10px;
     left: 10px;
+    margin: 1vh 0;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
-.playButton {
+.bottomLeft {
     position: fixed;
     bottom: 10px;
     left: 10px;
-}
-
-::ng-deep .playButton > .mat-button-wrapper {
-    padding: 0 !important;
+    margin: 1vh 0;
+    display: flex;
+    flex-direction: column-reverse;
 }
