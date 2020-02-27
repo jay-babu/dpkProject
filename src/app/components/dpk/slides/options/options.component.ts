@@ -20,7 +20,6 @@ export class OptionsComponent implements OnInit {
         this.customForm = this.fb.group({
             fontStyle: 'Avenir',
             definitionShown: true,
-            playback: false,
         });
         this.customForm.valueChanges.subscribe(customForm => this.slideService.updateSlideConfig(customForm as SlideConfigI));
     }

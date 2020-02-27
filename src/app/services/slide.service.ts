@@ -55,7 +55,6 @@ export class SlideService {
         this._slideConfig = new BehaviorSubject<any>({
             fontStyle: 'Avenir',
             definitionShown: true,
-            playback: false,
         });
         this.slideConfig$ = this._slideConfig.asObservable();
 

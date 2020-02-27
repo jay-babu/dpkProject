@@ -1,11 +1,18 @@
-<button class="slideSettings" mat-fab (click)="openDialog()"
-        [style.opacity]="toggleButton ? '1' : '0'"
-        [style.visibility]="toggleButton ? 'visible' : 'hidden'">
-    <mat-icon>settings</mat-icon>
-</button>
+<div [style.opacity]="toggleButton ? '1' : '0'"
+     [style.visibility]="toggleButton ? 'visible' : 'hidden'">
+    <div class="bottomRight">
+        <button mat-fab (click)="openDialog()">
+            <mat-icon>settings</mat-icon>
+        </button>
+    </div>
 
-<button class="backButton" mat-mini-fab [routerLink]="['/slides']"
-        [style.opacity]="toggleButton ? '1' : '0'"
-        [style.visibility]="toggleButton ? 'visible' : 'hidden'">
-    <mat-icon>arrow_back_ios</mat-icon>
-</button>
+    <div class="topLeft">
+        <button mat-mini-fab [routerLink]="['/slides']">
+            <mat-icon>arrow_back_ios</mat-icon>
+        </button>
+    </div>
+
+    <div class="bottomLeft">
+        <app-lottie-audio-fab></app-lottie-audio-fab>
+    </div>
+</div>

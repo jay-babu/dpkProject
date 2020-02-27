@@ -1,4 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -7,7 +8,20 @@ export class AudioControlService {
 
     private bhajanAudio: HTMLAudioElement;
 
+    private _paused: Subject<boolean>;
+    paused$: Observable<boolean>;
+
     constructor() {
+        this._paused = new Subject<boolean>();
+        this.paused$ = this._paused.asObservable();
+
+        this.paused$.subscribe(off => {
+            (off) ? this.bhajanAudio.pause() : this.bhajanAudio.play();
+        });
+    }
+
+    get audioExist() {
+        return !!this.bhajanAudio;
     }
 
     updateAudio(audioPlayerRef: ElementRef<HTMLAudioElement>) {
@@ -19,7 +33,7 @@ export class AudioControlService {
         this.bhajanAudio.currentTime = time;
     }
 
-    pause() {
-        if (this.bhajanAudio) this.bhajanAudio.pause();
+    toggleAudio() {
+        this._paused.next(!this.bhajanAudio.paused);
     }
 }

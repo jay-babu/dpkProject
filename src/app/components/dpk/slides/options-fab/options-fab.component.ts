@@ -9,18 +9,13 @@ import { OptionsComponent } from '../options/options.component';
 })
 export class OptionsFabComponent implements OnInit {
     toggleButton: boolean;
-    timer: number;
+    timer: any;
 
     @HostListener('document:mousemove', [ '$event' ])
-    onMouseMove(e: MouseEvent) {
-        if (window.innerHeight - e.clientY > 100 && window.innerWidth - e.clientX > 100) {
-            this.timeClear();
-            this.toggleButton = true;
-            setTimeout(() => this.toggleButton = false, 1300);
-        } else {
-            this.timeClear();
-            this.toggleButton = true;
-        }
+    onMouseMove() {
+        this.toggleButton = true;
+        this.timeClear();
+        this.timer = setTimeout(() => this.toggleButton = false, 1300);
     }
 
     constructor(public dialog: MatDialog,) {
@@ -37,7 +32,7 @@ export class OptionsFabComponent implements OnInit {
     openDialog(): void {
         this.dialog.open(OptionsComponent, {
             width: '250px',
-            position: {right: '1%'},
+            position: { right: '1%' },
         });
     }
 }

@@ -31,6 +31,7 @@ export class SlideComponent implements OnInit {
     timeOuts = [];
 
     slideConfig: SlideConfigI;
+    playBack: boolean;
 
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
@@ -62,11 +63,14 @@ export class SlideComponent implements OnInit {
 
         this.slideService.slideConfig$.subscribe(slideConfig => {
             this.slideConfig = slideConfig;
-            if (this.slideConfig.playback && this.audioTimings) {
-                this.nextSlideAudio();
-            } else {
-                this.audioControlService.pause();
+        });
+
+        this.audioControlService.paused$.subscribe(off => {
+            this.playBack = !off;
+            if (off) {
                 this.timeOuts.forEach(times => clearTimeout(times));
+            } else {
+                this.nextSlideAudio();
             }
         });
         this.hidden = false;
@@ -116,13 +120,13 @@ export class SlideComponent implements OnInit {
     async slideMovement(event: KeyboardEvent) {
         if ((event.key === 'ArrowRight' || event.key === ' ') && this.slideIndex < this.stanza.length - 1) {
             this.upOrDown(true);
-            if (this.slideConfig.playback && this.audioTimings) {
+            if (this.playBack && this.audioTimings) {
                 await new Promise(done => setTimeout(() => done(), 500));
                 this.nextSlideAudio();
             }
         } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
             this.upOrDown(false);
-            if (this.slideConfig.playback && this.audioTimings) {
+            if (this.playBack && this.audioTimings) {
                 await new Promise(done => setTimeout(() => done(), 500));
                 this.nextSlideAudio();
             }
@@ -130,10 +134,11 @@ export class SlideComponent implements OnInit {
     }
 
     navigateID() {
-        this.router.navigate([ `./`, {id: this.slideIndex} ], {relativeTo: this.activeRouter}).then(_ => _, err => console.log(err));
+        this.router.navigate([ `./`, { id: this.slideIndex } ], { relativeTo: this.activeRouter })
+            .then(_ => _, err => console.error(err));
     }
 
     imageToURLL(index: number) {
-        return `url(${this.imagePaths[index].href})`;
+        return `url(${ this.imagePaths[index].href })`;
     }
 }
