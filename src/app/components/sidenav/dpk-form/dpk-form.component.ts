@@ -28,12 +28,13 @@ export class DpkFormComponent implements OnInit {
     dpkForm = new FormGroup({
         title: new FormControl('', Validators.required),
         lyrics: new FormControl('', Validators.required),
+        gujarati: new FormControl(''),
         definitions: new FormControl(''),
         imagesURL: new FormControl('', Validators.required),
         dpk: new FormControl('', Validators.required),
         audioUploaded: new FormControl(false),
         audioTimings: new FormControl(''),
-    }, {asyncValidators: [ this.dpkFormService.validSubmission ]});
+    }, { asyncValidators: [ this.dpkFormService.validSubmission ] });
 
     ngOnInit() {
     }
