@@ -3,19 +3,19 @@ import { Slider } from '../../../../interfaces/slider';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { DriveMaterialList } from '../../../../interfaces/drive';
 import { take } from 'rxjs/operators';
-import { Observable, ReplaySubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SliderService {
 
-    private _dpkFolder: ReplaySubject<Map<string, Slider[]>>;
+    private _dpkFolder: BehaviorSubject<Map<string, Slider[]>>;
     dpkFolder$: Observable<Map<string, Slider[]>>;
 
 
     constructor(private driveAPIService: DriveAPIService) {
-        this._dpkFolder = new ReplaySubject<Map<string, Slider[]>>();
+        this._dpkFolder = new BehaviorSubject<Map<string, Slider[]>>(null);
         this.dpkFolder$ = this._dpkFolder.asObservable();
 
         const dpks = new Map<string, string>().set('Dhun', '1EI8HFzxxO94jyXMIC4mmSKEWF9dKTDcB')
