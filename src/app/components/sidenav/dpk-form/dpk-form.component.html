@@ -54,11 +54,21 @@
                 The Number of Slides and Photos in Google Drive do not Match
             </mat-error>
         </mat-form-field>
+        <mat-form-field class="text-fields">
+            <label>
+                    <textarea cdkTextareaAutosize matInput placeholder="Gujarati Lyrics (Optional)"
+                              formControlName="gujarati" class="mat-primary" [errorStateMatcher]="errorMatcher">
+                    </textarea>
+            </label>
+            <mat-error *ngIf="dpkForm.hasError('GujuIncorrectSize')">
+                Number of Stanzas for Lyrics and Gujarati Lyrics do not Match
+            </mat-error>
+        </mat-form-field>
 
         <mat-form-field class="text-fields">
             <label>
-                <textarea cdkTextareaAutosize matInput placeholder="Definitions" formControlName="definitions"
-                          class="mat-primary"></textarea>
+                <textarea cdkTextareaAutosize matInput placeholder="Definitions  (Optional)"
+                          formControlName="definitions" class="mat-primary"></textarea>
             </label>
         </mat-form-field>
 
@@ -68,7 +78,8 @@
 
         <mat-form-field *ngIf="dpkForm.value.audioUploaded" class="text-fields">
             <label>
-                <textarea cdkTextareaAutosize matInput placeholder="Audio Timings (MM:SS) M means Minutes. S means Seconds"
+                <textarea cdkTextareaAutosize matInput
+                          placeholder="Audio Timings (MM:SS) M means Minutes. S means Seconds"
                           formControlName="audioTimings"
                           class="mat-primary" [errorStateMatcher]="errorMatcher">
                 </textarea>
