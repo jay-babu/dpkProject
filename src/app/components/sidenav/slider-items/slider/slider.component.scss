@@ -14,23 +14,18 @@
         width: 0;
         background: transparent;
     }
-
 }
 
-.controls {
+.slide {
     display: flex;
-    justify-content: center;
-    padding-bottom: 1vh;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .actions {
     display: flex;
     flex-flow: row wrap;
     justify-content: space-between;
-}
-
-p {
-    font-family: Lato, serif;
 }
 
 mat-card {
@@ -47,13 +42,14 @@ mat-card {
     flex-shrink: 0;
 }
 
-mat-card-content {
-    height: 15vh;
-    overflow: scroll;
-}
-
 img {
     max-height: 30vh;
     object-fit: cover;
     cursor: pointer;
+}
+
+mat-toolbar {
+    justify-content: space-between;
+    font-size: 1.5em;
+    margin-bottom: 1vh;
 }
