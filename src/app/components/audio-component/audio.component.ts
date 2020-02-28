@@ -20,7 +20,6 @@ export class AudioComponent implements OnInit, OnDestroy {
     }
 
     ngOnDestroy(): void {
-        this.audioPlayerRef.nativeElement.src = null;
         this.audioControlService.updateAudio(null);
     }
 }
