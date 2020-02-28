@@ -1,4 +1,4 @@
-import { AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AudioControlService } from './audio-control.service';
 
 @Component({
@@ -6,7 +6,7 @@ import { AudioControlService } from './audio-control.service';
     templateUrl: './audio.component.html',
     styleUrls: [ './audio.component.css' ]
 })
-export class AudioComponent implements OnInit, AfterViewChecked {
+export class AudioComponent implements OnInit, OnDestroy {
     @Input()
     bhajanSource: URL;
 
@@ -16,9 +16,10 @@ export class AudioComponent implements OnInit, AfterViewChecked {
     }
 
     ngOnInit(): void {
+        setTimeout(() => this.audioControlService.updateAudio(this.audioPlayerRef), 0);
     }
 
-    ngAfterViewChecked(): void {
-        this.audioControlService.updateAudio(this.audioPlayerRef);
+    ngOnDestroy(): void {
+        this.audioPlayerRef.nativeElement.src = null;
     }
 }
