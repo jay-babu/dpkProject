@@ -46,6 +46,7 @@ const sidenavRoutes: Routes = [
         AngularFireAuthGuard,
         DpkFormService,
         DpkParseService,
+        SliderService,
         ThemeService,
     ],
 })
