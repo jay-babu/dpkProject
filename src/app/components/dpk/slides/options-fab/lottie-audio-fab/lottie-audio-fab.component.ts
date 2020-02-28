@@ -38,5 +38,4 @@ export class LottieAudioFabComponent implements OnInit {
 
         this.audioControlService.toggleAudio();
     }
-
 }
