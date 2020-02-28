@@ -15,11 +15,12 @@ import { SlideService } from '../../services/slide.service';
 import { DriveAPIService } from '../../services/drive-api.service';
 import { LottieModule } from 'ngx-lottie';
 import { LottieAudioFabComponent } from './slides/options-fab/lottie-audio-fab/lottie-audio-fab.component';
+import { LottieLangFabComponent } from './slides/options-fab/lottie-lang-fab/lottie-lang-fab.component';
 
 const dpkRoutes: Routes = [
-    {path: 'pdf/:dpk/:name', component: PdfSlideComponent,},
-    {path: ':dpk/:name', component: SlidesComponent,},
-    {path: 'singerView/:dpk/:name', component: SingerViewComponent,},
+    { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
+    { path: ':dpk/:name', component: SlidesComponent, },
+    { path: 'singerView/:dpk/:name', component: SingerViewComponent, },
 ];
 
 @NgModule({
@@ -32,6 +33,7 @@ const dpkRoutes: Routes = [
         OptionsFabComponent,
         AudioComponent,
         LottieAudioFabComponent,
+        LottieLangFabComponent,
     ],
     imports: [
         CommonModule,
