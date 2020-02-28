@@ -19,6 +19,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     driveBhajanImages$: Observable<any>;
 
     stanza: string[][];
+    gujarati: string[][];
     definitions: string[][];
     audioTimings: number[];
 
@@ -51,6 +52,7 @@ export class SlideComponent implements OnInit, OnDestroy {
 
         this.subscriptions.push(this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.stanza;
+            this.gujarati = bhajan.gujarati;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
         }));
