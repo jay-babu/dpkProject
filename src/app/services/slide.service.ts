@@ -32,7 +32,7 @@ export class SlideService {
                 private driveAPIService: DriveAPIService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,) {
-        this.bhajan = {audioTimings: [], definitions: [], stanza: []};
+        this.bhajan = { gujarati: [], audioTimings: [], definitions: [], stanza: [] };
         this.dpkDriveFolder = new Set<string>().add('Dhun').add('Prathana').add('Kirtan');
 
         this._path = new BehaviorSubject<string[]>([ 'test', 'test' ]);
@@ -91,6 +91,7 @@ export class SlideService {
             this.driveAPIService.bhajanID = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.bhajan.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
+            this.bhajan.gujarati = this.dpkParseService.parseSlideText(bhajan.gujarati || []);
             this.bhajan.audioTimings = bhajan.audioTimings;
             this.updateBhajan(this.bhajan);
         });
