@@ -6,10 +6,12 @@ export interface FirebaseBhajan {
     audioTimings?: number[];
 }
 
+// stanzaVisible Init is English
+// altStanza Init is Gujarati
 export interface Bhajan {
-    stanza: string[][];
+    stanzaVisible: string[][];
     definitions: string[][];
-    gujarati: string[][];
+    altStanza: string[][];
     audioTimings: number[];
 }
 
