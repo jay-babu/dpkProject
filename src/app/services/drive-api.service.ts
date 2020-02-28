@@ -59,7 +59,7 @@ export class DriveAPIService {
         }
     }
 
-    getDPKFolder(rootFolderId: string) {
+    getListOfFolders(rootFolderId: string) {
         return this.getListOfFiles(`'${ rootFolderId }' in parents and mimeType = 'application/vnd.google-apps.folder'`);
     }
 
