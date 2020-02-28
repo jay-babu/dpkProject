@@ -32,7 +32,7 @@ export class SlideService {
                 private driveAPIService: DriveAPIService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,) {
-        this.bhajan = { gujarati: [], audioTimings: [], definitions: [], stanza: [] };
+        this.bhajan = { altStanza: [], audioTimings: [], definitions: [], stanzaVisible: [] };
         this.dpkDriveFolder = new Set<string>().add('Dhun').add('Prathana').add('Kirtan');
 
         this._path = new BehaviorSubject<string[]>([ 'test', 'test' ]);
@@ -89,9 +89,9 @@ export class SlideService {
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
         firebaseBhajan.subscribe(bhajan => {
             this.driveAPIService.bhajanID = new URL(bhajan.imagesURL).pathname.split('/')[3];
-            this.bhajan.stanza = this.dpkParseService.parseSlideText(bhajan.lyrics);
+            this.bhajan.stanzaVisible = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
-            this.bhajan.gujarati = this.dpkParseService.parseSlideText(bhajan.gujarati || []);
+            this.bhajan.altStanza = this.dpkParseService.parseSlideText(bhajan.gujarati || []);
             this.bhajan.audioTimings = bhajan.audioTimings;
             this.updateBhajan(this.bhajan);
         });
@@ -109,5 +109,12 @@ export class SlideService {
             slideIndex = stanzaLength - 1;
         }
         return slideIndex;
+    }
+
+    swapLanguages() {
+        if (this.bhajan.altStanza) {
+            [ this.bhajan.altStanza, this.bhajan.stanzaVisible ] = [ this.bhajan.stanzaVisible, this.bhajan.altStanza ];
+            this.updateBhajan(this.bhajan);
+        }
     }
 }
