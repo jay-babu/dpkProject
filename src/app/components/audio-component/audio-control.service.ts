@@ -21,7 +21,7 @@ export class AudioControlService {
     }
 
     updateAudio(audioPlayerRef: ElementRef<HTMLAudioElement>) {
-        this.bhajanAudio = audioPlayerRef.nativeElement
+        this.bhajanAudio = (audioPlayerRef) ? audioPlayerRef.nativeElement : null;
     }
 
     seekTime(time: number) {
