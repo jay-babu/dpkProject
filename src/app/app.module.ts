@@ -47,7 +47,6 @@ export function playerFactory() {
         FirebaseService,
         SideNavToggleService,
         ScreenTrackingService,
-
     ],
     bootstrap: [ AppComponent ],
 })

@@ -1,7 +1,7 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
-import { DriveImageList } from '../interfaces/drive';
+import { DriveMaterialList } from '../interfaces/drive';
 import { Observable, Subject } from 'rxjs';
 import { DriveMaterial } from '../interfaces/bhajan';
 
@@ -38,7 +38,7 @@ export class DriveAPIService {
         this._driveMaterial.next(material);
     }
 
-    private bhajanImages(driveBhajanImages$: Observable<DriveImageList>) {
+    private bhajanImages(driveBhajanImages$: Observable<DriveMaterialList>) {
         driveBhajanImages$.subscribe(driveFiles => {
             for (const item of driveFiles.files) {
                 const mimeType = item.mimeType.split('/')[0];
@@ -59,14 +59,14 @@ export class DriveAPIService {
         }
     }
 
-    getDPKFolder(rootFolderId: string) {
+    getListOfFolders(rootFolderId: string) {
         return this.getListOfFiles(`'${ rootFolderId }' in parents and mimeType = 'application/vnd.google-apps.folder'`);
     }
 
     getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id, mimeType)') {
         const key = environment.driveConfig.key;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
-        return this.http.get<DriveImageList>(this.driveURL, { params });
+        return this.http.get<DriveMaterialList>(this.driveURL, { params });
     }
 
     // TODO Turn into Private afterwards

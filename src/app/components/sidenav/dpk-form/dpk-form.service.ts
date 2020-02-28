@@ -155,7 +155,7 @@ export class DpkFormService {
     }
 
     getDPK() {
-        this.driveAPIService.getDPKFolder(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`)
+        this.driveAPIService.getListOfFolders(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`)
             .subscribe(foldersObject => {
                 const folders = foldersObject.files;
                 for (const folder of folders) {

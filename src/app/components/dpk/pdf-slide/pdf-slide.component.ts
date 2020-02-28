@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
-import { DriveImageList } from '../../../interfaces/drive';
+import { DriveMaterialList } from '../../../interfaces/drive';
 import { DriveAPIService } from '../../../services/drive-api.service';
 import { DpkParseService } from '../slides/dpk-parse.service';
 
@@ -15,7 +15,7 @@ export class PdfSlideComponent implements OnInit {
 
     firebaseBhajan$: Observable<FirebaseBhajan>;
 
-    driveBhajanImages$: Observable<DriveImageList>;
+    driveBhajanImages$: Observable<DriveMaterialList>;
 
     stanza: string[][];
     definitions: string[][];

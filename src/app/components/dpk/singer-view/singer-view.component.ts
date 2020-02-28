@@ -4,7 +4,7 @@ import { DpkParseService } from '../slides/dpk-parse.service';
 import { Observable, Subscription } from 'rxjs';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
 import { AudioControlService } from '../../audio-component/audio-control.service';
-import { DriveImageList } from '../../../interfaces/drive';
+import { DriveMaterialList } from '../../../interfaces/drive';
 import { DriveAPIService } from '../../../services/drive-api.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class SingerViewComponent implements OnInit, OnDestroy {
     bhajan: string[][];
     definitions: string[][];
     keyframes: number[];
-    driveBhajanImages$: Observable<DriveImageList>;
+    driveBhajanImages$: Observable<DriveMaterialList>;
     bhajanSource: URL;
 
     subscriptions: Subscription[] = [];

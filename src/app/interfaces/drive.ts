@@ -1,4 +1,4 @@
-export interface DriveImageList {
+export interface DriveMaterialList {
     files: {
         id: string;
         name: string;

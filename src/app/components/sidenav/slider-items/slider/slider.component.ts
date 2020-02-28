@@ -1,8 +1,8 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription } from 'rxjs';
-import { DriveImageList } from '../../../../interfaces/drive';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { Slider } from '../../../../interfaces/slider';
-import { DriveAPIService } from '../../../../services/drive-api.service';
+import { SliderService } from './slider.service';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-slider',
@@ -10,50 +10,18 @@ import { DriveAPIService } from '../../../../services/drive-api.service';
     styleUrls: [ './slider.component.scss' ]
 })
 export class SliderComponent implements OnInit, OnDestroy {
-    @Input()
-    DPK: string;
-    @Input()
-    dpkID;
+    dpkFolder: Observable<Map<string, Slider[]>>;
 
-    subscriptions: Subscription[] = [];
+    dpk: Map<string, Slider[]>;
 
-    dpkObservable: Observable<DriveImageList>;
-
-    dpk: Slider[];
-
-    constructor(private driveAPIService: DriveAPIService) {
+    constructor(private sliderService: SliderService) {
     }
 
     ngOnInit(): void {
-        this.dpk = this.getSomething(this.DPK, this.dpkID);
+        this.dpkFolder = this.sliderService.dpkFolder$.pipe(take(1));
+        this.dpkFolder.subscribe(dpkFolderItems => this.dpk = dpkFolderItems);
     }
 
     ngOnDestroy(): void {
-        this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
-
-    exportThumbnailDriveURL(id: string) {
-        return this.driveAPIService.exportThumbnailDriveURL(id);
-    }
-
-    getSomething(type: string, id: string) {
-        const dpk: Slider[] = [];
-        this.dpkObservable = this.driveAPIService.getListOfFiles(`'${ id }' in parents`);
-        this.subscriptions.push(this.dpkObservable.subscribe(
-            DPKs => {
-                for (const DPK of DPKs.files) {
-                    const name = DPK.name;
-                    this.subscriptions.push(this.driveAPIService.getListOfFiles(`'${ DPK.id }' in parents`).subscribe(images => {
-                        const imageID = images.files[0].id;
-                        dpk.push({
-                            title: name,
-                            imgID: imageID,
-                            type,
-                        });
-                    }));
-                }
-            }
-        ));
-        return dpk;
     }
 }
