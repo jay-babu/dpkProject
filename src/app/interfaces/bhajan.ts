@@ -1,13 +1,15 @@
 export interface FirebaseBhajan {
     lyrics: string[];
     imagesURL: string;
+    gujarati?: string[];
     definitions?: string[];
-    audioTimings: number[];
+    audioTimings?: number[];
 }
 
 export interface Bhajan {
     stanza: string[][];
     definitions: string[][];
+    gujarati: string[][];
     audioTimings: number[];
 }
 
