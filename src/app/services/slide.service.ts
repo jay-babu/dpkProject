@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { SlideConfigI } from '../interfaces/slide-config-i';
 import { DpkParseService } from '../components/dpk/slides/dpk-parse.service';
 import { Bhajan, FirebaseBhajan } from '../interfaces/bhajan';
@@ -22,10 +22,9 @@ export class SlideService {
     private _path: BehaviorSubject<string[]>;
     path$: Observable<string[]>;
 
-    dpkDriveFolder: Set<string>;
     private readonly bhajan: Bhajan;
 
-    private _bhajan: Subject<Bhajan>;
+    private _bhajan: BehaviorSubject<Bhajan>;
     bhajan$: Observable<Bhajan>;
 
     constructor(private dpkParseService: DpkParseService,
@@ -33,10 +32,20 @@ export class SlideService {
                 private router: Router,
                 private activatedRoute: ActivatedRoute,) {
         this.bhajan = { altStanza: [], audioTimings: [], definitions: [], stanzaVisible: [] };
-        this.dpkDriveFolder = new Set<string>().add('Dhun').add('Prathana').add('Kirtan');
 
         this._path = new BehaviorSubject<string[]>([ 'test', 'test' ]);
         this.path$ = this._path.asObservable();
+        this._prevLocation = new BehaviorSubject<string[]>([ '/dpk', 'slides' ]);
+        this.prevLocation$ = this._prevLocation.asObservable();
+
+        this._bhajan = new BehaviorSubject<Bhajan>(this.bhajan);
+        this.bhajan$ = this._bhajan.asObservable();
+
+        this._slideConfig = new BehaviorSubject<any>({
+            fontStyle: 'Avenir',
+            definitionShown: true,
+        });
+        this.slideConfig$ = this._slideConfig.asObservable();
 
         this.router.events.pipe(
             filter(event => event instanceof NavigationEnd),
@@ -52,20 +61,10 @@ export class SlideService {
             if (urlSegments.length === 3) this.updatePath(urlSegments[1].path, urlSegments[2].path)
         }));
 
-        this._slideConfig = new BehaviorSubject<any>({
-            fontStyle: 'Avenir',
-            definitionShown: true,
-        });
-        this.slideConfig$ = this._slideConfig.asObservable();
 
-        this._prevLocation = new BehaviorSubject<string[]>([ '/dpk', 'slides' ]);
-        this.prevLocation$ = this._prevLocation.asObservable();
-
-        this._bhajan = new Subject<Bhajan>();
-        this.bhajan$ = this._bhajan.asObservable();
     }
 
-    updatePath(dpk: string, name: string) {
+    private updatePath(dpk: string, name: string) {
         if (dpk !== this.dpk || name !== this.name) {
             this.dpk = dpk;
             this.name = name;
@@ -74,7 +73,7 @@ export class SlideService {
         }
     }
 
-    updateBhajan(bhajan: Bhajan) {
+    private updateBhajan(bhajan: Bhajan) {
         this._bhajan.next(bhajan);
     }
 

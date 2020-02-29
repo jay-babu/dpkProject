@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { PdfSlideComponent } from './pdf-slide/pdf-slide.component';
 import { SlidesComponent } from './slides/slides.component';
 import { SingerViewComponent } from './singer-view/singer-view.component';
 import { SlideComponent } from './slides/slide/slide.component';
@@ -19,14 +18,13 @@ import { LottieLangFabComponent } from './slides/options-fab/lottie-lang-fab/lot
 import { LottieAnimatedAudioFabComponent } from './singer-view/lottie-animated-audio-fab/lottie-animated-audio-fab.component';
 
 const dpkRoutes: Routes = [
-    { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
+    // { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
     { path: 'slideShow/:dpk/:name', component: SlidesComponent, },
     { path: 'singerView/:dpk/:name', component: SingerViewComponent, },
 ];
 
 @NgModule({
     declarations: [
-        PdfSlideComponent,
         SlidesComponent,
         SingerViewComponent,
         SlideComponent,
