@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { DriveMaterialList } from '../interfaces/drive';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { DriveMaterial } from '../interfaces/bhajan';
 
 @Injectable({
@@ -11,19 +11,13 @@ import { DriveMaterial } from '../interfaces/bhajan';
 export class DriveAPIService {
     driveURL = 'https://www.googleapis.com/drive/v3/files';
 
-    private _bhajanImage: Subject<string>;
-    bhajanImage$: Observable<string>;
-
-    private _driveMaterial: Subject<DriveMaterial>;
+    private _driveMaterial: BehaviorSubject<DriveMaterial>;
     driveMaterial$: Observable<DriveMaterial>;
     driveMaterial: DriveMaterial;
 
 
     constructor(private http: HttpClient) {
-        this._bhajanImage = new Subject<string>();
-        this.bhajanImage$ = this._bhajanImage.asObservable();
-
-        this._driveMaterial = new Subject<DriveMaterial>();
+        this._driveMaterial = new BehaviorSubject<DriveMaterial>(null);
         this.driveMaterial$ = this._driveMaterial.asObservable();
     }
 
@@ -31,7 +25,6 @@ export class DriveAPIService {
         this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
         const driveBhajanImages$ = this.getListOfFiles(`'${ materialID }' in parents`);
         this.bhajanImages(driveBhajanImages$);
-        this._bhajanImage.next(materialID);
     }
 
     private set driveMaterialSubject(material: DriveMaterial) {
@@ -53,7 +46,7 @@ export class DriveAPIService {
         });
     }
 
-    imageDownload(files: URL[]) {
+    private imageDownload(files: URL[]) {
         for (const [ index, driveFile ] of files.entries()) {
             this.driveMaterial.images[index] = this.preloadImage(driveFile);
         }
@@ -69,8 +62,7 @@ export class DriveAPIService {
         return this.http.get<DriveMaterialList>(this.driveURL, { params });
     }
 
-    // TODO Turn into Private afterwards
-    exportImageDriveURL(id: string) {
+    private exportImageDriveURL(id: string) {
         const url = new URL(`${ this.driveURL }/${ id }`);
         url.searchParams.set('key', environment.driveConfig.key);
         url.searchParams.set('alt', 'media');
