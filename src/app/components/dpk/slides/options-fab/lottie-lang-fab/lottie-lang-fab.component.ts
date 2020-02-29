@@ -1,29 +1,29 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationDirection, AnimationItem } from 'lottie-web';
-import { AudioControlService } from '../../../../audio-component/audio-control.service';
+import { SlideService } from '../../../../../services/slide.service';
 
 @Component({
-    selector: 'app-lottie-audio-fab',
-    templateUrl: './lottie-audio-fab.component.html',
-    styleUrls: [ './lottie-audio-fab.component.css' ]
+    selector: 'app-lottie-lang-fab',
+    templateUrl: './lottie-lang-fab.component.html',
+    styleUrls: [ './lottie-lang-fab.component.css' ]
 })
-export class LottieAudioFabComponent implements OnInit {
-
+export class LottieLangFabComponent implements OnInit {
     options: AnimationOptions = {
-        path: './assets/animation.json',
+        path: './assets/globe.json',
         autoplay: false,
         loop: false,
         rendererSettings: {
-            viewBoxSize: '90 780 880 10',
-        }
+            preserveAspectRatio: 'xMidYMid meet',
+            viewBoxSize: '-25 0 100 100',
+        },
     };
 
     direction: AnimationDirection = -1;
 
     animation: AnimationItem;
 
-    constructor(public audioControlService: AudioControlService) {
+    constructor(private slideService: SlideService) {
     }
 
     ngOnInit(): void {
@@ -39,6 +39,6 @@ export class LottieAudioFabComponent implements OnInit {
         this.animation.setDirection(this.direction);
         this.animation.play();
 
-        this.audioControlService.toggleAudio();
+        this.slideService.swapLanguages();
     }
 }

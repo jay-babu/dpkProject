@@ -50,7 +50,7 @@ export class SlideComponent implements OnInit, OnDestroy {
         this.driveBhajanImages$ = this.driveAPIService.driveMaterial$;
 
         this.subscriptions.push(this.firebaseBhajan$.subscribe(bhajan => {
-            this.stanza = bhajan.stanza;
+            this.stanza = bhajan.stanzaVisible;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
         }));
