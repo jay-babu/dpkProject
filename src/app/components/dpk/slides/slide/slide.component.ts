@@ -6,7 +6,7 @@ import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
 import { AudioControlService } from '../../../audio-component/audio-control.service';
-import { Bhajan } from '../../../../interfaces/bhajan';
+import { Bhajan, DriveMaterial } from '../../../../interfaces/bhajan';
 
 @Component({
     selector: 'app-slide',
@@ -16,7 +16,7 @@ import { Bhajan } from '../../../../interfaces/bhajan';
 })
 export class SlideComponent implements OnInit, OnDestroy {
     firebaseBhajan$: Observable<Bhajan>;
-    driveBhajanImages$: Observable<any>;
+    driveBhajanImages$: Observable<DriveMaterial>;
 
     stanza: string[][];
     definitions: string[][];

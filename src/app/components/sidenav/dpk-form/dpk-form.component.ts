@@ -48,6 +48,6 @@ export class DpkFormComponent implements OnInit {
     openDPKSlides() {
         const dpk = this.dpkForm.value.dpk;
         const title = this.dpkForm.value.title;
-        this.router.navigate([ '/dpk', dpk, title ]);
+        this.router.navigate([ '/dpk', 'slideShow', dpk, title ]);
     }
 }

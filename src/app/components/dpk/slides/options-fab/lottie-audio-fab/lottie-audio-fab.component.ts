@@ -11,7 +11,7 @@ import { AudioControlService } from '../../../../audio-component/audio-control.s
 export class LottieAudioFabComponent implements OnInit {
 
     options: AnimationOptions = {
-        path: './assets/animation.json',
+        path: './assets/playPause.json',
         autoplay: false,
         loop: false,
         rendererSettings: {

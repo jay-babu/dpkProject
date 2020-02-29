@@ -7,8 +7,7 @@
                     <mat-card-title>{{ slide.name }}</mat-card-title>
                 </mat-card-header>
 
-                <img mat-card-image [src]="slide.image.src"
-                     [routerLink]="['/dpk', DPK.key, slide.name]"
+                <img mat-card-image [src]="slide.image.src" [routerLink]="['/dpk', 'slideShow', DPK.key, slide.name]"
                      alt="{{slide.name}}">
 
                 <mat-card-actions class="actions">
@@ -18,7 +17,7 @@
                             View
                         </button>
                     </a>
-                    <a [routerLink]="['/dpk', DPK.key, slide.name]">
+                    <a [routerLink]="['/dpk', 'slideShow', DPK.key, slide.name]">
                         <button mat-button color="primary">
                             <mat-icon>slideshow</mat-icon>
                             SlideShow

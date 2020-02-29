@@ -49,7 +49,7 @@ export class SlideService {
             }),
             map(route => route.url)
         ).subscribe(activeRouter => activeRouter.subscribe(urlSegments => {
-            if (urlSegments.length === 2) this.updatePath(urlSegments[0].path, urlSegments[1].path)
+            if (urlSegments.length === 3) this.updatePath(urlSegments[1].path, urlSegments[2].path)
         }));
 
         this._slideConfig = new BehaviorSubject<any>({
