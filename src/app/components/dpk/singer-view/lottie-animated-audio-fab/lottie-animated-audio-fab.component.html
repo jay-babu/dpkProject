@@ -1,1 +1,4 @@
-<p>lottie-animated-audio-fab works!</p>
+<button mat-mini-fab color="primary" (mouseover)="animation.play()" (mouseleave)="animation.stop()"
+        (click)="seekPosition(time)">
+    <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
+</button>
