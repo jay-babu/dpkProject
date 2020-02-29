@@ -15,7 +15,7 @@ export class LottieAudioFabComponent implements OnInit {
         autoplay: false,
         loop: false,
         rendererSettings: {
-            viewBoxSize: '90 780 880 10',
+            viewBoxSize: '10 555 1080 500',
         }
     };
 
