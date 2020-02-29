@@ -14,6 +14,9 @@ export class LottieAudioFabComponent implements OnInit {
         path: './assets/animation.json',
         autoplay: false,
         loop: false,
+        rendererSettings: {
+            viewBoxSize: '90 780 880 10',
+        }
     };
 
     direction: AnimationDirection = -1;

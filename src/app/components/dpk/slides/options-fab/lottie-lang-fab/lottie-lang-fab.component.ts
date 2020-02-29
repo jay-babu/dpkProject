@@ -15,7 +15,7 @@ export class LottieLangFabComponent implements OnInit {
         loop: false,
         rendererSettings: {
             preserveAspectRatio: 'xMidYMid meet',
-            viewBoxSize: '-12 -17 75 75',
+            viewBoxSize: '-25 0 100 100',
         },
     };
 
