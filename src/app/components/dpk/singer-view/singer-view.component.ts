@@ -1,11 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DpkParseService } from '../slides/dpk-parse.service';
 import { Observable, Subscription } from 'rxjs';
-import { FirebaseBhajan } from '../../../interfaces/bhajan';
-import { AudioControlService } from '../../audio-component/audio-control.service';
-import { DriveMaterialList } from '../../../interfaces/drive';
+import { Bhajan, DriveMaterial } from '../../../interfaces/bhajan';
 import { DriveAPIService } from '../../../services/drive-api.service';
+import { SlideService } from '../../../services/slide.service';
 
 @Component({
     selector: 'app-singer-view',
@@ -13,19 +11,19 @@ import { DriveAPIService } from '../../../services/drive-api.service';
     styleUrls: [ './singer-view.component.css' ]
 })
 export class SingerViewComponent implements OnInit, OnDestroy {
-    firebaseBhajan$: Observable<FirebaseBhajan>;
-    bhajan: string[][];
+    firebaseBhajan$: Observable<Bhajan>;
+    driveBhajanImages$: Observable<DriveMaterial>;
+
+    stanza: string[][];
     definitions: string[][];
-    keyframes: number[];
-    driveBhajanImages$: Observable<DriveMaterialList>;
+    audioTimings: number[];
     bhajanSource: URL;
 
     subscriptions: Subscription[] = [];
 
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
-                private slidesService: DpkParseService,
-                private audioControlService: AudioControlService,
+                public slideService: SlideService,
                 private driveAPIService: DriveAPIService,) {
     }
 
@@ -37,31 +35,23 @@ export class SingerViewComponent implements OnInit, OnDestroy {
             slideDPK = params.dpk;
         }));
 
-        this.firebaseBhajan$ = this.slidesService.getDPK(slideDPK, slideName);
+        this.firebaseBhajan$ = this.slideService.bhajan$;
+        this.driveBhajanImages$ = this.driveAPIService.driveMaterial$;
 
         this.subscriptions.push(this.firebaseBhajan$.subscribe(bhajan => {
-            this.bhajan = this.slidesService.parseSlideText(bhajan.lyrics);
-            this.keyframes = bhajan.audioTimings;
+            this.stanza = bhajan.stanzaVisible;
+            this.definitions = bhajan.definitions;
+            this.audioTimings = bhajan.audioTimings;
+        }));
 
-            const imagesURL = new URL(bhajan.imagesURL).pathname.split('/')[3];
-            this.driveBhajanImages$ = this.driveAPIService.getListOfFiles(`'${ imagesURL }' in parents`);
-            this.driveBhajanImages$.subscribe(driveFiles => {
-                for (const item of driveFiles.files) {
-                    const mimeType = item.mimeType.split('/')[0];
-                    if (mimeType === 'audio') {
-                        this.bhajanSource = this.driveAPIService.exportImageDriveURL(item.id);
-                        break;
-                    }
-                }
-            });
+        this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
+            if (material) {
+                this.bhajanSource = material.bhajanSource;
+            }
         }));
     }
 
     ngOnDestroy(): void {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
-    }
-
-    seekPosition(time: number) {
-        this.audioControlService.seekTime(time);
     }
 }
