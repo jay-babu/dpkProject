@@ -1,3 +1,3 @@
-<button class="playButton" mat-fab (click)="this.toggle()">
+<button mat-fab (click)="this.toggle()" matTooltip="English <=> Gujarati" [matTooltipPosition]="'left'">
     <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
 </button>
