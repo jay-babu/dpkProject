@@ -111,7 +111,7 @@ export class SlideService {
     }
 
     swapLanguages() {
-        if (this.bhajan.altStanza.length) {
+        if (this.bhajan.altStanza.length > 1) {
             [ this.bhajan.altStanza, this.bhajan.stanzaVisible ] = [ this.bhajan.stanzaVisible, this.bhajan.altStanza ];
             this.updateBhajan(this.bhajan);
         }
