@@ -1,17 +1,17 @@
 <div [style.opacity]="toggleButton ? '1' : '0'"
      [style.visibility]="toggleButton ? 'visible' : 'hidden'">
     <div class="bottomRight">
-        <button mat-fab (click)="openDialog()">
+        <button mat-fab (click)="openDialog()" matTooltip="Settings" [matTooltipPosition]="'left'">
             <mat-icon>settings</mat-icon>
         </button>
-        <button class="slideShow" mat-fab appToggleFullScreen>
+        <button class="slideShow" mat-fab appToggleFullScreen matTooltip="Present" [matTooltipPosition]="'left'">
             <mat-icon>slideshow</mat-icon>
         </button>
         <app-lottie-lang-fab></app-lottie-lang-fab>
     </div>
 
     <div class="topLeft">
-        <button mat-mini-fab [routerLink]="['/slides']">
+        <button mat-mini-fab [routerLink]="['/slides']" matTooltip="Back to Slides" [matTooltipPosition]="'right'">
             <mat-icon>arrow_back_ios</mat-icon>
         </button>
     </div>

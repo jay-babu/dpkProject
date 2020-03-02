@@ -16,6 +16,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @NgModule({
     imports: [
@@ -36,6 +37,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
         MatDialogModule,
         LayoutModule,
         MatSlideToggleModule,
+        MatTooltipModule,
     ]
 })
 

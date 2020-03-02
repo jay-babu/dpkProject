@@ -1,3 +1,4 @@
-<button *ngIf="audioControlService.audioExist" class="playButton" mat-fab (click)="this.toggle()">
+<button *ngIf="audioControlService.audioExist" mat-fab (click)="this.toggle()" matTooltip="Play/Pause"
+        [matTooltipPosition]="'right'">
     <ng-lottie [options]="options" (animationCreated)="animationCreated($event)"></ng-lottie>
 </button>
