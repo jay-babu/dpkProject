@@ -5,6 +5,13 @@ div {
 
 button {
     margin: 1vh 0;
+    opacity: 0.6;
+    transition: all .5s linear;
+
+}
+
+button:hover {
+    opacity: 1.0;
 }
 
 .bottomRight {
