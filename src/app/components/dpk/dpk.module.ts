@@ -16,6 +16,7 @@ import { LottieModule } from 'ngx-lottie';
 import { LottieAudioFabComponent } from './slides/options-fab/lottie-audio-fab/lottie-audio-fab.component';
 import { LottieLangFabComponent } from './slides/options-fab/lottie-lang-fab/lottie-lang-fab.component';
 import { LottieAnimatedAudioFabComponent } from './singer-view/lottie-animated-audio-fab/lottie-animated-audio-fab.component';
+import { ToggleFullScreenDirective } from '../../directive/toggle-full-screen.directive';
 
 const dpkRoutes: Routes = [
     // { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
@@ -34,6 +35,7 @@ const dpkRoutes: Routes = [
         LottieAudioFabComponent,
         LottieLangFabComponent,
         LottieAnimatedAudioFabComponent,
+        ToggleFullScreenDirective,
     ],
     imports: [
         CommonModule,
