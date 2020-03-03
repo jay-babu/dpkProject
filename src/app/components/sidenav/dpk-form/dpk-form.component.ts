@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, FormGroupDirective, NgForm, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroupDirective, NgForm, Validators } from '@angular/forms';
 import { ErrorStateMatcher } from '@angular/material/core';
 import { Router } from '@angular/router';
 import { SideNavToggleService } from '../../../services/side-nav-toggle.service';
@@ -22,18 +22,25 @@ export class DpkFormComponent implements OnInit {
 
     constructor(public dpkFormService: DpkFormService,
                 public sideNavToggleService: SideNavToggleService,
-                private router: Router,) {
+                private router: Router,
+                private fb: FormBuilder) {
     }
 
-    dpkForm = new FormGroup({
-        title: new FormControl('', Validators.required),
-        lyrics: new FormControl('', Validators.required),
-        gujarati: new FormControl(''),
-        definitions: new FormControl(''),
-        imagesURL: new FormControl('', Validators.required),
-        dpk: new FormControl('', Validators.required),
-        audioUploaded: new FormControl(false),
-        audioTimings: new FormControl(''),
+    dpkForm = this.fb.group({
+        titleSection: this.fb.group({
+            dpk: [ '', Validators.required ],
+            title: [ '', Validators.required ],
+        }),
+        bhajanSection: this.fb.group({
+            lyrics: [ '', Validators.required ],
+            gujarati: [ '' ],
+            definitions: [ '' ],
+        }),
+        materialSection: this.fb.group({
+            imagesURL: [ '', Validators.required ],
+            audioUploaded: [ false ],
+            audioTimings: [ '' ],
+        }),
     }, { asyncValidators: [ this.dpkFormService.validSubmission ] });
 
     ngOnInit() {
