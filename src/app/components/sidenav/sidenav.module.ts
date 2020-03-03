@@ -13,19 +13,26 @@ import { ThemeService } from '../../services/theme.service';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SliderService } from './slider-items/slider/slider.service';
+import { DpkEditComponent } from './dpk-edit/dpk-edit.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([ 'login' ]);
 
 const sidenavRoutes: Routes = [
-    {path: 'login', component: LoginComponent,},
+    { path: 'login', component: LoginComponent, },
     {
         path: 'dpkCreate',
         component: DpkFormComponent,
         canActivate: [ AngularFireAuthGuard ],
-        data: {authGuardPipe: redirectUnauthorizedToLogin},
+        data: { authGuardPipe: redirectUnauthorizedToLogin },
     },
-    {path: 'privacy-policy', component: PrivacyPolicyComponent,},
-    {path: 'slides', component: SliderItemsComponent,},
+    {
+        path: 'dpkEdit',
+        component: DpkEditComponent,
+        canActivate: [ AngularFireAuthGuard ],
+        data: { authGuardPipe: redirectUnauthorizedToLogin },
+    },
+    { path: 'privacy-policy', component: PrivacyPolicyComponent, },
+    { path: 'slides', component: SliderItemsComponent, },
 ];
 
 @NgModule({
@@ -35,6 +42,7 @@ const sidenavRoutes: Routes = [
         PrivacyPolicyComponent,
         SliderItemsComponent,
         SliderComponent,
+        DpkEditComponent,
     ],
     imports: [
         AngularMaterialModule,
