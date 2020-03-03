@@ -53,6 +53,8 @@ export class SlideComponent implements OnInit, OnDestroy {
             this.stanza = bhajan.stanzaVisible;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
+            console.log('Stanza', this.stanza);
+            console.log('Definitions', this.definitions);
         }));
 
         this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
@@ -60,6 +62,8 @@ export class SlideComponent implements OnInit, OnDestroy {
                 this.bhajanSource = material.bhajanSource;
                 this.imagePaths = material.imagePaths;
                 this.images = material.images;
+                console.log('imagePaths', this.imagePaths);
+                console.log('images', this.images);
             }
         }));
 
