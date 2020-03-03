@@ -33,14 +33,16 @@ export class DriveAPIService {
 
     private bhajanImages(driveBhajanImages$: Observable<DriveMaterialList>) {
         driveBhajanImages$.subscribe(driveFiles => {
+            const imagePaths: URL[] = [];
             for (const item of driveFiles.files) {
                 const mimeType = item.mimeType.split('/')[0];
                 if (mimeType === 'audio') {
                     this.driveMaterial.bhajanSource = this.exportImageDriveURL(item.id);
                 } else if (mimeType === 'image') {
-                    this.driveMaterial.imagePaths.push(this.exportImageDriveURL(item.id));
+                    imagePaths.push(this.exportImageDriveURL(item.id))
                 }
             }
+            this.driveMaterial.imagePaths = imagePaths;
             this.imageDownload(this.driveMaterial.imagePaths);
             this.driveMaterialSubject = this.driveMaterial;
         });

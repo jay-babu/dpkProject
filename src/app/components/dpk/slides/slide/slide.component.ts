@@ -53,20 +53,13 @@ export class SlideComponent implements OnInit, OnDestroy {
             this.stanza = bhajan.stanzaVisible;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
-            console.log('Stanza', this.stanza);
-            console.log('Definitions', this.definitions);
         }));
 
         this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
-            console.log('material', material);
-            console.log('imagePaths 2', this.imagePaths);
-            console.log('images 2', this.images);
             if (material) {
                 this.bhajanSource = material.bhajanSource;
                 this.imagePaths = material.imagePaths;
                 this.images = material.images;
-                console.log('imagePaths', this.imagePaths);
-                console.log('images', this.images);
             }
         }));
 
