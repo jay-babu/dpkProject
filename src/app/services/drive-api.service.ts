@@ -62,7 +62,7 @@ export class DriveAPIService {
         return this.http.get<DriveMaterialList>(this.driveURL, { params });
     }
 
-    private exportImageDriveURL(id: string) {
+    exportImageDriveURL(id: string) {
         const url = new URL(`${ this.driveURL }/${ id }`);
         url.searchParams.set('key', environment.driveConfig.key);
         url.searchParams.set('alt', 'media');
@@ -73,12 +73,5 @@ export class DriveAPIService {
         const image = new Image();
         image.src = driveFileURL.href;
         return image;
-    }
-
-    exportThumbnailDriveURL(id: string) {
-        const url = new URL(`https://drive.google.com/thumbnail`);
-        url.searchParams.set('id', id);
-        url.searchParams.set('sz', 'h210');
-        return url;
     }
 }

@@ -43,11 +43,11 @@ export class SliderService {
             const name = DPK.name;
             this.driveAPIService.getListOfFiles(`'${ DPK.id }' in parents`).pipe(take(1)).subscribe(images => {
                 const imageID = images.files[0].id;
-                const imageURL = this.driveAPIService.exportThumbnailDriveURL(imageID);
+                const imageURL = this.driveAPIService.exportImageDriveURL(imageID);
                 dpk.push({
                     name,
                     imageID,
-                    image: this.driveAPIService.preloadImage(imageURL),
+                    image: imageURL,
                 });
             });
         }
