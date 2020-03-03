@@ -33,7 +33,7 @@ export function playerFactory() {
         AngularMaterialModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
-        AngularFirestoreModule,
+        AngularFirestoreModule.enablePersistence({ synchronizeTabs: true }),
         AngularFireAuthModule,
         AngularFireAnalyticsModule,
         BrowserModule,

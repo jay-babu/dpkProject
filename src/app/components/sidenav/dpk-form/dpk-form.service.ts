@@ -75,7 +75,7 @@ export class DpkFormService {
                 definitions: fg.value.definitions.split(/\n{2,}/g),
                 imagesURL: fg.value.imagesURL,
                 title: fg.value.title,
-                audioTimings: this.timingsToSeconds(fg.value.audioTimings.split(/\n{2,}/g)),
+                audioTimings: this.timingsToSeconds(fg.value.audioTimings.split(/\n+/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
             });
     }
