@@ -17,15 +17,15 @@ import { SliderService } from './slider-items/slider/slider.service';
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([ 'login' ]);
 
 const sidenavRoutes: Routes = [
-    {path: 'login', component: LoginComponent,},
+    { path: 'login', component: LoginComponent, },
     {
         path: 'dpkCreate',
         component: DpkFormComponent,
         canActivate: [ AngularFireAuthGuard ],
-        data: {authGuardPipe: redirectUnauthorizedToLogin},
+        data: { authGuardPipe: redirectUnauthorizedToLogin },
     },
-    {path: 'privacy-policy', component: PrivacyPolicyComponent,},
-    {path: 'slides', component: SliderItemsComponent,},
+    { path: 'privacy-policy', component: PrivacyPolicyComponent, },
+    { path: 'slides', component: SliderItemsComponent, },
 ];
 
 @NgModule({

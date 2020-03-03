@@ -68,14 +68,14 @@ export class DpkFormService {
 
     submitDPK(fg: FormGroup) {
         return this.fireDB
-            .collection(fg.value.dpk).doc(fg.value.title)
+            .collection(fg.value.titleSection.dpk).doc(fg.value.titleSection.title)
             .set({
-                lyrics: fg.value.lyrics.split(/\n{2,}/g),
-                gujarati: fg.value.gujarati.split(/\n{2,}/g),
-                definitions: fg.value.definitions.split(/\n{2,}/g),
-                imagesURL: fg.value.imagesURL,
-                title: fg.value.title,
-                audioTimings: this.timingsToSeconds(fg.value.audioTimings.split(/\n+/g)),
+                lyrics: fg.value.bhajanSection.lyrics.split(/\n{2,}/g),
+                gujarati: fg.value.bhajanSection.gujarati.split(/\n{2,}/g),
+                definitions: fg.value.bhajanSection.definitions.split(/\n{2,}/g),
+                imagesURL: fg.value.materialSection.imagesURL,
+                title: fg.value.titleSection.title,
+                audioTimings: this.timingsToSeconds(fg.value.materialSection.audioTimings.split(/\n+/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
             });
     }

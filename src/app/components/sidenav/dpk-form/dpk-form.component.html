@@ -16,153 +16,173 @@
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
     </button>
 </mat-toolbar>
-<form [formGroup]="dpkForm" (ngSubmit)="onSubmit()">
-    <div>
-        <label>Type: </label>
-        <mat-radio-group formControlName="dpk">
-            <mat-radio-button [style.margin]="'12px 12px'" *ngFor="let dpk of this.dpkFormService.DPKs | keyvalue"
-                              value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
-        </mat-radio-group>
-        <mat-divider></mat-divider>
-        <a mat-flat-button *ngIf="dpkForm.value.dpk" [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}" color="accent"
-           href="https://drive.google.com/open?id={{this.dpkFormService.DPKs.get(dpkForm.value.dpk)}}"
-           target="_blank">
-            Create a New Folder and Upload your {{dpkForm.value.dpk}} Images & Audio Here!<br>
-            Copy and Paste Link in Bhajan Material URL
-        </a>
-        <mat-divider></mat-divider>
-    </div>
-    <div class="form-field">
-        <mat-form-field class="text-fields">
-            <label>
-                <input matInput placeholder="DPK Title" formControlName="title" class="mat-primary"
-                       [errorStateMatcher]="errorMatcher">
-            </label>
-            <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
-                the {{ dpkForm.value.dpk }} folder in Google Drive
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="text-fields">
-            <label>
-                    <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics"
+<div class="page">
+    <form [formGroup]="dpkForm" (ngSubmit)="onSubmit()">
+        <mat-horizontal-stepper linear>
+            <mat-step formGroupName="titleSection" [stepControl]="dpkForm.get('titleSection')">
+                <ng-template matStepLabel>Name the Bhajan</ng-template>
+                <mat-label>Type:</mat-label>
+                <mat-radio-group formControlName="dpk" required>
+                    <mat-radio-button [style.margin]="'12px 12px'"
+                                      *ngFor="let dpk of this.dpkFormService.DPKs | keyvalue"
+                                      value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
+                </mat-radio-group>
+                <mat-divider></mat-divider>
+                <a mat-flat-button *ngIf="dpkForm.value.titleSection.dpk"
+                   [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
+                   color="accent"
+                   href="https://drive.google.com/open?id={{this.dpkFormService.DPKs.get(dpkForm.value.titleSection.dpk)}}"
+                   target="_blank">
+                    Create a New Folder and Upload your {{dpkForm.value.titleSection.dpk}} Images & Audio Here!<br>
+                    Copy and Paste Link in Bhajan Material URL
+                </a>
+                <mat-divider></mat-divider>
+                <mat-form-field class="text-fields">
+                    <label>
+                        <input matInput placeholder="DPK Title" formControlName="title" class="mat-primary" required
+                               [errorStateMatcher]="errorMatcher">
+                    </label>
+                    <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
+                        the {{ dpkForm.value.titleSection.dpk }} folder in Google Drive
+                    </mat-error>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext type="button">Next</button>
+                </div>
+            </mat-step>
+            <mat-step formGroupName="bhajanSection" [stepControl]="dpkForm.get('bhajanSection')">
+                <ng-template matStepLabel>Bhajan Details</ng-template>
+                <mat-form-field class="text-fields">
+                    <label>
+                    <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics" required
                               class="mat-primary" [errorStateMatcher]="errorMatcher"></textarea>
-            </label>
-            <mat-error *ngIf="dpkForm.hasError('lyricsDef')">
-                Number of Stanzas for Lyrics and Definitions do not Match
-            </mat-error>
-            <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">
-                The Number of Slides and Photos in Google Drive do not Match
-            </mat-error>
-        </mat-form-field>
-        <mat-form-field class="text-fields">
-            <label>
-                    <textarea cdkTextareaAutosize matInput placeholder="Gujarati Lyrics (Optional)"
+                    </label>
+                    <mat-error *ngIf="dpkForm.hasError('lyricsDef')">
+                        Number of Stanzas for Lyrics and Definitions do not Match
+                    </mat-error>
+                    <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">
+                        The Number of Slides and Photos in Google Drive do not Match
+                    </mat-error>
+                </mat-form-field>
+                <mat-form-field class="text-fields">
+                    <label>
+                    <textarea cdkTextareaAutosize matInput placeholder="Gujarati Lyrics"
                               formControlName="gujarati" class="mat-primary" [errorStateMatcher]="errorMatcher">
                     </textarea>
-            </label>
-            <mat-error *ngIf="dpkForm.hasError('GujuIncorrectSize')">
-                Number of Stanzas for Lyrics and Gujarati Lyrics do not Match
-            </mat-error>
-        </mat-form-field>
+                    </label>
+                    <mat-error *ngIf="dpkForm.hasError('GujuIncorrectSize')">
+                        Number of Stanzas for Lyrics and Gujarati Lyrics do not Match
+                    </mat-error>
+                </mat-form-field>
 
-        <mat-form-field class="text-fields">
-            <label>
-                <textarea cdkTextareaAutosize matInput placeholder="Definitions  (Optional)"
+                <mat-form-field class="text-fields">
+                    <label>
+                <textarea cdkTextareaAutosize matInput placeholder="Definitions"
                           formControlName="definitions" class="mat-primary"></textarea>
-            </label>
-        </mat-form-field>
+                    </label>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious type="button">Back</button>
+                    <button mat-button matStepperNext type="button">Next</button>
+                </div>
+            </mat-step>
+            <mat-step formGroupName="materialSection" [stepControl]="dpkForm.get('materialSection')">
+                <ng-template matStepLabel>Upload Bhajan Images and Audio</ng-template>
+                <div class="form-field">
+                    <mat-slide-toggle formControlName="audioUploaded" labelPosition="before" checked="audioUploaded">
+                        Upload Audio?
+                    </mat-slide-toggle>
 
-        <mat-slide-toggle formControlName="audioUploaded" labelPosition="before" checked="audioUploaded">
-            Upload Audio?
-        </mat-slide-toggle>
-
-        <mat-form-field *ngIf="dpkForm.value.audioUploaded" class="text-fields">
-            <label>
+                    <mat-form-field *ngIf="dpkForm.value.materialSection.audioUploaded" class="text-fields">
+                        <label>
                 <textarea cdkTextareaAutosize matInput
                           placeholder="Audio Timings (MM:SS) M means Minutes. S means Seconds"
                           formControlName="audioTimings"
                           class="mat-primary" [errorStateMatcher]="errorMatcher">
                 </textarea>
-            </label>
-            <mat-error *ngIf="dpkForm.hasError('IncorrectFormat')">
-                Each time should be of MM:SS, M:S, M:SS, or MM:S format
-            </mat-error>
-            <mat-error *ngIf="dpkForm.hasError('IncorrectSize')">
-                Number of Audio Timings does not match number of slides.
-                Hint first timing should be 00:00 or when the audio actually starts
-            </mat-error>
-            <mat-error *ngIf="dpkForm.hasError('AudioNotFound')">
-                Audio File Not Found. Upload to the same place as Images
-            </mat-error>
-        </mat-form-field>
+                        </label>
+                        <mat-error *ngIf="dpkForm.hasError('IncorrectFormat')">
+                            Each time should be of MM:SS, M:S, M:SS, or MM:S format
+                        </mat-error>
+                        <mat-error *ngIf="dpkForm.hasError('IncorrectSize')">
+                            Number of Audio Timings does not match number of slides.
+                            Hint first timing should be 00:00 or when the audio actually starts
+                        </mat-error>
+                        <mat-error *ngIf="dpkForm.hasError('AudioNotFound')">
+                            Audio File Not Found. Upload to the same place as Images
+                        </mat-error>
+                    </mat-form-field>
 
-        <mat-form-field class="text-fields">
-            <label>
-                <input matInput placeholder="Bhajan Material URL" formControlName="imagesURL" class="mat-primary"
-                       [errorStateMatcher]="errorMatcher">
-            </label>
-            <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
-            </mat-error>
-        </mat-form-field>
+                    <mat-form-field class="text-fields">
+                        <label>
+                            <input matInput placeholder="Bhajan Material URL" formControlName="imagesURL"
+                                   class="mat-primary"
+                                   [errorStateMatcher]="errorMatcher" required>
+                        </label>
+                        <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <button mat-button matStepperPrevious type="button">Back</button>
+                    <button color="primary" class="submission-btn" mat-flat-button type="submit"
+                            [disabled]="!dpkForm.valid">
+                        Submit
+                        <mat-icon *ngIf="dpkForm.valid">check_circle</mat-icon>
+                    </button>
+                </div>
+            </mat-step>
+        </mat-horizontal-stepper>
+    </form>
+
+    <div class="cards">
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Ex: Lyrics</mat-card-title>
+                <mat-card-subtitle>Empty Line / New Stanza <strong>equals</strong> New Slide</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>Sāchā sādhu re, sundar guṇdhām;</p>
+                <p>Samjīne Satsang kījie...</p>
+                <br>
+                <p>Jī re Sant sulakshaṇnā bharyā, avguṇno re,</p>
+                <p>'Urmā nahi lesh, mahānubhavī muni te kharā;'</p>
+                <p>'Āpe sahune re, sācho upḍesh...'</p>
+                <br>
+                <p>Jī re sant sadā shītaḷ rahe, kyāre na tape re,</p>
+                <p>Kām krodhnī jhāḷ, lobh tajī Harine bhaje;</p>
+                <p>Dhāre urmā re, dradh karī Shrī Gopāḷ...</p>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Full Walk-Through</mat-card-title>
+                <mat-card-subtitle>Video shows various error messages as well</mat-card-subtitle>
+            </mat-card-header>
+            <video controls class="video">
+                <source src="./assets/DPK%20Tutorial.mp4" type="video/mp4">
+            </video>
+        </mat-card>
+
+        <mat-card>
+            <mat-card-header>
+                <mat-card-title>Ex: Definitions (Optional)</mat-card-title>
+                <mat-card-subtitle>Definitions must have the same number of slides as Lyrics</mat-card-subtitle>
+            </mat-card-header>
+            <mat-card-content>
+                <p>The true sadhu is the wonderful abode of virtues.</p>
+                <p>Understanding this, do Satsang.</p>
+                <br>
+                <p>The Sant is filled with good qualities.</p>
+                <p>'There is not the slightest fault in his heart.'</p>
+                <p>'That sadhu is truly experienced. He gives everyone true advice.'</p>
+                <br>
+                <p>The Sant always remains cool, calm, and at peace.</p>
+                <p>He is never disturbed or bound by the nets of lust or anger.</p>
+                <p>He has renounced all greed and worships Bhagwan. <br> He firmly holds Bhagwan in his heart.
+                </p>
+            </mat-card-content>
+        </mat-card>
     </div>
-
-    <div class="submission">
-        <button color="warn" class="submission-btn" mat-raised-button type="reset">Reset</button>
-        <button color="primary" class="submission-btn" mat-flat-button type="submit"
-                [disabled]="!dpkForm.valid">
-            Submit
-            <mat-icon *ngIf="dpkForm.valid">check_circle</mat-icon>
-        </button>
-    </div>
-</form>
-
-<div class="cards">
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Ex: Lyrics</mat-card-title>
-            <mat-card-subtitle>Empty Line / New Stanza <strong>equals</strong> New Slide</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <p>Sāchā sādhu re, sundar guṇdhām;</p>
-            <p>Samjīne Satsang kījie...</p>
-            <br>
-            <p>Jī re Sant sulakshaṇnā bharyā, avguṇno re,</p>
-            <p>'Urmā nahi lesh, mahānubhavī muni te kharā;'</p>
-            <p>'Āpe sahune re, sācho upḍesh...'</p>
-            <br>
-            <p>Jī re sant sadā shītaḷ rahe, kyāre na tape re,</p>
-            <p>Kām krodhnī jhāḷ, lobh tajī Harine bhaje;</p>
-            <p>Dhāre urmā re, dradh karī Shrī Gopāḷ...</p>
-        </mat-card-content>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Full Walk-Through</mat-card-title>
-            <mat-card-subtitle>Video shows various error messages as well</mat-card-subtitle>
-        </mat-card-header>
-        <video controls class="video">
-            <source src="./assets/DPK%20Tutorial.mp4" type="video/mp4">
-        </video>
-    </mat-card>
-
-    <mat-card>
-        <mat-card-header>
-            <mat-card-title>Ex: Definitions (Optional)</mat-card-title>
-            <mat-card-subtitle>Definitions must have the same number of slides as Lyrics</mat-card-subtitle>
-        </mat-card-header>
-        <mat-card-content>
-            <p>The true sadhu is the wonderful abode of virtues.</p>
-            <p>Understanding this, do Satsang.</p>
-            <br>
-            <p>The Sant is filled with good qualities.</p>
-            <p>'There is not the slightest fault in his heart.'</p>
-            <p>'That sadhu is truly experienced. He gives everyone true advice.'</p>
-            <br>
-            <p>The Sant always remains cool, calm, and at peace.</p>
-            <p>He is never disturbed or bound by the nets of lust or anger.</p>
-            <p>He has renounced all greed and worships Bhagwan. <br> He firmly holds Bhagwan in his heart.
-            </p>
-        </mat-card-content>
-    </mat-card>
 </div>

@@ -53,6 +53,13 @@ mat-card > mat-card-content {
     overflow: auto;
 }
 
+.page {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: calc(100vh - 64px);
+}
+
 @media (max-width: 750px) {
     .cards {
         flex-direction: column;
