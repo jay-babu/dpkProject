@@ -26,5 +26,33 @@
                 ]
             }
         }
+    ],
+    "dataGroups": [
+        {
+            "name": "slides",
+            "urls": [
+                "/slides"
+            ],
+            "cacheConfig": {
+                "strategy": "freshness",
+                "maxSize": 20,
+                "maxAge": "7d",
+                "timeout": "5s"
+            }
+        },
+        {
+            "name": "dpk",
+            "urls": [
+                "/dpk/Dhun/**",
+                "/dpk/Prathana/**",
+                "/dpk/Kirtan/**"
+            ],
+            "cacheConfig": {
+                "strategy": "freshness",
+                "maxSize": 100,
+                "maxAge": "8d",
+                "timeout": "5s"
+            }
+        }
     ]
 }
