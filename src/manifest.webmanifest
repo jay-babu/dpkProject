@@ -1,9 +1,10 @@
 {
-  "name": "dpkProject",
-  "short_name": "dpkProject",
+  "name": "DPK Project",
+  "short_name": "DPKs",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
-  "display": "standalone",
+  "display": "fullscreen",
+    "orientation": "landscape",
   "scope": "./",
   "start_url": "./",
   "icons": [
