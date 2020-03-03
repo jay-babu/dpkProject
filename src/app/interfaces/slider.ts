@@ -1,6 +1,6 @@
 export interface Slider {
     name: string;
     imageID: string;
-    image: HTMLImageElement;
+    image: URL;
     type?: string;
 }
