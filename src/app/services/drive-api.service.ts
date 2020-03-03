@@ -17,12 +17,12 @@ export class DriveAPIService {
 
 
     constructor(private http: HttpClient) {
+        this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
         this._driveMaterial = new BehaviorSubject<DriveMaterial>(null);
         this.driveMaterial$ = this._driveMaterial.asObservable();
     }
 
     set bhajanID(materialID: string) {
-        this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
         const driveBhajanImages$ = this.getListOfFiles(`'${ materialID }' in parents`);
         this.bhajanImages(driveBhajanImages$);
     }

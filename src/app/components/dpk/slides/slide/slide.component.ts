@@ -58,6 +58,9 @@ export class SlideComponent implements OnInit, OnDestroy {
         }));
 
         this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
+            console.log('material', material);
+            console.log('imagePaths 2', this.imagePaths);
+            console.log('images 2', this.images);
             if (material) {
                 this.bhajanSource = material.bhajanSource;
                 this.imagePaths = material.imagePaths;
