@@ -1,9 +1,11 @@
 export interface FirebaseBhajan {
+    title: string;
     lyrics: string[];
     imagesURL: string;
     gujarati?: string[];
     definitions?: string[];
     audioTimings?: number[];
+    author_uid?: string;
 }
 
 // stanzaVisible Init is English
