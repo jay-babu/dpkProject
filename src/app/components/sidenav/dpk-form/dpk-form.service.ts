@@ -3,6 +3,7 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { DriveAPIService } from '../../../services/drive-api.service';
+import { FirebaseBhajan } from '../../../interfaces/bhajan';
 
 
 @Injectable({
@@ -19,26 +20,23 @@ export class DpkFormService {
     validSubmission: (form: FormGroup) => Promise<ValidationErrors> = async (form: FormGroup) => {
         let status: ValidationErrors = null;
 
-        const title = form.value.title;
-        const lyrics = form.value.lyrics;
-        const gujarati = form.value.gujarati;
-        const imagesURL = form.value.imagesURL;
-        const definitions = form.value.definitions;
-        const audioUploaded: boolean = form.value.audioUploaded;
-        const audioTimings = form.value.audioTimings;
+        const title = form.value.titleSection.title;
+        const dpk = form.value.titleSection.dpk;
 
-        if (lyrics === null) form.patchValue({ lyrics: '' });
-        if (gujarati === null) form.patchValue({ gujarati: '' });
-        if (imagesURL === null) form.patchValue({ imagesURL: '' });
-        if (definitions === null) form.patchValue({ definitions: '' });
-        if (audioTimings === null) form.patchValue({ audioTimings: '' });
+        const lyrics = form.value.bhajanSection.lyrics;
+        const gujarati = form.value.bhajanSection.gujarati;
+        const definitions = form.value.bhajanSection.definitions;
+
+        const imagesURL = form.value.materialSection.imagesURL;
+        const audioUploaded: boolean = form.value.materialSection.audioUploaded;
+        const audioTimings = form.value.materialSection.audioTimings;
 
         if (imagesURL) {
             await this.verifyURL(imagesURL).then(res => status = res);
         }
 
         if (!status && title) {
-            await this.verifyTitleInDrive(form.value.title, this.DPKs.get(`${ form.value.dpk }`))
+            await this.verifyTitleInDrive(title, this.DPKs.get(`${ dpk }`))
                 .then(res => status = (res.length !== 0) ? null : { titleNotInDrive: true });
         }
 
@@ -77,7 +75,12 @@ export class DpkFormService {
                 title: fg.value.titleSection.title,
                 audioTimings: this.timingsToSeconds(fg.value.materialSection.audioTimings.split(/\n+/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
-            });
+            }, { merge: true });
+    }
+
+    getOwnData(fg: FormGroup) {
+        return this.fireDB.collection<FirebaseBhajan>(fg.value.titleSection.dpk,
+            ref => ref.where('author_uid', '==', this.afAuth.auth.currentUser.uid)).valueChanges();
     }
 
     timingsToSeconds(audioTimings: string[]) {

@@ -20,4 +20,29 @@ export class DpkParseService {
     parseSlideText(slideText: string[]) {
         return slideText.map(paragraph => paragraph.split(`\n`));
     }
+
+    firebaseParseText(text: string[]) {
+        let newS = '';
+        for (const s of text) {
+            for (const l of s.split('\n')) {
+                newS = newS.concat(l, '\n');
+            }
+            newS = newS.concat('\n');
+        }
+        return newS.trim();
+    }
+
+    firebaseParseNumber(timings: number[]) {
+        console.log(timings);
+        let times = '';
+        if (isNaN(timings[0])) {
+            return times;
+        }
+        for (const num of timings) {
+            const min = Math.floor(num / 60);
+            const seconds = num % 60;
+            times = times.concat(`${ min }:${ seconds }`, '\n\n');
+        }
+        return times.trim();
+    }
 }
