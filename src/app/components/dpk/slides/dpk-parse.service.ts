@@ -33,7 +33,6 @@ export class DpkParseService {
     }
 
     firebaseParseNumber(timings: number[]) {
-        console.log(timings);
         let times = '';
         if (isNaN(timings[0])) {
             return times;
