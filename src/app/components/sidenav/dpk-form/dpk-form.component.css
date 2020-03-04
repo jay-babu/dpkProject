@@ -60,6 +60,10 @@ mat-card > mat-card-content {
     min-height: calc(100vh - 64px);
 }
 
+.chooseBhajan {
+    margin: 3vh 0;
+}
+
 @media (max-width: 750px) {
     .cards {
         flex-direction: column;
