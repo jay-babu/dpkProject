@@ -26,7 +26,7 @@ export class AudioControlService {
 
     seekTime(time: number) {
         this.bhajanAudio.currentTime = time;
-        this.bhajanAudio.play();
+        if (this.bhajanAudio.paused) this.bhajanAudio.play();
     }
 
     toggleAudio() {
