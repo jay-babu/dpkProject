@@ -103,4 +103,16 @@ img {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    animation: bg-animate 20s ease-in-out alternate infinite;
+}
+
+@keyframes bg-animate {
+    from {
+        filter: blur(50px);
+        -webkit-filter: blur(50px);
+    }
+    to {
+        filter: blur(50) invert(100%);
+        -webkit-filter: blur(50px) invert(100%);
+    }
 }
