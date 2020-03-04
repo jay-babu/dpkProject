@@ -124,18 +124,20 @@ export class SlideComponent implements OnInit, OnDestroy {
 
     @HostListener('window:keyup', [ '$event' ])
     async slideMovement(event: KeyboardEvent) {
-        if ((event.key === 'ArrowRight' || event.key === ' ') && this.slideIndex < this.stanza.length - 1) {
+        if ((event.key === 'ArrowRight' || event.key === ' ' || event.key === 'PageDown') && this.slideIndex < this.stanza.length - 1) {
             this.upOrDown(true);
             if (this.playBack && this.audioTimings) {
                 await new Promise(done => setTimeout(() => done(), 500));
                 this.nextSlideAudio();
             }
-        } else if (event.key === 'ArrowLeft' && this.slideIndex > 0) {
+        } else if ((event.key === 'ArrowLeft' || event.key === 'PageUp') && this.slideIndex > 0) {
             this.upOrDown(false);
             if (this.playBack && this.audioTimings) {
                 await new Promise(done => setTimeout(() => done(), 500));
                 this.nextSlideAudio();
             }
+        } else if (event.key === 'b') {
+            this.hidden = !this.hidden;
         }
     }
 
