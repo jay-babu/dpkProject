@@ -11,7 +11,10 @@ export const environment = {
         measurementId: 'G-TDV6VZZ3QW'
     },
     driveConfig: {
-        key: 'AIzaSyAU5WfIyMZ2vVmwsLmXaCe9JsocIctSUqk'
+        key: 'AIzaSyAU5WfIyMZ2vVmwsLmXaCe9JsocIctSUqk',
+        clientId: '400352992413-491ocjt3h7noidb70t1v910f9klu8o53.apps.googleusercontent.com',
+        discoveryDocs: [ 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest' ],
+        scope: 'https://www.googleapis.com/auth/drive.file',
     },
     url: 'https://jayp0521.github.io/dpkProject/'
 };
