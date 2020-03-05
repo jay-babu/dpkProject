@@ -45,8 +45,7 @@
             "urls": [
                 "**/dpk/Dhun/**",
                 "**/dpk/Prathana/**",
-                "**/dpk/Kirtan/**",
-                "https://www.googleapis.com/drive/v3/files/**"
+                "**/dpk/Kirtan/**"
             ],
             "cacheConfig": {
                 "strategy": "freshness",
