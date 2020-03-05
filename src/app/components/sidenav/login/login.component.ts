@@ -8,6 +8,7 @@ import { SideNavToggleService } from '../../../services/side-nav-toggle.service'
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 declare var particlesJS: any;
+declare var gapi: any;
 
 @Component({
     selector: 'app-login',
@@ -129,5 +130,32 @@ export class LoginComponent implements OnInit {
             }
         );
 
+    }
+
+    load() {
+        gapi.load('client', () => {
+            console.log('loaded client');
+
+            gapi.client.init({
+                apiKey: environment.driveConfig.key,
+                // clientId and scope are optional if auth is not required.
+                clientId: environment.driveConfig.clientId,
+                discoveryDocs: environment.driveConfig.discoveryDocs,
+                scope: environment.driveConfig.scope,
+            });
+
+            gapi.client.load('drive', 'v3');
+        });
+    }
+
+    async login() {
+        const googleAuth = gapi.auth2.getAuthInstance();
+        const googleUser = await googleAuth.signIn({
+            clientid: environment.driveConfig.clientId,
+            cookiepolicy: 'none',
+        });
+
+        const token = googleUser.getAuthResponse().id_token;
+        console.log(token);
     }
 }
