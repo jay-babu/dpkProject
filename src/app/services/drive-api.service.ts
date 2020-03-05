@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { DriveMaterialList } from '../interfaces/drive';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { DriveMaterial } from '../interfaces/bhajan';
 
 @Injectable({
@@ -11,18 +11,19 @@ import { DriveMaterial } from '../interfaces/bhajan';
 export class DriveAPIService {
     driveURL = 'https://www.googleapis.com/drive/v3/files';
 
-    private _driveMaterial: BehaviorSubject<DriveMaterial>;
+    private _driveMaterial: Subject<DriveMaterial>;
     driveMaterial$: Observable<DriveMaterial>;
     driveMaterial: DriveMaterial;
 
 
     constructor(private http: HttpClient) {
         this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
-        this._driveMaterial = new BehaviorSubject<DriveMaterial>(null);
+        this._driveMaterial = new Subject<DriveMaterial>();
         this.driveMaterial$ = this._driveMaterial.asObservable();
     }
 
     set bhajanID(materialID: string) {
+        this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
         const driveBhajanImages$ = this.getListOfFiles(`'${ materialID }' in parents`);
         this.bhajanImages(driveBhajanImages$);
     }
