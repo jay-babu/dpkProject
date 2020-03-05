@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -8,6 +9,7 @@ import { SideNavToggleService } from '../../../services/side-nav-toggle.service'
 import { AngularFireAnalytics } from '@angular/fire/analytics';
 
 declare var particlesJS: any;
+declare var gapi: any;
 
 @Component({
     selector: 'app-login',
@@ -15,7 +17,7 @@ declare var particlesJS: any;
     styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit {
-    user: Observable<any>;
+    user$: Observable<any>;
     emailSent = false;
 
     errorMessage: string;
@@ -30,7 +32,8 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user = this.afAuth.authState;
+        this.user$ = this.afAuth.authState;
+        this.load();
 
         const url = this.router.url;
         this.confirmSignIn(url);
@@ -51,7 +54,7 @@ export class LoginComponent implements OnInit {
         const email = this.emailForm.value.email;
         const actionCodeSettings = {
             // Redirect URL
-            url: `${environment.url}login`,
+            url: `${ environment.url }login`,
             handleCodeInApp: true
         };
 
@@ -68,17 +71,6 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    async anonSignIn() {
-        await this.afAuth.auth.signInAnonymously().then(
-            user => {
-                const method = user.user.isAnonymous;
-                this.analytics.logEvent('login', {method});
-                this.naviDPKCreate();
-            },
-            err => console.error(err)
-        );
-    }
-
     naviDPKCreate() {
         return setTimeout(() => this.router.navigate([ '/dpkCreate' ]), 500);
     }
@@ -88,19 +80,13 @@ export class LoginComponent implements OnInit {
             if (this.afAuth.auth.isSignInWithEmailLink(url)) {
                 const email = window.localStorage.getItem('emailForSignIn');
 
-                // If missing email, prompt user for it
-                // if (!email) {
-                //     email = window.prompt('Please provide your email for confirmation');
-                // }
-
                 if (email) {
                     this.afAuth.auth.signInWithEmailLink(email, url).then(
                         user => {
                             const newUser = user.additionalUserInfo.isNewUser;
-                            const method = user.user.isAnonymous;
-                            this.analytics.logEvent('login', {method});
+                            this.analytics.logEvent('login', { loginMethod: 'PasswordLess' });
                             if (newUser) {
-                                this.analytics.logEvent('sign_up', {newUser});
+                                this.analytics.logEvent('sign_up', { newUser });
                             }
                             this.naviDPKCreate();
                         }
@@ -129,5 +115,30 @@ export class LoginComponent implements OnInit {
             }
         );
 
+    }
+
+    load() {
+        gapi.load('client', () => {
+            gapi.client.init({
+                apiKey: environment.driveConfig.key,
+                // clientId and scope are optional if auth is not required.
+                clientId: environment.driveConfig.clientId,
+                discoveryDocs: environment.driveConfig.discoveryDocs,
+                scope: environment.driveConfig.scope,
+            });
+
+            gapi.client.load('drive', 'v3');
+        });
+    }
+
+    async googleSignIn() {
+        const googleAuth = gapi.auth2.getAuthInstance();
+        const googleUser = await googleAuth.signIn().then(() =>
+            this.analytics.logEvent('login', { loginMethod: 'Google' })
+        );
+
+        const token = googleUser.getAuthResponse().id_token;
+        const credential = auth.GoogleAuthProvider.credential(token);
+        await this.afAuth.auth.signInWithCredential(credential);
     }
 }
