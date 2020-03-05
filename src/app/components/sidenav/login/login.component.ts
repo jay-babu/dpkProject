@@ -126,6 +126,11 @@ export class LoginComponent implements OnInit {
                 discoveryDocs: environment.driveConfig.discoveryDocs,
                 scope: environment.driveConfig.scope,
             });
+            gapi.auth2.init({
+                // clientId and scope are optional if auth is not required.
+                clientId: environment.driveConfig.clientId,
+                scope: environment.driveConfig.scope,
+            });
 
             gapi.client.load('drive', 'v3');
         });
@@ -134,13 +139,14 @@ export class LoginComponent implements OnInit {
     async googleSignIn() {
         const googleAuth = gapi.auth2.getAuthInstance();
         let credential;
-        await googleAuth.signIn().then(googleUser => {
-                this.analytics.logEvent('login', { loginMethod: 'Google' });
+        await googleAuth.signIn().then(async googleUser => {
+                await this.analytics.logEvent('login', { loginMethod: 'Google' });
+                console.log(googleUser);
                 const token = googleUser.getAuthResponse().id_token;
                 credential = auth.GoogleAuthProvider.credential(token);
+                await this.afAuth.auth.signInWithCredential(credential);
             }
         );
 
-        await this.afAuth.auth.signInWithCredential(credential);
     }
 }
