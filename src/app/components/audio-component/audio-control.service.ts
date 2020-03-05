@@ -25,7 +25,7 @@ export class AudioControlService {
     }
 
     seekTime(time: number) {
-        this.bhajanAudio.currentTime = time;
+        setTimeout(() => this.bhajanAudio.currentTime = time, 0);
         if (this.bhajanAudio.paused) this.bhajanAudio.play();
     }
 
