@@ -119,8 +119,6 @@ export class LoginComponent implements OnInit {
 
     load() {
         gapi.load('client', () => {
-            console.log('loaded client');
-
             gapi.client.init({
                 apiKey: environment.driveConfig.key,
                 // clientId and scope are optional if auth is not required.
