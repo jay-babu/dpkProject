@@ -38,7 +38,9 @@ export class DriveAPIService {
             for (const item of driveFiles.files) {
                 const mimeType = item.mimeType.split('/')[0];
                 if (mimeType === 'audio') {
-                    this.driveMaterial.bhajanSource = this.exportImageDriveURL(item.id);
+                    const url = this.exportImageDriveURL(item.id);
+                    url.searchParams.set('ngsw-bypass', 'true');
+                    this.driveMaterial.bhajanSource = url;
                 } else if (mimeType === 'image') {
                     imagePaths.push(this.exportImageDriveURL(item.id))
                 }
