@@ -18,6 +18,7 @@ import { FirebaseService } from './services/firebase.service';
 import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 import { LottieModule } from 'ngx-lottie';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 export function playerFactory() {
     return import('lottie-web');
@@ -42,6 +43,7 @@ export function playerFactory() {
         ReactiveFormsModule,
         RouterModule,
         HammerModule,
+        ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
     ],
     providers: [
         FirebaseService,
