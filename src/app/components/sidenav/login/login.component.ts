@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { auth } from 'firebase/app';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -16,7 +17,7 @@ declare var gapi: any;
     styleUrls: [ './login.component.css' ]
 })
 export class LoginComponent implements OnInit {
-    user: Observable<any>;
+    user$: Observable<any>;
     emailSent = false;
 
     errorMessage: string;
@@ -31,7 +32,8 @@ export class LoginComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.user = this.afAuth.authState;
+        this.user$ = this.afAuth.authState;
+        this.load();
 
         const url = this.router.url;
         this.confirmSignIn(url);
@@ -52,7 +54,7 @@ export class LoginComponent implements OnInit {
         const email = this.emailForm.value.email;
         const actionCodeSettings = {
             // Redirect URL
-            url: `${environment.url}login`,
+            url: `${ environment.url }login`,
             handleCodeInApp: true
         };
 
@@ -69,17 +71,6 @@ export class LoginComponent implements OnInit {
         }
     }
 
-    async anonSignIn() {
-        await this.afAuth.auth.signInAnonymously().then(
-            user => {
-                const method = user.user.isAnonymous;
-                this.analytics.logEvent('login', {method});
-                this.naviDPKCreate();
-            },
-            err => console.error(err)
-        );
-    }
-
     naviDPKCreate() {
         return setTimeout(() => this.router.navigate([ '/dpkCreate' ]), 500);
     }
@@ -89,19 +80,13 @@ export class LoginComponent implements OnInit {
             if (this.afAuth.auth.isSignInWithEmailLink(url)) {
                 const email = window.localStorage.getItem('emailForSignIn');
 
-                // If missing email, prompt user for it
-                // if (!email) {
-                //     email = window.prompt('Please provide your email for confirmation');
-                // }
-
                 if (email) {
                     this.afAuth.auth.signInWithEmailLink(email, url).then(
                         user => {
                             const newUser = user.additionalUserInfo.isNewUser;
-                            const method = user.user.isAnonymous;
-                            this.analytics.logEvent('login', {method});
+                            this.analytics.logEvent('login', { loginMethod: 'PasswordLess' });
                             if (newUser) {
-                                this.analytics.logEvent('sign_up', {newUser});
+                                this.analytics.logEvent('sign_up', { newUser });
                             }
                             this.naviDPKCreate();
                         }
@@ -148,14 +133,14 @@ export class LoginComponent implements OnInit {
         });
     }
 
-    async login() {
+    async googleSignIn() {
         const googleAuth = gapi.auth2.getAuthInstance();
-        const googleUser = await googleAuth.signIn({
-            clientid: environment.driveConfig.clientId,
-            cookiepolicy: 'none',
-        });
+        const googleUser = await googleAuth.signIn().then(() =>
+            this.analytics.logEvent('login', { loginMethod: 'Google' })
+        );
 
         const token = googleUser.getAuthResponse().id_token;
-        console.log(token);
+        const credential = auth.GoogleAuthProvider.credential(token);
+        await this.afAuth.auth.signInWithCredential(credential);
     }
 }

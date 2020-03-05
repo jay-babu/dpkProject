@@ -1,6 +1,6 @@
 <div id="particles">
     <div class="page">
-        <ng-container *ngIf="user | async; else login">
+        <ng-container *ngIf="user$ | async; else login">
             <mat-card>
                 <mat-card-title>
                     Congrats You logged in without a password!
@@ -18,17 +18,15 @@
                             <input matInput placeholder="Email" formControlName="email">
                         </label>
                     </mat-form-field>
+                    <button mat-flat-button color="primary" [disabled]="emailSent || emailForm.invalid"
+                            type="submit">
+                        Get Login Link
+                    </button>
                 </form>
 
                 <div class="buttons">
-                    <button mat-flat-button color="primary" [disabled]="emailSent"
-                            (click)="anonSignIn()">
-                        Anonymous Sign In
-                    </button>
-
-                    <button mat-flat-button color="accent" [disabled]="emailSent || emailForm.invalid"
-                            (click)="sendEmailLink()">
-                        Get Login Link
+                    <button mat-flat-button color="accent" (click)="googleSignIn()">
+                        Google Sign In
                     </button>
                 </div>
 
