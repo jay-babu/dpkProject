@@ -133,12 +133,14 @@ export class LoginComponent implements OnInit {
 
     async googleSignIn() {
         const googleAuth = gapi.auth2.getAuthInstance();
-        const googleUser = await googleAuth.signIn().then(() =>
-            this.analytics.logEvent('login', { loginMethod: 'Google' })
+        let credential;
+        await googleAuth.signIn().then(googleUser => {
+                this.analytics.logEvent('login', { loginMethod: 'Google' });
+                const token = googleUser.getAuthResponse().id_token;
+                credential = auth.GoogleAuthProvider.credential(token);
+            }
         );
 
-        const token = googleUser.getAuthResponse().id_token;
-        const credential = auth.GoogleAuthProvider.credential(token);
         await this.afAuth.auth.signInWithCredential(credential);
     }
 }
