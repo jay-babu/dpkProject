@@ -23,11 +23,11 @@ export class SliderService {
         this.dpkFolder(dpks);
     }
 
-    dpkFolder(dpks: Map<string, string>) {
+    async dpkFolder(dpks: Map<string, string>) {
         const dpkFolderList = new Map<string, Slider[]>();
         for (const [ type, id ] of dpks) {
-            const dpkObservable = this.driveAPIService.getListOfFolders(id);
-            dpkObservable.pipe(take(1)).subscribe(
+            const dpkObservable = this.driveAPIService.getListOfFolders(id).toPromise();
+            await dpkObservable.then(
                 DPKs => {
                     const dpk = this.dpkMaterial(DPKs);
                     dpkFolderList.set(type, dpk);
