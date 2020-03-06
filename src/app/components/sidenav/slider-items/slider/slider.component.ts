@@ -2,7 +2,6 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Slider } from '../../../../interfaces/slider';
 import { SliderService } from './slider.service';
-import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-slider',
@@ -18,7 +17,7 @@ export class SliderComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.dpkFolder = this.sliderService.dpkFolder$.pipe(take(1));
+        this.dpkFolder = this.sliderService.dpkFolder$;
         this.dpkFolder.subscribe(dpkFolderItems => this.dpk = dpkFolderItems);
     }
 
