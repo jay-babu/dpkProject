@@ -141,7 +141,6 @@ export class LoginComponent implements OnInit {
         let credential;
         await googleAuth.signIn().then(async googleUser => {
                 await this.analytics.logEvent('login', { loginMethod: 'Google' });
-                console.log(googleUser);
                 const token = googleUser.getAuthResponse().id_token;
                 credential = auth.GoogleAuthProvider.credential(token);
                 await this.afAuth.auth.signInWithCredential(credential);
