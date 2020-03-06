@@ -85,7 +85,6 @@ export class SlideComponent implements OnInit, OnDestroy {
     nextSlideAudio() {
         this.timeOuts.forEach(times => clearTimeout(times));
         let index = this.slideIndex;
-        console.log(this.audioTimings, index);
         this.audioControlService.seekTime(this.audioTimings[index]);
         const removeSecond = -this.audioTimings[index++];
         for (const seconds of this.audioTimings.slice(index)) {
