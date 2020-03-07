@@ -12,16 +12,10 @@
 
                 <mat-card-actions class="actions">
                     <a [routerLink]="['/dpk', 'singerView', DPK.key, slide.name]">
-                        <button mat-button color="accent">
-                            <mat-icon>mic</mat-icon>
-                            View
-                        </button>
+                        <button mat-button color="accent">Singer View</button>
                     </a>
                     <a [routerLink]="['/dpk', 'slideShow', DPK.key, slide.name]">
-                        <button mat-button color="primary">
-                            <mat-icon>slideshow</mat-icon>
-                            SlideShow
-                        </button>
+                        <button mat-button color="primary">Presentation View</button>
                     </a>
                     <!--                <a [routerLink]="['/dpk', 'pdf', slide.type, slide.title]">-->
                     <!--                    <button mat-icon-button color="accent">-->
