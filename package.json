@@ -25,6 +25,11 @@
         "@angular/compiler": "^9.0.5",
         "@angular/compiler-cli": "^9.0.5",
         "@angular/core": "^9.0.5",
+        "@angular-devkit/architect": "^0.900.5",
+        "@angular-devkit/build-angular": "^0.900.5",
+        "@angular-devkit/core": "^9.0.5",
+        "@angular-devkit/schematics": "^9.0.5",
+        "@angular/language-service": "^9.0.5",
         "@angular/fire": "^5.4.2",
         "@angular/forms": "9.0.2",
         "@angular/material": "9.0.1",
@@ -47,11 +52,6 @@
         "zone.js": "~0.10.2"
     },
     "devDependencies": {
-        "@angular-devkit/architect": "^0.900.5",
-        "@angular-devkit/build-angular": "^0.900.5",
-        "@angular-devkit/core": "^9.0.5",
-        "@angular-devkit/schematics": "^9.0.5",
-        "@angular/language-service": "^9.0.5",
         "@types/gapi": "^0.0.39",
         "@types/gapi.auth2": "^0.0.51",
         "@types/hammerjs": "^2.0.36",
