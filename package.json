@@ -54,7 +54,7 @@
         "@types/gapi": "^0.0.39",
         "@types/gapi.auth2": "^0.0.51",
         "@types/hammerjs": "^2.0.36",
-        "@types/jasmine": "^3.5.8",
+        "@types/jasmine": "^3.5.9",
         "@types/jasminewd2": "~2.0.3",
         "@types/node": "^13.7.7",
         "angular-cli-ghpages": "^0.6.2",
