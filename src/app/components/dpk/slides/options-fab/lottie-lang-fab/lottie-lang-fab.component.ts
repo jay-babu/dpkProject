@@ -33,6 +33,10 @@ export class LottieLangFabComponent implements OnInit {
         this.animation = animationItem;
     }
 
+    get swapPossible() {
+        return this.slideService.swapLanguagePossible;
+    }
+
     toggle() {
         if (this.direction === 1) this.direction = -1;
         else this.direction = 1;
