@@ -17,6 +17,7 @@ import { LottieAudioFabComponent } from './slides/options-fab/lottie-audio-fab/l
 import { LottieLangFabComponent } from './slides/options-fab/lottie-lang-fab/lottie-lang-fab.component';
 import { LottieAnimatedAudioFabComponent } from './singer-view/lottie-animated-audio-fab/lottie-animated-audio-fab.component';
 import { ToggleFullScreenDirective } from '../../directive/toggle-full-screen.directive';
+import { TutorialModule } from '../tutorial/tutorial.module';
 
 const dpkRoutes: Routes = [
     // { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
@@ -43,6 +44,7 @@ const dpkRoutes: Routes = [
         AngularMaterialModule,
         ReactiveFormsModule,
         LottieModule,
+        TutorialModule,
     ],
     providers: [
         AudioControlService,

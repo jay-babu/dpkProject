@@ -110,8 +110,12 @@ export class SlideService {
         return slideIndex;
     }
 
+    get swapLanguagePossible() {
+        return this.bhajan.altStanza.length > 1;
+    }
+
     swapLanguages() {
-        if (this.bhajan.altStanza.length > 1) {
+        if (this.swapLanguagePossible) {
             [ this.bhajan.altStanza, this.bhajan.stanzaVisible ] = [ this.bhajan.stanzaVisible, this.bhajan.altStanza ];
             this.updateBhajan(this.bhajan);
         }

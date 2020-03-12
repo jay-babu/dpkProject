@@ -8,13 +8,14 @@ import { TutorialDialog } from './tutorial-dialog';
     styleUrls: [ './tutorial.component.css' ]
 })
 export class TutorialComponent implements OnInit {
-    @Input() displayedColumns: string[];
+    displayedColumns: string[];
     @Input() dataSource: TutorialDialog[];
 
     constructor(private dialog: MatDialog,) {
     }
 
     ngOnInit(): void {
+        this.displayedColumns = [ 'key', 'usages', ];
     }
 
     tutorialOpen(tutorial: TemplateRef<any>): void {

@@ -1,15 +1,22 @@
-<h1 mat-dialog-title>Slides Options</h1>
-<div mat-dialog-content>
-    <form [formGroup]="customForm">
-        <mat-form-field>
-            <mat-select formControlName="fontStyle" placeholder="Font Style">
-                <mat-option *ngFor="let fontStyle of fontStyles" [value]="fontStyle">
-                    {{ fontStyle }}
-                </mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-slide-toggle formControlName="definitionShown" labelPosition="before" checked="definitionShown">
-            Definition Shown
-        </mat-slide-toggle>
-    </form>
-</div>
+<button mat-fab class="fadeButton" (click)="optionDialog(optionRef)" matTooltip="Settings"
+        [matTooltipPosition]="'left'">
+    <mat-icon>settings</mat-icon>
+</button>
+
+<ng-template #optionRef>
+    <h1 mat-dialog-title>Slides Options</h1>
+    <div mat-dialog-content>
+        <form [formGroup]="customForm">
+            <mat-form-field>
+                <mat-select formControlName="fontStyle" placeholder="Font Style">
+                    <mat-option *ngFor="let fontStyle of fontStyles" [value]="fontStyle">
+                        {{ fontStyle }}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="definitionShown" labelPosition="before" checked="definitionShown">
+                Definition Shown
+            </mat-slide-toggle>
+        </form>
+    </div>
+</ng-template>
