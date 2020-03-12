@@ -13,6 +13,8 @@ import { ThemeService } from '../../services/theme.service';
 import { AngularMaterialModule } from '../../angular-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SliderService } from './slider-items/slider/slider.service';
+import { FontAwesomeModule } from '../../font-awesome.module';
+import { SliderItemTutComponent } from './slider-items/slider-item-tut/slider-item-tut.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([ 'login' ]);
 
@@ -35,10 +37,12 @@ const sidenavRoutes: Routes = [
         PrivacyPolicyComponent,
         SliderItemsComponent,
         SliderComponent,
+        SliderItemTutComponent,
     ],
     imports: [
         AngularMaterialModule,
         CommonModule,
+        FontAwesomeModule,
         ReactiveFormsModule,
         RouterModule.forChild(sidenavRoutes),
     ],

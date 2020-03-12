@@ -19,6 +19,7 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 import { LottieModule } from 'ngx-lottie';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { FontAwesomeModule } from './font-awesome.module';
 
 export function playerFactory() {
     return import('lottie-web');
@@ -38,6 +39,7 @@ export function playerFactory() {
         AngularFireAnalyticsModule,
         BrowserModule,
         BrowserAnimationsModule,
+        FontAwesomeModule,
         HttpClientModule,
         LottieModule.forRoot({ player: playerFactory }),
         ReactiveFormsModule,
