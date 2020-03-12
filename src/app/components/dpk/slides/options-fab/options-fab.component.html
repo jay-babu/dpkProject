@@ -1,9 +1,7 @@
 <div [style.opacity]="toggleButton ? '1' : '0'"
      [style.visibility]="toggleButton ? 'visible' : 'hidden'">
     <div class="bottomRight">
-        <button mat-fab (click)="openDialog()" matTooltip="Settings" [matTooltipPosition]="'left'">
-            <mat-icon>settings</mat-icon>
-        </button>
+        <app-options></app-options>
         <button class="slideShow" mat-fab appToggleFullScreen matTooltip="Present" [matTooltipPosition]="'left'">
             <mat-icon>slideshow</mat-icon>
         </button>
@@ -18,5 +16,9 @@
 
     <div class="bottomLeft">
         <app-lottie-audio-fab></app-lottie-audio-fab>
+    </div>
+
+    <div class="topRight">
+        <app-tutorial></app-tutorial>
     </div>
 </div>
