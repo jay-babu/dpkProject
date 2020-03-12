@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SliderItemTutComponent } from './slider-item-tut.component';
+import { TutorialComponent } from './tutorial.component';
 
 describe('SliderItemTutComponent', () => {
-    let component: SliderItemTutComponent;
-    let fixture: ComponentFixture<SliderItemTutComponent>;
+    let component: TutorialComponent;
+    let fixture: ComponentFixture<TutorialComponent>;
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ SliderItemTutComponent ]
+            declarations: [ TutorialComponent ]
         })
             .compileComponents();
     }));
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(SliderItemTutComponent);
+        fixture = TestBed.createComponent(TutorialComponent);
         component = fixture.componentInstance;
         fixture.detectChanges();
     });
