@@ -143,10 +143,9 @@ export class LoginComponent implements OnInit {
                 await this.analytics.logEvent('login', { loginMethod: 'Google' });
                 const token = googleUser.getAuthResponse().id_token;
                 credential = auth.GoogleAuthProvider.credential(token);
-            await this.afAuth.auth.signInWithCredential(credential);
-            this.naviDPKCreate();
+                await this.afAuth.auth.signInWithCredential(credential);
+                this.naviDPKCreate();
             }
         );
-
     }
 }
