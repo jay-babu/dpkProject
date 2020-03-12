@@ -4,6 +4,7 @@ import { TutorialComponent } from './tutorial.component';
 import { MatButtonModule } from '@angular/material/button';
 import { FontAwesomeModule } from '../../font-awesome.module';
 import { MatTableModule } from '@angular/material/table';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 @NgModule({
@@ -15,6 +16,7 @@ import { MatTableModule } from '@angular/material/table';
         MatButtonModule,
         FontAwesomeModule,
         MatTableModule,
+        MatDialogModule,
     ],
     exports: [
         TutorialComponent

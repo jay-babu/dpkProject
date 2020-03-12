@@ -8,12 +8,12 @@
     <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
 
         <ng-container matColumnDef="key">
-            <th mat-header-cell *matHeaderCellDef> Key Actions</th>
+            <th mat-header-cell *matHeaderCellDef>Key Actions</th>
             <td mat-cell *matCellDef="let element" class="key"> {{element.key}} </td>
         </ng-container>
 
         <ng-container matColumnDef="usages">
-            <th mat-header-cell *matHeaderCellDef> Usages</th>
+            <th mat-header-cell *matHeaderCellDef>Usages</th>
             <td mat-cell *matCellDef="let element" class="usages"> {{element.usages}} </td>
         </ng-container>
 
