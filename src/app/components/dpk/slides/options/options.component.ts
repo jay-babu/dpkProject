@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { SlideService } from '../../../../services/slide.service';
 import { Subscription } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
     selector: 'app-options',
@@ -16,7 +17,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
     subscriptions: Subscription[] = [];
 
 
-    constructor(private fb: FormBuilder, private slideService: SlideService) {
+    constructor(private fb: FormBuilder, private slideService: SlideService, private dialog: MatDialog,) {
     }
 
     ngOnInit(): void {
@@ -31,5 +32,12 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
         this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    optionDialog(optionRef: TemplateRef<any>): void {
+        this.dialog.open(optionRef, {
+            width: '250px',
+            position: { right: '1%' },
+        });
     }
 }
