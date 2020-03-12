@@ -1,0 +1,28 @@
+.mat-header-cell {
+    text-align: center;
+    font-size: 1.3em;
+}
+
+.mat-cell {
+    font-size: 1em;
+}
+
+.mat-table {
+    width: 100%;
+}
+
+.mat-dialog-title {
+    text-align: center;
+}
+
+.mat-dialog-container {
+    max-width: 100vw !important;
+}
+
+.usages {
+    text-align: right;
+}
+
+.key {
+    text-align: center;
+}
