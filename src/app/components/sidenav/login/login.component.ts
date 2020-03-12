@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
     }
 
     naviDPKCreate() {
-        return setTimeout(() => this.router.navigate([ '/dpkCreate' ]), 500);
+        return setTimeout(() => this.router.navigate([ '/create' ]), 500);
     }
 
     confirmSignIn(url: string) {
@@ -143,7 +143,8 @@ export class LoginComponent implements OnInit {
                 await this.analytics.logEvent('login', { loginMethod: 'Google' });
                 const token = googleUser.getAuthResponse().id_token;
                 credential = auth.GoogleAuthProvider.credential(token);
-                await this.afAuth.auth.signInWithCredential(credential);
+            await this.afAuth.auth.signInWithCredential(credential);
+            this.naviDPKCreate();
             }
         );
 

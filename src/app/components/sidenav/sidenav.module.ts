@@ -21,7 +21,7 @@ const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([ 'login' ]);
 const sidenavRoutes: Routes = [
     { path: 'login', component: LoginComponent, },
     {
-        path: 'dpkCreate',
+        path: 'create',
         component: DpkFormComponent,
         canActivate: [ AngularFireAuthGuard ],
         data: { authGuardPipe: redirectUnauthorizedToLogin },
