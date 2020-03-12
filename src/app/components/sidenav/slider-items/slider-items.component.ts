@@ -22,6 +22,5 @@ export class SliderItemsComponent implements OnInit {
             { key: 'DPK Creation', usages: 'To create a DPK, please login then head over to the creation page for detailed instructions' },
             { key: 'Next Steps', usages: 'View a current DPK or create a new DPK one' },
         ];
-
     }
 }
