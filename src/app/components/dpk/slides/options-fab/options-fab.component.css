@@ -2,15 +2,13 @@ div {
     transition: .7s;
 }
 
-
-button {
+.fadeButton {
     margin: 1vh 0;
     opacity: 0.6;
     transition: all .5s linear;
-
 }
 
-button:hover {
+.fadeButton:hover {
     opacity: 1.0;
 }
 
