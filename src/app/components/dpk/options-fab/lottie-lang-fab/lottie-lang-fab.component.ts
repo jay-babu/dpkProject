@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationDirection, AnimationItem } from 'lottie-web';
-import { SlideService } from '../../../../../services/slide.service';
+import { SlideService } from '../../../../services/slide.service';
 
 @Component({
     selector: 'app-lottie-lang-fab',

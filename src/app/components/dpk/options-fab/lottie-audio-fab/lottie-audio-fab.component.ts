@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationDirection, AnimationItem } from 'lottie-web';
-import { AudioControlService } from '../../../../audio-component/audio-control.service';
+import { AudioControlService } from '../../../audio-component/audio-control.service';
 
 @Component({
     selector: 'app-lottie-audio-fab',

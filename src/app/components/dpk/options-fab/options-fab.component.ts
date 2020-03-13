@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit } from '@angular/core';
-import { TutorialDialog } from '../../../tutorial/tutorial-dialog';
+import { TutorialDialog } from '../../tutorial/tutorial-dialog';
 
 @Component({
     selector: 'app-options-fab',
