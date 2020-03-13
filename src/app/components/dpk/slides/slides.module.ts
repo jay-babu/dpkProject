@@ -5,7 +5,6 @@ import { SlidesComponent } from './slides.component';
 import { SlideComponent } from './slide/slide.component';
 import { OptionsFabModule } from '../options-fab/options-fab.module';
 import { AudioModule } from '../../audio-component/audio.module';
-import { ToggleFullScreenDirective } from '../../../directive/toggle-full-screen.directive';
 
 const slidesRoute: Routes = [
     { path: ':dpk/:name', component: SlidesComponent },
@@ -15,7 +14,6 @@ const slidesRoute: Routes = [
     declarations: [
         SlidesComponent,
         SlideComponent,
-        ToggleFullScreenDirective,
     ],
     imports: [
         CommonModule,

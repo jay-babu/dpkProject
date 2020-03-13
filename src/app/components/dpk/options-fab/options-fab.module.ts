@@ -15,6 +15,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { LottieModule } from 'ngx-lottie';
+import { ToggleFullScreenModule } from '../../../directive/toggle-full-screen/toggle-full-screen.module';
 
 @NgModule({
     declarations: [
@@ -36,6 +37,7 @@ import { LottieModule } from 'ngx-lottie';
         MatSelectModule,
         MatSlideToggleModule,
         LottieModule,
+        ToggleFullScreenModule,
     ],
     exports: [
         OptionsFabComponent,
