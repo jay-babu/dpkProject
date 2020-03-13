@@ -16,6 +16,7 @@ import { MatCardModule } from '@angular/material/card';
 import { RouterModule, Routes } from '@angular/router';
 import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard';
 import { DpkParseService } from '../../dpk/slides/dpk-parse.service';
+import { FormCardsComponent } from './form-cards/form-cards.component';
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([ 'login' ]);
 
@@ -29,6 +30,7 @@ const dpkFormRoutes: Routes = [
 @NgModule({
     declarations: [
         DpkFormComponent,
+        FormCardsComponent,
     ],
     imports: [
         CommonModule,
