@@ -56,6 +56,7 @@
                         <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
                             the {{ dpkForm.value.titleSection.dpk }} folder in Google Drive
                         </mat-error>
+                        <mat-hint>Title must match Google Drive Folder</mat-hint>
                     </mat-form-field>
                 </div>
                 <div>
@@ -75,23 +76,28 @@
                     <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">
                         The Number of Slides and Photos in Google Drive do not Match
                     </mat-error>
+
+                    <mat-hint>Follow the format in Ex: Lyrics</mat-hint>
                 </mat-form-field>
                 <mat-form-field class="text-fields">
                     <label>
-                    <textarea cdkTextareaAutosize matInput placeholder="Gujarati Lyrics"
-                              formControlName="gujarati" class="mat-primary" [errorStateMatcher]="errorMatcher">
-                    </textarea>
+                        <textarea cdkTextareaAutosize matInput placeholder="Gujarati Lyrics"
+                                  formControlName="gujarati" class="mat-primary" [errorStateMatcher]="errorMatcher">
+                        </textarea>
                     </label>
                     <mat-error *ngIf="dpkForm.hasError('GujuIncorrectSize')">
                         Number of Stanzas for Lyrics and Gujarati Lyrics do not Match
                     </mat-error>
+                    <mat-hint>Same Format as Lyrics</mat-hint>
                 </mat-form-field>
 
                 <mat-form-field class="text-fields">
                     <label>
-                <textarea cdkTextareaAutosize matInput placeholder="Definitions"
-                          formControlName="definitions" class="mat-primary"></textarea>
+                        <textarea cdkTextareaAutosize matInput placeholder="Definitions" formControlName="definitions"
+                                  class="mat-primary">
+                        </textarea>
                     </label>
+                    <mat-hint>Same Format as Lyrics</mat-hint>
                 </mat-form-field>
                 <div>
                     <button mat-button matStepperPrevious type="button" color="primary">Back</button>
@@ -131,8 +137,10 @@
                                    class="mat-primary"
                                    [errorStateMatcher]="errorMatcher" required>
                         </label>
-                        <mat-error *ngIf="dpkForm.hasError('badURL')">The URL provided does not follow a Valid Format
+                        <mat-error *ngIf="dpkForm.hasError('badURL')">
+                            The URL provided does not follow a Valid Format
                         </mat-error>
+                        <mat-hint>The Google Drive Folder URL created `Name the Bhajan` Section</mat-hint>
                     </mat-form-field>
                 </div>
                 <div>
