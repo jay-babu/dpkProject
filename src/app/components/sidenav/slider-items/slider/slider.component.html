@@ -3,12 +3,8 @@
         <mat-toolbar>{{DPK.key}}</mat-toolbar>
         <div class="slides">
             <mat-card *ngFor="let dpkTitle of DPK.value" class="slide">
-                <mat-card-header>
-                    <mat-card-title>{{ dpkTitle }}</mat-card-title>
-                </mat-card-header>
-
-                <!--                <img mat-card-image [src]="slide.image" [routerLink]="['/dpk', 'slideShow', DPK.key, slide.name]"-->
-                <!--                     alt="{{slide.name}}">-->
+                <img mat-card-image [src]="getGitHubURL(DPK.key.toString(), dpkTitle)"
+                     [routerLink]="['/dpk', 'slideShow', DPK.key, dpkTitle]" alt="{{dpkTitle}}">
 
                 <mat-card-actions class="actions">
                     <a [routerLink]="['/dpk', 'singerView', DPK.key, dpkTitle]">
