@@ -56,12 +56,13 @@ export class SlideService {
                 }
                 return route;
             }),
-            map(route => route.url)
-        ).subscribe(activeRouter => activeRouter.subscribe(urlSegments => {
-            if (urlSegments.length === 2) this.updatePath(urlSegments[0].path, urlSegments[1].path)
-        }));
-
-
+            map(route => route.snapshot)
+        ).subscribe(activeRouter => {
+            const params = activeRouter.params;
+            if (params.dpk && params.name) {
+                this.updatePath(params.dpk, params.name);
+            }
+        });
     }
 
     private updatePath(dpk: string, name: string) {
