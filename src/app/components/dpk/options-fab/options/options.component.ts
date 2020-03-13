@@ -16,7 +16,6 @@ export class OptionsComponent implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-
     constructor(private fb: FormBuilder, private slideService: SlideService, private dialog: MatDialog,) {
     }
 

@@ -1,5 +1,4 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { Bhajan, DriveMaterial } from '../../../interfaces/bhajan';
 import { DriveAPIService } from '../../../services/drive-api.service';
@@ -21,20 +20,11 @@ export class SingerViewComponent implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    constructor(private router: Router,
-                private activeRouter: ActivatedRoute,
-                public slideService: SlideService,
+    constructor(public slideService: SlideService,
                 private driveAPIService: DriveAPIService,) {
     }
 
     ngOnInit(): void {
-        let slideName;
-        let slideDPK;
-        this.subscriptions.push(this.activeRouter.params.subscribe(params => {
-            slideName = (params.name === undefined) ? '' : params.name;
-            slideDPK = params.dpk;
-        }));
-
         this.firebaseBhajan$ = this.slideService.bhajan$;
         this.driveBhajanImages$ = this.driveAPIService.driveMaterial$;
 
