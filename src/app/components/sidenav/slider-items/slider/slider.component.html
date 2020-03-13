@@ -2,19 +2,19 @@
     <ng-container *ngFor="let DPK of this.dpk | keyvalue">
         <mat-toolbar>{{DPK.key}}</mat-toolbar>
         <div class="slides">
-            <mat-card *ngFor="let slide of DPK.value" class="slide">
+            <mat-card *ngFor="let dpkTitle of DPK.value" class="slide">
                 <mat-card-header>
-                    <mat-card-title>{{ slide.name }}</mat-card-title>
+                    <mat-card-title>{{ dpkTitle }}</mat-card-title>
                 </mat-card-header>
 
                 <!--                <img mat-card-image [src]="slide.image" [routerLink]="['/dpk', 'slideShow', DPK.key, slide.name]"-->
                 <!--                     alt="{{slide.name}}">-->
 
                 <mat-card-actions class="actions">
-                    <a [routerLink]="['/dpk', 'singerView', DPK.key, slide.name]">
+                    <a [routerLink]="['/dpk', 'singerView', DPK.key, dpkTitle]">
                         <button mat-button color="accent">Singer View</button>
                     </a>
-                    <a [routerLink]="['/dpk', 'slideShow', DPK.key, slide.name]">
+                    <a [routerLink]="['/dpk', 'slideShow', DPK.key, dpkTitle]">
                         <button mat-button color="primary">Presentation View</button>
                     </a>
                     <!--                <a [routerLink]="['/dpk', 'pdf', slide.type, slide.title]">-->

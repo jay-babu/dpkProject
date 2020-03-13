@@ -1,8 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Slider } from '../../../../interfaces/slider';
 import { DriveAPIService } from '../../../../services/drive-api.service';
-import { DriveMaterialList } from '../../../../interfaces/drive';
-import { take } from 'rxjs/operators';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
@@ -10,12 +7,12 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class SliderService {
 
-    private _dpkFolder: BehaviorSubject<Map<string, Slider[]>>;
-    dpkFolder$: Observable<Map<string, Slider[]>>;
+    private _dpkFolder: BehaviorSubject<Map<string, string[]>>;
+    dpkFolder$: Observable<Map<string, string[]>>;
 
 
     constructor(private driveAPIService: DriveAPIService) {
-        this._dpkFolder = new BehaviorSubject<Map<string, Slider[]>>(null);
+        this._dpkFolder = new BehaviorSubject<Map<string, string[]>>(null);
         this.dpkFolder$ = this._dpkFolder.asObservable();
 
         const dpks = new Map<string, string>().set('Dhun', '1EI8HFzxxO94jyXMIC4mmSKEWF9dKTDcB')
@@ -23,34 +20,34 @@ export class SliderService {
         this.dpkFolder(dpks);
     }
 
-    async dpkFolder(dpks: Map<string, string>) {
-        const dpkFolderList = new Map<string, Slider[]>();
-        for (const [ type, id ] of dpks) {
-            const dpkObservable = this.driveAPIService.getListOfFolders(id).toPromise();
-            await dpkObservable.then(
+    dpkFolder(dpks: Map<string, string>) {
+        const dpkFolderList = new Map<string, string[]>();
+        for (const [ category, id ] of dpks) {
+            const dpkObservable = this.driveAPIService.getListOfFolders(id);
+            dpkObservable.subscribe(
                 DPKs => {
-                    const dpk = this.dpkMaterial(DPKs);
-                    dpkFolderList.set(type, dpk);
+                    const titles = DPKs.files.map(slider => slider.name);
+                    dpkFolderList.set(category, titles);
                 }
             );
         }
         this._dpkFolder.next(dpkFolderList);
     }
 
-    private dpkMaterial(DPKs: DriveMaterialList): Slider[] {
-        const dpk: Slider[] = [];
-        for (const DPK of DPKs.files) {
-            const name = DPK.name;
-            this.driveAPIService.getListOfFiles(`'${ DPK.id }' in parents`).pipe(take(1)).subscribe(images => {
-                const imageID = images.files[0].id;
-                const imageURL = this.driveAPIService.exportImageDriveURL(imageID);
-                dpk.push({
-                    name,
-                    imageID,
-                    image: imageURL,
-                });
-            });
-        }
-        return dpk;
-    }
+    // private dpkMaterial(DPKs: DriveMaterialList): Slider[] {
+    //     const dpk: Slider[] = [];
+    //     for (const DPK of DPKs.files) {
+    //         const name = DPK.name;
+    //         this.driveAPIService.getListOfFiles(`'${ DPK.id }' in parents`).pipe(take(1)).subscribe(images => {
+    //             const imageID = images.files[0].id;
+    //             const imageURL = this.driveAPIService.exportImageDriveURL(imageID);
+    //             dpk.push({
+    //                 name,
+    //                 imageID,
+    //                 image: imageURL,
+    //             });
+    //         });
+    //     }
+    //     return dpk;
+    // }
 }
