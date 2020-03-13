@@ -26,4 +26,8 @@ export class SliderComponent implements OnInit, OnDestroy {
     getGitHubURL(category: string, title: string) {
         return this.sliderService.getGitHubURL(category, title);
     }
+
+    imageToURLL(url: URL) {
+        return `url(${ url.href })`;
+    }
 }
