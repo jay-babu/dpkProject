@@ -70,7 +70,7 @@ export class DpkFormComponent implements OnInit {
     openDPKSlides() {
         const dpk = this.dpkForm.value.titleSection.dpk;
         const title = this.dpkForm.value.titleSection.title;
-        this.router.navigate([ '/dpk', 'slideShow', dpk, title ]);
+        this.router.navigate([ '../dpk', 'slideShow', dpk, title ]);
     }
 
     dpkEditSelection(title: MatSelectChange) {

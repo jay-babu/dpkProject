@@ -72,7 +72,7 @@ export class LoginComponent implements OnInit {
     }
 
     naviDPKCreate() {
-        return setTimeout(() => this.router.navigate([ '/create' ]), 500);
+        return setTimeout(() => this.router.navigate([ '../create' ]), 500);
     }
 
     confirmSignIn(url: string) {
