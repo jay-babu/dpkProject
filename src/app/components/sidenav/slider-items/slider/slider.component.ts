@@ -1,6 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Slider } from '../../../../interfaces/slider';
 import { SliderService } from './slider.service';
 
 @Component({
@@ -9,9 +8,9 @@ import { SliderService } from './slider.service';
     styleUrls: [ './slider.component.scss' ]
 })
 export class SliderComponent implements OnInit, OnDestroy {
-    dpkFolder: Observable<Map<string, Slider[]>>;
+    dpkFolder: Observable<Map<string, string[]>>;
 
-    dpk: Map<string, Slider[]>;
+    dpk: Map<string, string[]>;
 
     constructor(private sliderService: SliderService) {
     }
