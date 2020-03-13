@@ -33,6 +33,7 @@ export class OptionsFabComponent implements OnInit {
             { key: `Arrow Right`, usages: `Goes to Next Slide` },
             { key: `Arrow Left`, usages: `Goes to Previous Slide` },
             { key: `'B' Keyboard Button`, usages: `Press B to fade in/out screen` },
+            { key: `'F' Keyboard Button`, usages: `Press F to toggle Fullscreen Mode` },
             { key: `Clicker Compatibility`, usages: `Compatible with Most Clickers` },
         ];
     }

@@ -11,7 +11,7 @@ export class ToggleFullScreenDirective {
 
     @HostListener('click') onClick() {
         if (screenfull.isEnabled) {
-            screenfull.toggle()
+            screenfull.toggle();
         }
     }
 
