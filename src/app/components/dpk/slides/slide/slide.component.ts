@@ -7,6 +7,7 @@ import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
 import { AudioControlService } from '../../../audio-component/audio-control.service';
 import { Bhajan, DriveMaterial } from '../../../../interfaces/bhajan';
+import * as screenfull from 'screenfull';
 
 @Component({
     selector: 'app-slide',
@@ -138,6 +139,10 @@ export class SlideComponent implements OnInit, OnDestroy {
             }
         } else if (event.key === 'b') {
             this.hidden = !this.hidden;
+        } else if (event.key === 'f') {
+            if (screenfull.isEnabled) {
+                await screenfull.toggle();
+            }
         }
     }
 
