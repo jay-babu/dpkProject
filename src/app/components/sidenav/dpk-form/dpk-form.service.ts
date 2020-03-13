@@ -4,6 +4,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { DriveAPIService } from '../../../services/drive-api.service';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 
 @Injectable({
@@ -104,6 +105,7 @@ export class DpkFormService {
         let filesArr: { id: string; name: string }[] = [];
         await this.driveAPIService
             .getListOfFiles(`'${ dpkId }' in parents and mimeType = 'application/vnd.google-apps.folder' and name = '${ title }'`)
+            .pipe(debounceTime(500), distinctUntilChanged())
             .toPromise().then(files => filesArr = files.files);
         return filesArr;
     }
@@ -130,7 +132,7 @@ export class DpkFormService {
         const id = path[3];
         let status = null;
 
-        await this.driveAPIService.getListOfFiles(`'${ id }' in parents`).toPromise().then(
+        await this.driveAPIService.getListOfFiles(`'${ id }' in parents`).pipe(debounceTime(500), distinctUntilChanged()).toPromise().then(
             files => {
                 const filesArr = files.files;
                 const imageArr: object[] = [];
@@ -158,7 +160,7 @@ export class DpkFormService {
     }
 
     getDPK() {
-        this.driveAPIService.getListOfFolders(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`)
+        this.driveAPIService.getListOfFolders(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`).pipe(debounceTime(500), distinctUntilChanged())
             .subscribe(foldersObject => {
                 const folders = foldersObject.files;
                 for (const folder of folders) {

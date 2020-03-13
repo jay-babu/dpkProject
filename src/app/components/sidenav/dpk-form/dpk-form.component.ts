@@ -49,7 +49,7 @@ export class DpkFormComponent implements OnInit {
             audioUploaded: [ false ],
             audioTimings: [ '' ],
         }),
-    }, { asyncValidators: [ this.dpkFormService.validSubmission ] });
+    }, { asyncValidators: [ this.dpkFormService.validSubmission ], updateOn: 'blur', });
 
     ngOnInit() {
     }
