@@ -25,7 +25,7 @@
 .actions {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: center;
 }
 
 mat-card {
@@ -43,7 +43,6 @@ mat-card {
 }
 
 img {
-    width: 370px;
     object-fit: cover;
     cursor: pointer;
 }
