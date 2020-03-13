@@ -4,13 +4,13 @@
         <div class="slides">
             <mat-card *ngFor="let dpkTitle of DPK.value" class="slide">
                 <img mat-card-image [src]="getGitHubURL(DPK.key.toString(), dpkTitle)"
-                     [routerLink]="['/dpk', 'slideShow', DPK.key, dpkTitle]" alt="{{dpkTitle}}">
+                     [routerLink]="['../dpk', 'slideShow', DPK.key, dpkTitle]" alt="{{dpkTitle}}">
 
                 <mat-card-actions class="actions">
-                    <a [routerLink]="['/dpk', 'singerView', DPK.key, dpkTitle]">
+                    <a [routerLink]="['../dpk', 'singerView', DPK.key, dpkTitle]">
                         <button mat-button color="accent">Singer View</button>
                     </a>
-                    <a [routerLink]="['/dpk', 'slideShow', DPK.key, dpkTitle]">
+                    <a [routerLink]="['../dpk', 'slideShow', DPK.key, dpkTitle]">
                         <button mat-button color="primary">Presentation View</button>
                     </a>
                     <!--                <a [routerLink]="['/dpk', 'pdf', slide.type, slide.title]">-->
