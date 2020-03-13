@@ -22,4 +22,8 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     ngOnDestroy(): void {
     }
+
+    getGitHubURL(category: string, title: string) {
+        return this.sliderService.getGitHubURL(category, title);
+    }
 }

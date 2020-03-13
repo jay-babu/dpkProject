@@ -34,6 +34,12 @@ export class SliderService {
         this._dpkFolder.next(dpkFolderList);
     }
 
+    getGitHubURL(category: string, title: string) {
+        const ghURL: URL = new URL(`https://github.com/jayp0521/dpkCover/blob/master/${ category }/${ title }.webp`);
+        ghURL.searchParams.set('raw', 'true');
+        return ghURL;
+    }
+
     // private dpkMaterial(DPKs: DriveMaterialList): Slider[] {
     //     const dpk: Slider[] = [];
     //     for (const DPK of DPKs.files) {
