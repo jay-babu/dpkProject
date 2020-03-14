@@ -5,7 +5,7 @@
             <mat-card *ngFor="let dpkTitle of DPK.value" title="{{dpkTitle}}"
                       [ngStyle]="{'backgroundImage': imageToURLL(getGitHubURL(DPK.key.toString(), dpkTitle))}"
                       class="slide">
-                <mat-card-title class="top">{{dpkTitle}}</mat-card-title>
+                <mat-card-title *ngIf="!gitHubFiles.has(dpkTitle + '.webp')" class="top">{{dpkTitle}}</mat-card-title>
                 <div class="overlay">
                     <mat-card-actions class="actions">
                         <a [routerLink]="['../dpk', 'singerView', DPK.key, dpkTitle]">
