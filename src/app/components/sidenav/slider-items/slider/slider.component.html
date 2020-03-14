@@ -2,24 +2,22 @@
     <ng-container *ngFor="let DPK of this.dpk | keyvalue">
         <mat-toolbar>{{DPK.key}}</mat-toolbar>
         <div class="slides">
-            <mat-card *ngFor="let dpkTitle of DPK.value" class="slide">
-                <img mat-card-image [src]="getGitHubURL(DPK.key.toString(), dpkTitle)"
-                     [routerLink]="['../dpk', 'slideShow', DPK.key, dpkTitle]" alt="{{dpkTitle}}">
+            <mat-card *ngFor="let dpkTitle of DPK.value" title="{{dpkTitle}}"
+                      [ngStyle]="{'backgroundImage': imageToURLL(getGitHubURL(DPK.key.toString(), dpkTitle))}"
+                      class="slide">
+                <mat-card-title *ngIf="!gitHubFiles.has(dpkTitle + '.webp')"
+                                class="cardTitle">{{dpkTitle}}</mat-card-title>
+                <div class="overlay">
+                    <mat-card-actions class="actions">
+                        <a [routerLink]="['../dpk', 'singerView', DPK.key, dpkTitle]">
+                            <button mat-stroked-button color="accent">Singer View</button>
+                        </a>
+                        <a [routerLink]="['../dpk', 'slideShow', DPK.key, dpkTitle]">
+                            <button mat-stroked-button color="primary">Presentation View</button>
+                        </a>
+                    </mat-card-actions>
 
-                <mat-card-actions class="actions">
-                    <a [routerLink]="['../dpk', 'singerView', DPK.key, dpkTitle]">
-                        <button mat-button color="accent">Singer View</button>
-                    </a>
-                    <a [routerLink]="['../dpk', 'slideShow', DPK.key, dpkTitle]">
-                        <button mat-button color="primary">Presentation View</button>
-                    </a>
-                    <!--                <a [routerLink]="['/dpk', 'pdf', slide.type, slide.title]">-->
-                    <!--                    <button mat-icon-button color="accent">-->
-                    <!--                        <mat-icon>picture_as_pdf</mat-icon>-->
-                    <!--                    </button>-->
-                    <!--                </a>-->
-                    <!--                    <button mat-button color="warn">Flag</button>-->
-                </mat-card-actions>
+                </div>
             </mat-card>
         </div>
     </ng-container>
