@@ -37,9 +37,22 @@ export class SliderService {
     }
 
     getGitHubURL(category: string, title: string) {
-        const ghURL: URL = new URL(`https://github.com/jayp0521/dpkCover/blob/master/${ category }/${ title }.webp`);
-        ghURL.searchParams.set('raw', 'true');
-        return ghURL;
+        const coverRepo = 'https://raw.githubusercontent.com/jayp0521/dpkCover/master/';
+        if (this.detectBrowser) {
+            const ghWebp: URL = new URL(`${ coverRepo }${ category }/${ title }.webp`);
+            return [ ghWebp ];
+        }
+        const ghJPG: URL = new URL(`${ coverRepo }${ category }/${ title }.jpg`);
+        return [ ghJPG ];
+    }
+
+    get detectBrowser() {
+        const userAgent = navigator.userAgent;
+        if (userAgent.search(`Safari`) > -1) {
+            if (userAgent.search(`CriOS`) > -1) {
+                return false;
+            } else return userAgent.search(`Chrome`) > -1;
+        }
     }
 
     get gitHubImages() {
