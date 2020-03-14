@@ -29,13 +29,14 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     getGitHubURL(category: string, title: string) {
         if (this.gitHubFiles.has(`${ title }.webp`)) {
-            return this.sliderService.getGitHubURL(category, title).href;
+            return this.sliderService.getGitHubURL(category, title).map(url => url.href);
         }
-        return '';
+        return [];
     }
 
-    imageToURLL(url: string) {
-        if (url) return `url(${ url })`;
-        else return '';
+    imageToURLL(urls: string[]) {
+        if (urls.length) {
+            return urls.map(url => `url(${ url })`);
+        } else return '';
     }
 }
