@@ -1,4 +1,4 @@
-<div class="mat-app-background">
+<div class="mat-app-background" (swipeRight)="upOrDown(false)" (swipeLeft)="upOrDown(true)">
     <div *ngIf="this.firebaseBhajan$ | async" [@openClose]="hidden ? 'closed' : 'open'">
         <div class="bg-image" *ngIf="this.driveBhajanImages$ | async"
              [style.backgroundImage]="imageToURLL(slideIndex)"></div>
