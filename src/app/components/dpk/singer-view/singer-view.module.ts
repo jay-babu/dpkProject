@@ -6,6 +6,7 @@ import { LottieAnimatedAudioFabComponent } from './lottie-animated-audio-fab/lot
 import { OptionsFabModule } from '../options-fab/options-fab.module';
 import { AudioModule } from '../../audio-component/audio.module';
 import { LottieModule } from 'ngx-lottie';
+import { MatButtonModule } from '@angular/material/button';
 
 const singerViewRoutes: Routes = [
     { path: ':dpk/:name', component: SingerViewComponent }
@@ -22,6 +23,7 @@ const singerViewRoutes: Routes = [
         OptionsFabModule,
         RouterModule.forChild(singerViewRoutes),
         LottieModule,
+        MatButtonModule,
     ]
 })
 export class SingerViewModule {
