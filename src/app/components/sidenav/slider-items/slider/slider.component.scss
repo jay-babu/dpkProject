@@ -54,19 +54,18 @@ mat-card {
     z-index: 1;
     background: rgba(0, 0, 0, 0);
     transition: background 0.5s ease;
-}
 
-.overlay:hover {
-    background: rgba(0, 0, 0, 0.7);
+    &:hover {
+        background: rgba(0, 0, 0, 0.7);
+    }
 }
 
 .overlay:hover .actions {
     opacity: 1;
 }
 
-.top {
-    top: 5%;
-    position: absolute;
+.cardTitle {
+    text-align: center;
 }
 
 mat-toolbar {

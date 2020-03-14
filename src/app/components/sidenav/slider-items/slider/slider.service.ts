@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { GitHubTree } from '../../../../interfaces/git-hub-tree';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +13,7 @@ export class SliderService {
     dpkFolder$: Observable<Map<string, string[]>>;
 
 
-    constructor(private driveAPIService: DriveAPIService) {
+    constructor(private driveAPIService: DriveAPIService, private http: HttpClient) {
         this._dpkFolder = new BehaviorSubject<Map<string, string[]>>(null);
         this.dpkFolder$ = this._dpkFolder.asObservable();
 
@@ -40,20 +42,18 @@ export class SliderService {
         return ghURL;
     }
 
-    // private dpkMaterial(DPKs: DriveMaterialList): Slider[] {
-    //     const dpk: Slider[] = [];
-    //     for (const DPK of DPKs.files) {
-    //         const name = DPK.name;
-    //         this.driveAPIService.getListOfFiles(`'${ DPK.id }' in parents`).pipe(take(1)).subscribe(images => {
-    //             const imageID = images.files[0].id;
-    //             const imageURL = this.driveAPIService.exportImageDriveURL(imageID);
-    //             dpk.push({
-    //                 name,
-    //                 imageID,
-    //                 image: imageURL,
-    //             });
-    //         });
-    //     }
-    //     return dpk;
-    // }
+    get gitHubImages() {
+        const gitHubDPKImages = new Set<string>();
+
+        for (const category of [ '93648413ef90b292c80c0ee88b53ee347c5d538d', '3fa480e66773120a4f6618387bd0d94e483c836c', ]) {
+            const gitURL = new URL(`https://api.github.com/repos/jayp0521/dpkCover/git/trees/${ category }`);
+
+            this.http.get<GitHubTree>(gitURL.href).subscribe(coverImages => {
+                for (const file of coverImages.tree) {
+                    gitHubDPKImages.add(file.path)
+                }
+            });
+        }
+        return gitHubDPKImages;
+    }
 }
