@@ -1,6 +1,10 @@
 <div *ngIf="dpkFolder | async" class="slider-container">
     <ng-container *ngFor="let DPK of this.dpk | keyvalue">
-        <mat-toolbar>{{DPK.key}}</mat-toolbar>
+        <mat-divider></mat-divider>
+        <mat-toolbar>
+            {{DPK.key}}
+        </mat-toolbar>
+        <mat-divider></mat-divider>
         <div class="slides">
             <mat-card *ngFor="let dpkTitle of DPK.value" title="{{dpkTitle}}"
                       [ngStyle]="{'backgroundImage': imageToURLL(getGitHubURL(DPK.key.toString(), dpkTitle))}"

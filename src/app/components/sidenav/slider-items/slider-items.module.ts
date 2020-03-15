@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { MatButtonModule } from '@angular/material/button';
 import { SliderService } from './slider/slider.service';
+import { MatDividerModule } from '@angular/material/divider';
 
 const sliderRoutes: Routes = [
     { path: '', component: SliderItemsComponent },
@@ -27,6 +28,7 @@ const sliderRoutes: Routes = [
         MatIconModule,
         MatCardModule,
         MatButtonModule,
+        MatDividerModule,
     ],
     providers: [
         SliderService,

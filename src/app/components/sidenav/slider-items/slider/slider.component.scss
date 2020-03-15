@@ -7,6 +7,7 @@
     display: flex;
     overflow-x: scroll;
     overflow-y: hidden;
+    margin: .5vh 0;
     // This is not supported by all browsers. If you want a different animation, please feel free
     // to find your own solution.
     scroll-behavior: smooth;
@@ -27,15 +28,17 @@
     display: flex;
     flex-flow: row wrap;
     justify-content: space-evenly;
+    align-items: flex-end;
     position: relative;
-    top: 75%;
+    bottom: 11%;
+    height: 100%;
     opacity: 0;
     transition: all 0.5s linear;
 }
 
 mat-card {
-    height: 30vh;
-    width: 30vh;
+    height: 27vh;
+    width: 27vh;
     margin-left: 1vw;
     margin-right: 1vw;
 
@@ -70,9 +73,15 @@ mat-card {
 }
 
 mat-toolbar {
-    justify-content: space-between;
+    justify-content: center;
     font-size: 1.5em;
-    margin-bottom: 1vh;
+    width: 100vw;
+    background: none;
+}
+
+mat-divider {
+    margin: 1vh 0;
+    border-color: dodgerblue;
 }
 
 .actions > a > button {
