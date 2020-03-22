@@ -12,7 +12,7 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     dpk: Map<string, string[]>;
 
-    gitHubFiles: Set<string>;
+    gitHubFiles: Map<string, string>;
 
     constructor(private sliderService: SliderService) {
     }
@@ -28,15 +28,15 @@ export class SliderComponent implements OnInit, OnDestroy {
     }
 
     getGitHubURL(category: string, title: string) {
-        if (this.gitHubFiles.has(`${ title }.webp`)) {
-            return this.sliderService.getGitHubURL(category, title).map(url => url.href);
+        if (this.sliderService.detectBrowser) {
+            return this.gitHubFiles.get(`${ title }.webp`);
+        } else {
+            return this.gitHubFiles.get(`${ title }.jpeg`);
         }
-        return [];
     }
 
-    imageToURLL(urls: string[]) {
-        if (urls.length) {
-            return urls.map(url => `url(${ url })`);
-        } else return '';
+    imageToURLL(url: string) {
+        if (url) return `url(${ url })`;
+        else return '';
     }
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { GitHubTree } from '../../../../interfaces/git-hub-tree';
+import { GitHubFile } from '../../../../interfaces/git-hub-tree';
 
 @Injectable({
     providedIn: 'root'
@@ -40,16 +40,6 @@ export class SliderService {
         this._dpkFolder.next(dpkFolderList);
     }
 
-    getGitHubURL(category: string, title: string) {
-        const coverRepo = 'https://raw.githubusercontent.com/jayp0521/dpkCover/master/';
-        if (this.detectBrowser) {
-            const ghWebp: URL = new URL(`${ coverRepo }${ category }/${ title }.webp`);
-            return [ ghWebp ];
-        }
-        const ghJPG: URL = new URL(`${ coverRepo }${ category }/${ title }.jpg`);
-        return [ ghJPG ];
-    }
-
     get detectBrowser() {
         const userAgent = navigator.userAgent;
         if (userAgent.search(`Safari`) > -1) {
@@ -60,17 +50,18 @@ export class SliderService {
     }
 
     get gitHubImages() {
-        const gitHubDPKImages = new Set<string>();
+        const gitHubDPKImages = new Map<string, string>();
 
-        for (const category of [ '93648413ef90b292c80c0ee88b53ee347c5d538d', '3fa480e66773120a4f6618387bd0d94e483c836c', ]) {
-            const gitURL = new URL(`https://api.github.com/repos/jayp0521/dpkCover/git/trees/${ category }`);
+        for (const category of [ 'Kirtan', 'Prathana', ]) {
+            const gitURL = new URL(`https://api.github.com/repos/jayp0521/dpkCover/contents/${ category }`);
 
-            this.http.get<GitHubTree>(gitURL.href).subscribe(coverImages => {
-                for (const file of coverImages.tree) {
-                    gitHubDPKImages.add(file.path)
+            this.http.get<GitHubFile[]>(gitURL.href).subscribe(coverImages => {
+                for (const file of coverImages) {
+                    gitHubDPKImages.set(file.name, file.download_url);
                 }
             });
         }
+        console.log(gitHubDPKImages);
         return gitHubDPKImages;
     }
 }
