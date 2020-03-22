@@ -37,6 +37,10 @@ export class DpkFormService {
         }
 
         if (!status && title) {
+            status = this.asciiTitle(title);
+        }
+
+        if (!status && title) {
             await this.verifyTitleInDrive(title, this.DPKs.get(`${ dpk }`))
                 .then(res => status = (res.length !== 0) ? null : { titleNotInDrive: true });
         }
@@ -99,6 +103,12 @@ export class DpkFormService {
             secondsArr.push(seconds);
         }
         return secondsArr;
+    }
+
+    asciiTitle(title: string) {
+        if (/^[a-zA-Z\s]*$/.test(title))
+            return null;
+        return { badChars: true };
     }
 
     async verifyTitleInDrive(title: string, dpkId: string) {
