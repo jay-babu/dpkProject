@@ -38,7 +38,7 @@ export class DriveAPIService {
             for (const item of driveFiles.files) {
                 const mimeType = item.mimeType.split('/')[0];
                 if (mimeType === 'audio') {
-                    const url = this.exportImageDriveURL(item.id);
+                    const url = this.exportAudioDriveURL(item.id);
                     url.searchParams.set('ngsw-bypass', 'true');
                     this.driveMaterial.bhajanSource = url;
                 } else if (mimeType === 'image') {
@@ -53,7 +53,7 @@ export class DriveAPIService {
 
     private imageDownload(files: URL[]) {
         for (const [ index, driveFile ] of files.entries()) {
-            this.driveMaterial.images[index] = this.preloadImage(driveFile);
+            this.driveMaterial.images[index] = this.preloadImage(driveFile, index);
         }
     }
 
@@ -68,15 +68,23 @@ export class DriveAPIService {
     }
 
     exportImageDriveURL(id: string) {
+        const url = new URL(`https://drive.google.com/thumbnail`);
+        url.searchParams.set('id', id);
+        url.searchParams.set('sz', `w${ window.innerWidth }`);
+        return url;
+    }
+
+    exportAudioDriveURL(id: string) {
         const url = new URL(`${ this.driveURL }/${ id }`);
         url.searchParams.set('key', environment.driveConfig.key);
         url.searchParams.set('alt', 'media');
         return url;
     }
 
-    preloadImage(driveFileURL: URL) {
+    preloadImage(driveFileURL: URL, index: number = 1) {
         const image = new Image();
-        image.src = driveFileURL.href;
+        setTimeout(() => image.src = driveFileURL.href, 500 * index);
+
         return image;
     }
 }

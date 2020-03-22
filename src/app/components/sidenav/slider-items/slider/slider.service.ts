@@ -24,14 +24,18 @@ export class SliderService {
 
     dpkFolder(dpks: Map<string, string>) {
         const dpkFolderList = new Map<string, string[]>();
-        for (const [ category, id ] of dpks) {
-            const dpkObservable = this.driveAPIService.getListOfFolders(id);
-            dpkObservable.subscribe(
-                DPKs => {
-                    const titles = DPKs.files.map(slider => slider.name);
-                    dpkFolderList.set(category, titles);
-                }
-            );
+        let index = 0;
+        for (const [ category, id ] of dpks.entries()) {
+
+            setTimeout(() => {
+                const dpkObservable = this.driveAPIService.getListOfFolders(id);
+                dpkObservable.subscribe(
+                    DPKs => {
+                        const titles = DPKs.files.map(slider => slider.name);
+                        dpkFolderList.set(category, titles);
+                    }
+                );
+            }, 2000 * index++);
         }
         this._dpkFolder.next(dpkFolderList);
     }
