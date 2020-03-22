@@ -53,6 +53,9 @@
                             <input matInput placeholder="DPK Title" formControlName="title" required
                                    [errorStateMatcher]="errorMatcher">
                         </label>
+                        <mat-error *ngIf="dpkForm.hasError('badChars')">
+                            Title can only contain Alphabetically characters
+                        </mat-error>
                         <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
                             the {{ dpkForm.value.titleSection.dpk }} folder in Google Drive
                         </mat-error>

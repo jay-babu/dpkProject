@@ -61,7 +61,6 @@ export class SliderService {
                 }
             });
         }
-        console.log(gitHubDPKImages);
         return gitHubDPKImages;
     }
 }
