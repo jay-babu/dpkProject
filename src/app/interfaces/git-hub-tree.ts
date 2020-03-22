@@ -1,12 +1,6 @@
-export interface GitHubTree {
-    sha: string;
-    url: string;
-    tree: GitHubFile[];
-}
-
-interface GitHubFile {
-    path: string;
-    mode: string;
+export interface GitHubFile {
+    name: string;
+    download_url: string;
     type: string;
     sha: string;
     size: number;
