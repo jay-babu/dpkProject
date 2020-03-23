@@ -22,15 +22,13 @@ export class SlideComponent implements OnInit, OnDestroy {
     stanza: string[][];
     definitions: string[][];
     audioTimings: number[];
-
-    // images: HTMLImageElement[];
-    // imagePaths: URL[];
     bhajanSource: URL;
 
     subscriptions: Subscription[] = [];
 
     slideIndex: number;
     hidden = true;
+    // @ts-ignore
     timeOuts = [];
 
     slideConfig: SlideConfigI;
@@ -94,27 +92,6 @@ export class SlideComponent implements OnInit, OnDestroy {
         }
     }
 
-    imageMaxHeightDecrement() {
-        /*
-        Changes the Max Height of Img in CSS.
-        4.5 was found to be a good number that worked for everything.
-         */
-        let imageMaxHeight = 100;
-        let heightDecrement = 7.1;
-        imageMaxHeight -= heightDecrement * this.stanza[this.slideIndex].length;
-
-        if (!this.slideConfig.definitionShown) {
-            heightDecrement -= 3;
-        }
-
-        if (this.definitions[this.slideIndex]) {
-            imageMaxHeight -= (heightDecrement - 1.5) * this.definitions[this.slideIndex].length;
-        } else {
-            imageMaxHeight -= heightDecrement - 3;
-        }
-        return imageMaxHeight;
-    }
-
     async upOrDown(bool: boolean) {
         this.hidden = true;
         await new Promise(done => setTimeout(() => done(), 500));
@@ -151,8 +128,4 @@ export class SlideComponent implements OnInit, OnDestroy {
         this.router.navigate([ `./`, { id: this.slideIndex } ], { relativeTo: this.activeRouter })
             .then(_ => _, err => console.error(err));
     }
-
-    // imageToURLL(index: number) {
-    //     return `url(${ this.imagePaths[index].href })`;
-    // }
 }

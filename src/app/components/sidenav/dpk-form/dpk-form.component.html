@@ -28,15 +28,6 @@
                                       value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
                 </mat-radio-group>
                 <mat-divider></mat-divider>
-                <a mat-flat-button *ngIf="dpkForm.value.titleSection.dpk"
-                   [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
-                   color="accent"
-                   href="https://drive.google.com/open?id={{this.dpkFormService.DPKs.get(dpkForm.value.titleSection.dpk)}}"
-                   target="_blank">
-                    Create a New Folder and Upload your {{dpkForm.value.titleSection.dpk}} Images & Audio Here!<br>
-                    Copy and Paste Link in Bhajan Material URL
-                </a>
-                <mat-divider></mat-divider>
                 <div class="form-field">
                     <mat-slide-toggle (change)="pullData($event)" checked="{{false}}" class="chooseBhajan">
                         Edit Previous Slide
@@ -56,10 +47,6 @@
                         <mat-error *ngIf="dpkForm.hasError('badChars')">
                             Title can only contain Alphabetically characters
                         </mat-error>
-                        <mat-error *ngIf="dpkForm.hasError('titleNotInDrive')">The title provided does not exist in
-                            the {{ dpkForm.value.titleSection.dpk }} folder in Google Drive
-                        </mat-error>
-                        <mat-hint>Title must match Google Drive Folder</mat-hint>
                     </mat-form-field>
                 </div>
                 <div>
@@ -75,9 +62,6 @@
                     </label>
                     <mat-error *ngIf="dpkForm.hasError('lyricsDef')">
                         Number of Stanzas for Lyrics and Definitions do not Match
-                    </mat-error>
-                    <mat-error *ngIf="dpkForm.hasError('NotEqualPhotos')">
-                        The Number of Slides and Photos in Google Drive do not Match
                     </mat-error>
 
                     <mat-hint>Follow the format in Ex: Lyrics</mat-hint>
@@ -132,18 +116,6 @@
                         <mat-error *ngIf="dpkForm.hasError('AudioNotFound')">
                             Audio File Not Found. Upload to the same place as Images
                         </mat-error>
-                    </mat-form-field>
-
-                    <mat-form-field class="text-fields">
-                        <label>
-                            <input matInput placeholder="Bhajan Material URL" formControlName="imagesURL"
-                                   class="mat-primary"
-                                   [errorStateMatcher]="errorMatcher" required>
-                        </label>
-                        <mat-error *ngIf="dpkForm.hasError('badURL')">
-                            The URL provided does not follow a Valid Format
-                        </mat-error>
-                        <mat-hint>The Google Drive Folder URL created `Name the Bhajan` Section</mat-hint>
                     </mat-form-field>
                 </div>
                 <div>

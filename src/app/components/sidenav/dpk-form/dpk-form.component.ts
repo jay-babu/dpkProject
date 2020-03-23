@@ -31,7 +31,7 @@ export class DpkFormComponent implements OnInit {
                 public sideNavToggleService: SideNavToggleService,
                 private dpkParseService: DpkParseService,
                 private router: Router,
-                private fb: FormBuilder) {
+                private fb: FormBuilder,) {
     }
 
     dpkForm = this.fb.group({
@@ -45,7 +45,6 @@ export class DpkFormComponent implements OnInit {
             definitions: [ '' ],
         }),
         materialSection: this.fb.group({
-            imagesURL: [ '', Validators.required ],
             audioUploaded: [ false ],
             audioTimings: [ '' ],
         }),
@@ -82,7 +81,7 @@ export class DpkFormComponent implements OnInit {
                     definitions: this.dpkParseService.firebaseParseText(firebaseBhajan.definitions),
                 },
                 materialSection: {
-                    imagesURL: firebaseBhajan.imagesURL,
+                    // imagesURL: firebaseBhajan.imagesURL,
                     audioUploaded: ((firebaseBhajan.audioTimings) ? firebaseBhajan.audioTimings.length > 1 : false),
                     audioTimings: this.dpkParseService.firebaseParseNumber(firebaseBhajan.audioTimings || []),
                 }
