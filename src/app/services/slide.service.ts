@@ -101,7 +101,7 @@ export class SlideService {
         this._slideConfig.next(slideConfigForm);
     }
 
-    edgeCheck(slideIndex, stanzaLength): number {
+    edgeCheck(slideIndex: number, stanzaLength: number): number {
         if (slideIndex < 0) {
             slideIndex = 0;
         }
