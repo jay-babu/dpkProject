@@ -8,8 +8,6 @@ import { YoutubeService } from './youtube.service';
 })
 export class YoutubeComponent implements OnInit {
 
-    videoId: string;
-
     constructor(public youtubeService: YoutubeService) {
     }
 
@@ -20,8 +18,6 @@ export class YoutubeComponent implements OnInit {
 
         tag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(tag);
-
-        this.youtubeService.youtubeId$.subscribe(videoId => this.videoId = videoId);
     }
 
 
@@ -32,10 +28,10 @@ export class YoutubeComponent implements OnInit {
     }
 
     width() {
-        return (320 / 180) * window.innerHeight;
+        return window.innerWidth;
     }
 
     height() {
-        return (320 / 180) * window.innerHeight;
+        return window.innerWidth * (946 / 1680);
     }
 }

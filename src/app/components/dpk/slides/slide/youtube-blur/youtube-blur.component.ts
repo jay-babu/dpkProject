@@ -8,8 +8,6 @@ import { YoutubeService } from '../youtube/youtube.service';
 })
 export class YoutubeBlurComponent implements OnInit {
 
-    videoId: string;
-
     constructor(public youtubeService: YoutubeService) {
     }
 
@@ -20,8 +18,6 @@ export class YoutubeBlurComponent implements OnInit {
 
         tag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(tag);
-
-        this.youtubeService.youtubeId$.subscribe(videoId => this.videoId = videoId);
     }
 
     muted(event: YT.PlayerEvent) {

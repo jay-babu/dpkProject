@@ -54,7 +54,7 @@ export class SlideComponent implements OnInit, OnDestroy {
             this.stanza = bhajan.stanzaVisible;
             this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
-            this.audioTimings[0] = 0;
+            if (this.audioTimings) this.audioTimings[0] = 0;
         }));
 
         this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
