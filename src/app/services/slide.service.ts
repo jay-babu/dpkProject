@@ -88,7 +88,7 @@ export class SlideService {
 
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
         firebaseBhajan.subscribe(bhajan => {
-            this.driveAPIService.bhajanID = new URL(bhajan.imagesURL).pathname.split('/')[3];
+            // this.driveAPIService.bhajanID = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.bhajan.stanzaVisible = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             this.bhajan.altStanza = this.dpkParseService.parseSlideText(bhajan.gujarati || []);

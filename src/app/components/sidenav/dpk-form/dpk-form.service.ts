@@ -4,8 +4,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup, ValidationErrors } from '@angular/forms';
 import { DriveAPIService } from '../../../services/drive-api.service';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-
+import { distinctUntilChanged } from 'rxjs/operators';
+import { firestore } from 'firebase/app';
 
 @Injectable({
     providedIn: 'root'
@@ -22,28 +22,28 @@ export class DpkFormService {
         let status: ValidationErrors = null;
 
         const title = form.value.titleSection.title;
-        const dpk = form.value.titleSection.dpk;
+        // const dpk = form.value.titleSection.dpk;
 
         const lyrics = form.value.bhajanSection.lyrics;
         const gujarati = form.value.bhajanSection.gujarati;
         const definitions = form.value.bhajanSection.definitions;
 
-        const imagesURL = form.value.materialSection.imagesURL;
+        // const imagesURL = form.value.materialSection.imagesURL;
         const audioUploaded: boolean = form.value.materialSection.audioUploaded;
         const audioTimings = form.value.materialSection.audioTimings;
 
-        if (imagesURL) {
-            await this.verifyURL(imagesURL).then(res => status = res);
-        }
+        // if (imagesURL) {
+        //     await this.verifyURL(imagesURL).then(res => status = res);
+        // }
 
-        if (!status && title) {
+        if (title) {
             status = this.asciiTitle(title);
         }
 
-        if (!status && title) {
-            await this.verifyTitleInDrive(title, this.DPKs.get(`${ dpk }`))
-                .then(res => status = (res.length !== 0) ? null : { titleNotInDrive: true });
-        }
+        // if (!status && title) {
+        //     await this.verifyTitleInDrive(title, this.DPKs.get(`${ dpk }`))
+        //         .then(res => status = (res.length !== 0) ? null : { titleNotInDrive: true });
+        // }
 
         const lyricsArr: string[] = lyrics.split(/\n{2,}/g);
 
@@ -52,9 +52,9 @@ export class DpkFormService {
             status = this.lengthValidate(lyricsArr, gujaratiArr);
         }
 
-        if (!status && title) {
-            await this.photosEqualSlides(imagesURL, lyrics, audioUploaded).then(res => status = res);
-        }
+        // if (!status && title) {
+        //     await this.photosEqualSlides(imagesURL, lyrics, audioUploaded).then(res => status = res);
+        // }
 
 
         if (!status && definitions !== '') {
@@ -70,13 +70,15 @@ export class DpkFormService {
     };
 
     submitDPK(fg: FormGroup) {
+        const title = this.fireDB.collection(`Lists`).doc(fg.value.titleSection.dpk);
+        title.update({ title: firestore.FieldValue.arrayUnion(fg.value.titleSection.title) });
+
         return this.fireDB
             .collection(fg.value.titleSection.dpk).doc(fg.value.titleSection.title)
             .set({
                 lyrics: fg.value.bhajanSection.lyrics.split(/\n{2,}/g),
                 gujarati: fg.value.bhajanSection.gujarati.split(/\n{2,}/g),
                 definitions: fg.value.bhajanSection.definitions.split(/\n{2,}/g),
-                imagesURL: fg.value.materialSection.imagesURL,
                 title: fg.value.titleSection.title,
                 audioTimings: this.timingsToSeconds(fg.value.materialSection.audioTimings.split(/\n+/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
@@ -111,66 +113,66 @@ export class DpkFormService {
         return { badChars: true };
     }
 
-    async verifyTitleInDrive(title: string, dpkId: string) {
-        let filesArr: { id: string; name: string }[] = [];
-        await this.driveAPIService
-            .getListOfFiles(`'${ dpkId }' in parents and mimeType = 'application/vnd.google-apps.folder' and name = '${ title }'`)
-            .pipe(debounceTime(500), distinctUntilChanged())
-            .toPromise().then(files => filesArr = files.files);
-        return filesArr;
-    }
-
-    async verifyURL(imagesURL: string) {
-        // Initial Style https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
-        try {
-            const url = new URL(imagesURL);
-            const path = url.pathname.split('/');
-            const hostname = url.hostname;
-            let status = null;
-            if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
-                status = { badURL: true };
-            }
-            return status;
-        } catch {
-            return { badURL: true };
-        }
-    }
-
-    async photosEqualSlides(imagesURL: string, lyrics: string, audioUploaded: boolean) {
-        const url = new URL(imagesURL);
-        const path = url.pathname.split('/');
-        const id = path[3];
-        let status = null;
-
-        await this.driveAPIService.getListOfFiles(`'${ id }' in parents`).pipe(debounceTime(500), distinctUntilChanged()).toPromise().then(
-            files => {
-                const filesArr = files.files;
-                const imageArr: object[] = [];
-                for (const item of filesArr) {
-                    if (item.mimeType.split('/')[0] === 'image') {
-                        imageArr.push(item);
-                    }
-                }
-                if (lyrics.split(/\n{2,}/g).length !== imageArr.length) {
-                    status = { NotEqualPhotos: true };
-                }
-
-                if (!status && audioUploaded) {
-                    for (const item of filesArr) {
-                        if (item.mimeType.split('/')[0] === 'audio') {
-                            status = null;
-                            return;
-                        }
-                        status = { AudioNotFound: true };
-                    }
-                }
-            }
-        );
-        return status;
-    }
+    // async verifyTitleInDrive(title: string, dpkId: string) {
+    //     let filesArr: { id: string; name: string }[] = [];
+    //     await this.driveAPIService
+    //         .getListOfFiles(`'${ dpkId }' in parents and mimeType = 'application/vnd.google-apps.folder' and name = '${ title }'`)
+    //         .pipe(debounceTime(500), distinctUntilChanged())
+    //         .toPromise().then(files => filesArr = files.files);
+    //     return filesArr;
+    // }
+    //
+    // async verifyURL(imagesURL: string) {
+    //     // Initial Style https://drive.google.com/drive/folders/1SGORrTaUwiRIekhS6j1obM28P4D7RlXq?usp=sharing
+    //     try {
+    //         const url = new URL(imagesURL);
+    //         const path = url.pathname.split('/');
+    //         const hostname = url.hostname;
+    //         let status = null;
+    //         if (!(hostname === 'drive.google.com' && path[1] === 'drive' && path[2] === 'folders')) {
+    //             status = { badURL: true };
+    //         }
+    //         return status;
+    //     } catch {
+    //         return { badURL: true };
+    //     }
+    // }
+    //
+    // async photosEqualSlides(imagesURL: string, lyrics: string, audioUploaded: boolean) {
+    //     const url = new URL(imagesURL);
+    //     const path = url.pathname.split('/');
+    //     const id = path[3];
+    //     let status = null;
+    //
+    //     await this.driveAPIService.getListOfFiles(`'${ id }' in parents`).pipe(debounceTime(500), distinctUntilChanged()).toPromise().then(
+    //         files => {
+    //             const filesArr = files.files;
+    //             const imageArr: object[] = [];
+    //             for (const item of filesArr) {
+    //                 if (item.mimeType.split('/')[0] === 'image') {
+    //                     imageArr.push(item);
+    //                 }
+    //             }
+    //             if (lyrics.split(/\n{2,}/g).length !== imageArr.length) {
+    //                 status = { NotEqualPhotos: true };
+    //             }
+    //
+    //             if (!status && audioUploaded) {
+    //                 for (const item of filesArr) {
+    //                     if (item.mimeType.split('/')[0] === 'audio') {
+    //                         status = null;
+    //                         return;
+    //                     }
+    //                     status = { AudioNotFound: true };
+    //                 }
+    //             }
+    //         }
+    //     );
+    //     return status;
+    // }
 
     getDPK() {
-        this.driveAPIService.getListOfFolders(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`).pipe(debounceTime(500), distinctUntilChanged())
+        this.driveAPIService.getListOfFolders(`1NFdcrnJLViJgJyz9MiSxkCQOll3v5QnQ`).pipe(distinctUntilChanged())
             .subscribe(foldersObject => {
                 const folders = foldersObject.files;
                 for (const folder of folders) {
