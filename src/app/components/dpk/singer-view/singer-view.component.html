@@ -6,6 +6,6 @@
             <h2 *ngFor="let line of stanza">{{ line }}</h2>
         </div>
     </div>
-    <app-audio *ngIf="bhajan.audioLink" [bhajanSource]="bhajan.audioLink"></app-audio>
+    <app-audio *ngIf="bhajan.audioLink" [bhajanObservable$]="this.firebaseBhajan$"></app-audio>
 </div>
 <app-options-fab></app-options-fab>
