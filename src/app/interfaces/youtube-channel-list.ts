@@ -5,7 +5,7 @@ export interface YoutubeChannelList {
     items: YoutubeVideoMeta[];
 }
 
-interface YoutubeVideoMeta {
+export interface YoutubeVideoMeta {
     id: YoutubeVideoId;
     snippet: YoutubeSnippet;
 }
