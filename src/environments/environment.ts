@@ -5,7 +5,7 @@
 export const environment = {
         production: false,
         firebaseConfig: {
-            apiKey: 'AIzaSyAHctAlc0ZZPXaiUu7-5Uo3B4krcJysCpU',
+            apiKey: 'AIzaSyDhNReeYGkJ47oS3ExPpBr6dkD06t-0B84',
             authDomain: 'dpkproject-d75d2.firebaseapp.com',
             databaseURL: 'https://dpkproject-d75d2.firebaseio.com',
             projectId: 'dpkproject-d75d2',
@@ -15,8 +15,7 @@ export const environment = {
             measurementId: 'G-TDV6VZZ3QW'
         },
         driveConfig: {
-            key: 'AIzaSyAaEZBnfTEAIGhEgFQaj-f-R9uLQuow3MA',
-            clientId: '400352992413-491ocjt3h7noidb70t1v910f9klu8o53.apps.googleusercontent.com',
+            clientId: '1079450967840-0q959otq42n6potofgto8gaf8kdlje9e.apps.googleusercontent.com',
             discoveryDocs: [ 'https://www.googleapis.com/discovery/v1/apis/drive/v3/rest' ],
             scope: 'https://www.googleapis.com/auth/drive.file',
         },

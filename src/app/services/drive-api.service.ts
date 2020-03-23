@@ -62,7 +62,7 @@ export class DriveAPIService {
     }
 
     getListOfFiles(q: string, orderBy = 'name', fields = 'files(name, id, mimeType)') {
-        const key = environment.driveConfig.key;
+        const key = environment.firebaseConfig.apiKey;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
         return this.http.get<DriveMaterialList>(this.driveURL, { params });
     }
@@ -76,7 +76,7 @@ export class DriveAPIService {
 
     exportAudioDriveURL(id: string) {
         const url = new URL(`${ this.driveURL }/${ id }`);
-        url.searchParams.set('key', environment.driveConfig.key);
+        url.searchParams.set('key', environment.firebaseConfig.apiKey);
         url.searchParams.set('alt', 'media');
         return url;
     }

@@ -120,7 +120,7 @@ export class LoginComponent implements OnInit {
     load() {
         gapi.load('client', () => {
             gapi.client.init({
-                apiKey: environment.driveConfig.key,
+                apiKey: environment.firebaseConfig.apiKey,
                 // clientId and scope are optional if auth is not required.
                 clientId: environment.driveConfig.clientId,
                 discoveryDocs: environment.driveConfig.discoveryDocs,
