@@ -2,8 +2,6 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { DriveMaterialList } from '../interfaces/drive';
-import { Observable, Subject } from 'rxjs';
-import { DriveMaterial } from '../interfaces/bhajan';
 
 @Injectable({
     providedIn: 'root'
@@ -11,14 +9,7 @@ import { DriveMaterial } from '../interfaces/bhajan';
 export class DriveAPIService {
     driveURL = 'https://www.googleapis.com/drive/v3/files';
 
-    private _driveMaterial: Subject<DriveMaterial>;
-    driveMaterial$: Observable<DriveMaterial>;
-    driveMaterial: DriveMaterial;
-
     constructor(private http: HttpClient) {
-        this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
-        this._driveMaterial = new Subject<DriveMaterial>();
-        this.driveMaterial$ = this._driveMaterial.asObservable();
     }
 
     getListOfFolders(rootFolderId: string) {
