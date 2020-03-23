@@ -15,47 +15,10 @@ export class DriveAPIService {
     driveMaterial$: Observable<DriveMaterial>;
     driveMaterial: DriveMaterial;
 
-
     constructor(private http: HttpClient) {
         this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
         this._driveMaterial = new Subject<DriveMaterial>();
         this.driveMaterial$ = this._driveMaterial.asObservable();
-    }
-
-    set bhajanID(materialID: string) {
-        this.driveMaterial = { bhajanSource: undefined, imagePaths: [], images: [] };
-        const driveBhajanImages$ = this.getListOfFiles(`'${ materialID }' in parents`);
-        this.bhajanImages(driveBhajanImages$);
-    }
-
-    private set driveMaterialSubject(material: DriveMaterial) {
-        this._driveMaterial.next(material);
-    }
-
-    private bhajanImages(driveBhajanImages$: Observable<DriveMaterialList>) {
-        driveBhajanImages$.subscribe(driveFiles => {
-            // const imagePaths: URL[] = [];
-            for (const item of driveFiles.files) {
-                const mimeType = item.mimeType.split('/')[0];
-                if (mimeType === 'audio') {
-                    const url = this.exportAudioDriveURL(item.id);
-                    url.searchParams.set('ngsw-bypass', 'true');
-                    this.driveMaterial.bhajanSource = url;
-                }
-                // else if (mimeType === 'image') {
-                //     imagePaths.push(this.exportImageDriveURL(item.id))
-                // }
-            }
-            // this.driveMaterial.imagePaths = imagePaths;
-            // this.imageDownload(this.driveMaterial.imagePaths);
-            this.driveMaterialSubject = this.driveMaterial;
-        });
-    }
-
-    private imageDownload(files: URL[]) {
-        for (const [ index, driveFile ] of files.entries()) {
-            this.driveMaterial.images[index] = this.preloadImage(driveFile, index);
-        }
     }
 
     getListOfFolders(rootFolderId: string) {
@@ -66,26 +29,5 @@ export class DriveAPIService {
         const key = environment.firebaseConfig.apiKey;
         const params: HttpParams = new HttpParams().set('q', q).set('orderBy', orderBy).set('fields', fields).set('key', key);
         return this.http.get<DriveMaterialList>(this.driveURL, { params });
-    }
-
-    exportImageDriveURL(id: string) {
-        const url = new URL(`https://drive.google.com/thumbnail`);
-        url.searchParams.set('id', id);
-        url.searchParams.set('sz', `w${ window.innerWidth }`);
-        return url;
-    }
-
-    exportAudioDriveURL(id: string) {
-        const url = new URL(`${ this.driveURL }/${ id }`);
-        url.searchParams.set('key', environment.firebaseConfig.apiKey);
-        url.searchParams.set('alt', 'media');
-        return url;
-    }
-
-    preloadImage(driveFileURL: URL, index: number = 1) {
-        const image = new Image();
-        setTimeout(() => image.src = driveFileURL.href, 500 * index);
-
-        return image;
     }
 }
