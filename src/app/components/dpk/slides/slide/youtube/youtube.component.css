@@ -5,4 +5,7 @@ div {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
