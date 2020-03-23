@@ -1,5 +1,5 @@
-<div *ngIf="dpkFolder | async" class="slider-container">
-    <ng-container *ngFor="let DPK of this.dpk | keyvalue">
+<div *ngIf="dpkFolder | async as dpk" class="slider-container">
+    <ng-container *ngFor="let DPK of dpk | keyvalue">
         <mat-divider></mat-divider>
         <mat-toolbar>
             {{DPK.key}}
