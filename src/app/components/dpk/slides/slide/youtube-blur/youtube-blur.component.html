@@ -1,0 +1,4 @@
+<div *ngIf="youtubeService.youtubeId$">
+    <youtube-player [videoId]="videoId" [suggestedQuality]="'highres'" (ready)="muted($event)"
+                    [width]="width()" [height]="height()"></youtube-player>
+</div>
