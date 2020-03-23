@@ -1,13 +1,11 @@
-<div *ngIf="this.firebaseBhajan$ | async" class="mat-app-background slide">
-    <div class="stanzaDiv" *ngFor="let stanza of stanza; let i = index">
-        <app-lottie-animated-audio-fab *ngIf="bhajanSource"
-                                       [time]="audioTimings[i]"></app-lottie-animated-audio-fab>
+<div *ngIf="this.firebaseBhajan$ | async as bhajan" class="mat-app-background slide">
+    <div class="stanzaDiv" *ngFor="let stanza of bhajan.stanzaVisible; let i = index">
+        <app-lottie-animated-audio-fab *ngIf="bhajan.audioLink"
+                                       [time]="bhajan.audioTimings[i]"></app-lottie-animated-audio-fab>
         <div class="lyricDiv">
-            <h2 *ngFor="let line of stanza">
-                {{ line }}
-            </h2>
+            <h2 *ngFor="let line of stanza">{{ line }}</h2>
         </div>
     </div>
-    <app-audio *ngIf="this.driveBhajanImages$ | async" [bhajanSource]="bhajanSource"></app-audio>
+    <app-audio *ngIf="bhajan.audioLink" [bhajanSource]="bhajan.audioLink"></app-audio>
 </div>
 <app-options-fab></app-options-fab>

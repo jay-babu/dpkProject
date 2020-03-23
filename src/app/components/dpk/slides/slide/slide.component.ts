@@ -6,7 +6,7 @@ import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
 import { AudioControlService } from '../../../audio-component/audio-control.service';
-import { Bhajan, DriveMaterial } from '../../../../interfaces/bhajan';
+import { Bhajan } from '../../../../interfaces/bhajan';
 import * as screenfull from 'screenfull';
 
 @Component({
@@ -17,12 +17,9 @@ import * as screenfull from 'screenfull';
 })
 export class SlideComponent implements OnInit, OnDestroy {
     firebaseBhajan$: Observable<Bhajan>;
-    driveBhajanImages$: Observable<DriveMaterial>;
 
     stanza: string[][];
-    definitions: string[][];
     audioTimings: number[];
-    bhajanSource: URL;
 
     subscriptions: Subscription[] = [];
 
@@ -46,21 +43,11 @@ export class SlideComponent implements OnInit, OnDestroy {
             this.slideIndex = params.id || 0;
         });
         this.firebaseBhajan$ = this.slideService.bhajan$;
-        this.driveBhajanImages$ = this.driveAPIService.driveMaterial$;
 
         this.subscriptions.push(this.firebaseBhajan$.subscribe(bhajan => {
             this.stanza = bhajan.stanzaVisible;
-            this.definitions = bhajan.definitions;
             this.audioTimings = bhajan.audioTimings;
             if (this.audioTimings) this.audioTimings[0] = 0;
-        }));
-
-        this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
-            if (material) {
-                this.bhajanSource = material.bhajanSource;
-                // this.imagePaths = material.imagePaths;
-                // this.images = material.images;
-            }
         }));
 
         this.subscriptions.push(this.slideService.slideConfig$.subscribe(slideConfig => {

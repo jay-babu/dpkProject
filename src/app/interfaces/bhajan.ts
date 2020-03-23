@@ -1,7 +1,7 @@
 export interface FirebaseBhajan {
     title: string;
     lyrics: string[];
-    imagesURL: string;
+    audioLink?: string;
     gujarati?: string[];
     definitions?: string[];
     audioTimings?: number[];
@@ -15,10 +15,5 @@ export interface Bhajan {
     definitions: string[][];
     altStanza: string[][];
     audioTimings: number[];
-}
-
-export interface DriveMaterial {
-    bhajanSource: URL;
-    imagePaths: URL[];
-    images: HTMLImageElement[];
+    audioLink?: URL;
 }

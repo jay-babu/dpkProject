@@ -5,24 +5,13 @@ import { DpkParseService } from '../components/dpk/slides/dpk-parse.service';
 import { Bhajan, FirebaseBhajan } from '../interfaces/bhajan';
 import { DriveAPIService } from './drive-api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map } from 'rxjs/operators';
+import { filter, map, take } from 'rxjs/operators';
+import { environment } from '../../environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SlideService {
-    private _slideConfig: BehaviorSubject<any>;
-    slideConfig$: Observable<any>;
-
-    dpk: string;
-    name: string;
-    private _path: BehaviorSubject<string[]>;
-    path$: Observable<string[]>;
-
-    private readonly bhajan: Bhajan;
-
-    private _bhajan: BehaviorSubject<Bhajan>;
-    bhajan$: Observable<Bhajan>;
 
     constructor(private dpkParseService: DpkParseService,
                 private driveAPIService: DriveAPIService,
@@ -60,6 +49,34 @@ export class SlideService {
         });
     }
 
+    get swapLanguagePossible() {
+        return this.bhajan.altStanza.length > 1;
+    }
+
+    private _slideConfig: BehaviorSubject<any>;
+    slideConfig$: Observable<any>;
+
+    dpk: string;
+    name: string;
+    private _path: BehaviorSubject<string[]>;
+    path$: Observable<string[]>;
+
+    private readonly bhajan: Bhajan;
+
+    private _bhajan: BehaviorSubject<Bhajan>;
+    bhajan$: Observable<Bhajan>;
+
+    private static audioToDriveLink(audioLink: string) {
+        if (audioLink) {
+            const audioURL = `https://www.googleapis.com/drive/v3/files`;
+            const id = new URL(audioLink).searchParams.get('id');
+            const url = new URL(`${ audioURL }/${ id }`);
+            url.searchParams.set('key', environment.firebaseConfig.apiKey);
+            url.searchParams.set('alt', 'media');
+            return url;
+        } else return null;
+    }
+
     private updatePath(dpk: string, name: string) {
         if (dpk !== this.dpk || name !== this.name) {
             this.dpk = dpk;
@@ -82,11 +99,12 @@ export class SlideService {
     }
 
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
-        firebaseBhajan.subscribe(bhajan => {
+        firebaseBhajan.pipe(take(1)).subscribe(bhajan => {
             this.bhajan.stanzaVisible = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             this.bhajan.altStanza = this.dpkParseService.parseSlideText(bhajan.gujarati || []);
             this.bhajan.audioTimings = bhajan.audioTimings;
+            this.bhajan.audioLink = SlideService.audioToDriveLink(bhajan.audioLink);
             this.updateBhajan(this.bhajan);
         });
     }
@@ -103,10 +121,6 @@ export class SlideService {
             slideIndex = stanzaLength - 1;
         }
         return slideIndex;
-    }
-
-    get swapLanguagePossible() {
-        return this.bhajan.altStanza.length > 1;
     }
 
     swapLanguages() {
