@@ -1,8 +1,10 @@
 import { Injectable } from '@angular/core';
-import { DriveAPIService } from '../../../../services/drive-api.service';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { GitHubFile } from '../../../../interfaces/git-hub-tree';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { FirebaseLists } from '../../../../interfaces/firebase-lists';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -13,31 +15,23 @@ export class SliderService {
     dpkFolder$: Observable<Map<string, string[]>>;
 
 
-    constructor(private driveAPIService: DriveAPIService, private http: HttpClient) {
+    constructor(private http: HttpClient,
+                private fireDB: AngularFirestore,) {
         this._dpkFolder = new BehaviorSubject<Map<string, string[]>>(null);
         this.dpkFolder$ = this._dpkFolder.asObservable();
 
-        const dpks = new Map<string, string>().set('Dhun', '1EI8HFzxxO94jyXMIC4mmSKEWF9dKTDcB')
-            .set('Prathana', '1ncfYSnh6WRercX8KtgCsDrk6fsnVzBEw').set('Kirtan', '1aczJKsMPPblN7yNdFuoiYXfJXH7Tc_yU');
-        this.dpkFolder(dpks);
-    }
-
-    dpkFolder(dpks: Map<string, string>) {
-        const dpkFolderList = new Map<string, string[]>();
-        let index = 0;
-        for (const [ category, id ] of dpks.entries()) {
-
-            setTimeout(() => {
-                const dpkObservable = this.driveAPIService.getListOfFolders(id);
-                dpkObservable.subscribe(
-                    DPKs => {
-                        const titles = DPKs.files.map(slider => slider.name);
-                        dpkFolderList.set(category, titles);
-                    }
-                );
-            }, 2000 * index++);
-        }
-        this._dpkFolder.next(dpkFolderList);
+        const dpks = new Map<string, string[]>();
+        this.fireDB.collection<FirebaseLists>(`Lists`).snapshotChanges().pipe(
+            map(actions => actions.map(a => {
+                const data = a.payload.doc.data() as FirebaseLists;
+                const id = a.payload.doc.id;
+                return { id, ...data };
+            })),
+            take(1)
+        ).subscribe(res => {
+            res.forEach(dpk => dpks.set(dpk.id, dpk.title));
+            this._dpkFolder.next(dpks);
+        });
     }
 
     get detectBrowser() {

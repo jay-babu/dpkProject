@@ -10,8 +10,6 @@ import { SliderService } from './slider.service';
 export class SliderComponent implements OnInit, OnDestroy {
     dpkFolder: Observable<Map<string, string[]>>;
 
-    dpk: Map<string, string[]>;
-
     gitHubFiles: Map<string, string>;
 
     constructor(private sliderService: SliderService) {
@@ -19,7 +17,6 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.dpkFolder = this.sliderService.dpkFolder$;
-        this.dpkFolder.subscribe(dpkFolderItems => this.dpk = dpkFolderItems);
 
         this.gitHubFiles = this.sliderService.gitHubImages;
     }
@@ -28,11 +25,7 @@ export class SliderComponent implements OnInit, OnDestroy {
     }
 
     getGitHubURL(category: string, title: string) {
-        if (this.sliderService.detectBrowser) {
-            return this.gitHubFiles.get(`${ title }.webp`);
-        } else {
-            return this.gitHubFiles.get(`${ title }.jpeg`);
-        }
+        return (this.sliderService.detectBrowser) ? this.gitHubFiles.get(`${ title }.webp`) : this.gitHubFiles.get(`${ title }.jpeg`);
     }
 
     imageToURLL(url: string) {

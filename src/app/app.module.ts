@@ -9,7 +9,6 @@ import { BrowserModule, HammerModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { RouterModule } from '@angular/router';
 import { environment } from '../environments/environment';
-import { AngularMaterialModule } from './angular-material.module';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routing';
@@ -19,7 +18,11 @@ import { SideNavToggleService } from './services/side-nav-toggle.service';
 import { AngularFireAnalyticsModule, ScreenTrackingService } from '@angular/fire/analytics';
 import { LottieModule } from 'ngx-lottie';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { FontAwesomeModule } from './font-awesome.module';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatListModule } from '@angular/material/list';
+import { MatIconModule } from '@angular/material/icon';
 
 export function playerFactory() {
     return import('lottie-web');
@@ -31,7 +34,6 @@ export function playerFactory() {
         SidenavComponent,
     ],
     imports: [
-        AngularMaterialModule,
         AppRoutingModule,
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule.enablePersistence({ synchronizeTabs: true }),
@@ -39,13 +41,17 @@ export function playerFactory() {
         AngularFireAnalyticsModule,
         BrowserModule,
         BrowserAnimationsModule,
-        FontAwesomeModule,
         HttpClientModule,
         LottieModule.forRoot({ player: playerFactory }),
         ReactiveFormsModule,
         RouterModule,
         HammerModule,
         ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+        MatSidenavModule,
+        MatToolbarModule,
+        MatButtonModule,
+        MatListModule,
+        MatIconModule,
     ],
     providers: [
         FirebaseService,
