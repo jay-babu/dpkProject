@@ -27,14 +27,15 @@ export class YoutubeComponent implements OnInit {
 
     muted(event: YT.PlayerEvent) {
         event.target.mute();
+        event.target.playVideo();
+        event.target.setLoop(true);
     }
 
     width() {
-        return 320 * 3;
+        return (320 / 180) * window.innerHeight;
     }
 
     height() {
-        return 180 * 3;
+        return (320 / 180) * window.innerHeight;
     }
-
 }
