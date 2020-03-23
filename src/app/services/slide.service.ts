@@ -14,9 +14,6 @@ export class SlideService {
     private _slideConfig: BehaviorSubject<any>;
     slideConfig$: Observable<any>;
 
-    private _prevLocation: BehaviorSubject<string[]>;
-    prevLocation$: Observable<string[]>;
-
     dpk: string;
     name: string;
     private _path: BehaviorSubject<string[]>;
@@ -35,8 +32,6 @@ export class SlideService {
 
         this._path = new BehaviorSubject<string[]>([ 'test', 'test' ]);
         this.path$ = this._path.asObservable();
-        this._prevLocation = new BehaviorSubject<string[]>([ '/dpk', 'slides' ]);
-        this.prevLocation$ = this._prevLocation.asObservable();
 
         this._bhajan = new BehaviorSubject<Bhajan>(this.bhajan);
         this.bhajan$ = this._bhajan.asObservable();
@@ -88,7 +83,6 @@ export class SlideService {
 
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
         firebaseBhajan.subscribe(bhajan => {
-            // this.driveAPIService.bhajanID = new URL(bhajan.imagesURL).pathname.split('/')[3];
             this.bhajan.stanzaVisible = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             this.bhajan.altStanza = this.dpkParseService.parseSlideText(bhajan.gujarati || []);
