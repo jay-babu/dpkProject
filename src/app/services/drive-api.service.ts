@@ -34,19 +34,20 @@ export class DriveAPIService {
 
     private bhajanImages(driveBhajanImages$: Observable<DriveMaterialList>) {
         driveBhajanImages$.subscribe(driveFiles => {
-            const imagePaths: URL[] = [];
+            // const imagePaths: URL[] = [];
             for (const item of driveFiles.files) {
                 const mimeType = item.mimeType.split('/')[0];
                 if (mimeType === 'audio') {
                     const url = this.exportAudioDriveURL(item.id);
                     url.searchParams.set('ngsw-bypass', 'true');
                     this.driveMaterial.bhajanSource = url;
-                } else if (mimeType === 'image') {
-                    imagePaths.push(this.exportImageDriveURL(item.id))
                 }
+                // else if (mimeType === 'image') {
+                //     imagePaths.push(this.exportImageDriveURL(item.id))
+                // }
             }
-            this.driveMaterial.imagePaths = imagePaths;
-            this.imageDownload(this.driveMaterial.imagePaths);
+            // this.driveMaterial.imagePaths = imagePaths;
+            // this.imageDownload(this.driveMaterial.imagePaths);
             this.driveMaterialSubject = this.driveMaterial;
         });
     }
