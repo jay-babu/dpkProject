@@ -1,17 +1,17 @@
 <div class="mat-app-background">
     <div *ngIf="this.firebaseBhajan$ | async">
-        <div class="bg-image" *ngIf="this.driveBhajanImages$ | async"
-             [style.backgroundImage]="imageToURLL(slideIndex)"></div>
+        <!--        <div class="bg-image" *ngIf="this.driveBhajanImages$ | async"-->
+        <!--             [style.backgroundImage]="imageToURLL(slideIndex)"></div>-->
+        <app-youtube></app-youtube>
         <div class="slide" *ngIf="this.slideService.slideConfig$ | async" [@openClose]="hidden ? 'closed' : 'open'">
             <div class="stanzaDiv" [style.font-family]="slideConfig.fontStyle">
                 <h2 *ngFor="let line of this.stanza[slideIndex]">{{ line }}</h2>
             </div>
-            <app-youtube></app-youtube>
             <!---->
             <!--            <div class="imageDiv" *ngIf="this.driveBhajanImages$ | async">-->
             <!--                <img [src]="this.images[slideIndex].src" alt="Slide Image"-->
             <!--                     [style.max-height.vh]="this.imageMaxHeightDecrement()">-->
-            <!--                <app-audio *ngIf="this.bhajanSource" [bhajanSource]="this.bhajanSource" [hidden]="true"></app-audio>-->
+            <app-audio *ngIf="this.bhajanSource" [bhajanSource]="this.bhajanSource" [hidden]="true"></app-audio>
             <!--            </div>-->
             <!---->
             <div *ngIf="slideConfig.definitionShown" class="definitionDiv">
