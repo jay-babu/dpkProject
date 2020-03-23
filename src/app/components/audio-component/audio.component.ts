@@ -1,5 +1,7 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { AudioControlService } from './audio-control.service';
+import { Observable } from 'rxjs';
+import { Bhajan } from '../../interfaces/bhajan';
 
 @Component({
     selector: 'app-audio',
@@ -8,7 +10,9 @@ import { AudioControlService } from './audio-control.service';
 })
 export class AudioComponent implements OnInit, OnDestroy {
     @Input()
-    bhajanSource: URL;
+    bhajanObservable$: Observable<Bhajan>;
+
+    bhajanLink: URL;
 
     @ViewChild('bhajanAudio') audioPlayerRef: ElementRef<HTMLAudioElement>;
 
@@ -17,6 +21,10 @@ export class AudioComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         setTimeout(() => this.audioControlService.updateAudio(this.audioPlayerRef), 0);
+        this.bhajanObservable$.subscribe(bhajan => {
+            this.bhajanLink = bhajan.audioLink;
+            if (this.bhajanLink) setTimeout(() => this.audioPlayerRef.nativeElement.src = this.bhajanLink.href, 0);
+        });
     }
 
     ngOnDestroy(): void {

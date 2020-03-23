@@ -6,7 +6,8 @@
                 <h2 *ngFor="let line of this.stanza[slideIndex]">{{ line }}</h2>
             </div>
 
-            <app-audio *ngIf="bhajan.audioLink" [bhajanSource]="bhajan.audioLink" [hidden]="true"></app-audio>
+            <app-audio *ngIf="bhajan.audioLink" [bhajanObservable$]="this.firebaseBhajan$"
+                       [hidden]="true"></app-audio>
 
             <div *ngIf="slideConfig.definitionShown" class="definitionDiv">
                 <p *ngFor="let definition of bhajan.definitions[slideIndex]">{{ definition }}</p>
@@ -14,4 +15,3 @@
         </div>
     </div>
 </div>
-
