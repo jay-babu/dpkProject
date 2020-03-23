@@ -23,8 +23,8 @@ export class SlideComponent implements OnInit, OnDestroy {
     definitions: string[][];
     audioTimings: number[];
 
-    images: HTMLImageElement[];
-    imagePaths: URL[];
+    // images: HTMLImageElement[];
+    // imagePaths: URL[];
     bhajanSource: URL;
 
     subscriptions: Subscription[] = [];
@@ -60,8 +60,8 @@ export class SlideComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.driveBhajanImages$.subscribe(material => {
             if (material) {
                 this.bhajanSource = material.bhajanSource;
-                this.imagePaths = material.imagePaths;
-                this.images = material.images;
+                // this.imagePaths = material.imagePaths;
+                // this.images = material.images;
             }
         }));
 
