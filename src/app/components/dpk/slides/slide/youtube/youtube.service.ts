@@ -32,6 +32,7 @@ export class YoutubeService {
         youtubeURL.searchParams.set('maxResults', '30');
         youtubeURL.searchParams.set('order', 'date');
         youtubeURL.searchParams.set('key', environment.firebaseConfig.apiKey);
+        youtubeURL.searchParams.set('ngsw-bypass', 'true');
         return youtubeURL;
     }
 
