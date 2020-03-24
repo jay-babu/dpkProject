@@ -30,8 +30,10 @@ export class AudioControlService {
     }
 
     toggleAudio() {
-        const pause = !this.bhajanAudio.paused;
-        (pause) ? this.bhajanAudio.pause() : this.bhajanAudio.play();
-        this._paused.next(pause);
+        if (this.bhajanAudio) {
+            const pause = !this.bhajanAudio.paused;
+            (pause) ? this.bhajanAudio.pause() : this.bhajanAudio.play();
+            this._paused.next(pause);
+        }
     }
 }

@@ -3,6 +3,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { environment } from '../../../../../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { YoutubeChannelList, YoutubeVideoMeta } from '../../../../../interfaces/youtube-channel-list';
+import { DpkParseService } from '../../dpk-parse.service';
 
 @Injectable({
     providedIn: 'root'
@@ -14,11 +15,18 @@ export class YoutubeService {
     private _youtubeId: BehaviorSubject<string>;
     youtubeId$: Observable<string>;
 
-    constructor(private http: HttpClient) {
+    approvedVideos: Map<string, string>;
+
+    constructor(private http: HttpClient, private dpkParseService: DpkParseService,) {
         this._youtubeId = new BehaviorSubject<string>(null);
         this.youtubeId$ = this._youtubeId.asObservable();
 
-        this.listYoutubeVideos();
+        this.approvedVideos = new Map<string, string>([ [ 'Chesta', 'V_mKI9pJxYA' ] ]);
+
+        this.dpkParseService.firebaseBhajan$.subscribe(firebaseBhajan => {
+            const yid = this.approvedVideos.get(firebaseBhajan.title);
+            (yid) ? this.youtubeId = yid : this.listYoutubeVideos();
+        });
     }
 
     private set youtubeId(yid: string) {
@@ -32,6 +40,7 @@ export class YoutubeService {
         youtubeURL.searchParams.set('maxResults', '30');
         youtubeURL.searchParams.set('order', 'date');
         youtubeURL.searchParams.set('key', environment.firebaseConfig.apiKey);
+        youtubeURL.searchParams.set('ngsw-bypass', 'true');
         return youtubeURL;
     }
 

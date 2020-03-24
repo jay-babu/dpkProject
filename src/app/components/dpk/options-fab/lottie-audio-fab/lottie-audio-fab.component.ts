@@ -33,7 +33,7 @@ export class LottieAudioFabComponent implements OnInit {
         this.animation = animationItem;
     }
 
-    toggle() {
+    playPaused() {
         if (this.direction === 1) this.direction = -1;
         else this.direction = 1;
         this.animation.setDirection(this.direction);

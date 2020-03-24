@@ -20,17 +20,17 @@ export class YoutubeBlurComponent implements OnInit {
         document.body.appendChild(tag);
     }
 
-    muted(event: YT.PlayerEvent) {
+    start(event: YT.PlayerEvent) {
         event.target.mute();
         event.target.playVideo();
         event.target.setLoop(true);
     }
 
     width() {
-        return window.innerWidth * 1.5;
+        return window.innerWidth * 1.1;
     }
 
     height() {
-        return window.innerWidth * 1.5;
+        return window.innerHeight * 1.1;
     }
 }
