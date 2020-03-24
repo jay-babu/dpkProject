@@ -14,7 +14,6 @@ export class SliderService {
     private _dpkFolder: BehaviorSubject<Map<string, string[]>>;
     dpkFolder$: Observable<Map<string, string[]>>;
 
-
     constructor(private http: HttpClient,
                 private fireDB: AngularFirestore,) {
         this._dpkFolder = new BehaviorSubject<Map<string, string[]>>(null);

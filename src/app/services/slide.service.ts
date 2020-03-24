@@ -3,7 +3,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 import { SlideConfigI } from '../interfaces/slide-config-i';
 import { DpkParseService } from '../components/dpk/slides/dpk-parse.service';
 import { Bhajan, FirebaseBhajan } from '../interfaces/bhajan';
-import { DriveAPIService } from './drive-api.service';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { filter, map, take } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
@@ -14,7 +13,6 @@ import { environment } from '../../environments/environment';
 export class SlideService {
 
     constructor(private dpkParseService: DpkParseService,
-                private driveAPIService: DriveAPIService,
                 private router: Router,
                 private activatedRoute: ActivatedRoute,) {
         this.bhajan = { altStanza: [], audioTimings: [], definitions: [], stanzaVisible: [] };

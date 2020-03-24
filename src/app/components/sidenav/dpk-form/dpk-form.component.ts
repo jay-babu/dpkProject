@@ -55,7 +55,7 @@ export class DpkFormComponent implements OnInit {
     }
 
     onSubmit() {
-        this.dpkFormService.submitDPK(this.dpkForm).then(
+        this.dpkFormService.submitDPK(this.dpkForm, this.editMode).then(
             () => this.openDPKSlides(), err => console.error(err)
         );
     }
@@ -82,7 +82,7 @@ export class DpkFormComponent implements OnInit {
                     definitions: this.dpkParseService.firebaseParseText(firebaseBhajan.definitions),
                 },
                 materialSection: {
-                    // imagesURL: firebaseBhajan.imagesURL,
+                    audioURL: firebaseBhajan.audioLink || '',
                     audioUploaded: ((firebaseBhajan.audioTimings) ? firebaseBhajan.audioTimings.length > 1 : false),
                     audioTimings: this.dpkParseService.firebaseParseNumber(firebaseBhajan.audioTimings || []),
                 }
