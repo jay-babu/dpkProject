@@ -1,13 +1,11 @@
 div {
-    width: 150%;
-    height: 150%;
     display: flex;
     justify-content: center;
     align-items: center;
     overflow: hidden;
     filter: blur(30px);
     position: absolute;
-    top: -50px;
-    left: -50px;
+    top: -40px;
+    left: -40px;
     z-index: -1;
 }
