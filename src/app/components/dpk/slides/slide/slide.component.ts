@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Subscription } from 'rxjs';
 import { fadeAnimation } from '../../../../animations/fade.animation';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
-import { DriveAPIService } from '../../../../services/drive-api.service';
 import { SlideService } from '../../../../services/slide.service';
 import { AudioControlService } from '../../../audio-component/audio-control.service';
 import { Bhajan } from '../../../../interfaces/bhajan';
@@ -33,7 +32,6 @@ export class SlideComponent implements OnInit, OnDestroy {
 
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
-                private driveAPIService: DriveAPIService,
                 public slideService: SlideService,
                 private audioControlService: AudioControlService,) {
     }
