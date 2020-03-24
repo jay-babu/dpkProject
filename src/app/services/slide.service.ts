@@ -4,7 +4,7 @@ import { SlideConfigI } from '../interfaces/slide-config-i';
 import { DpkParseService } from '../components/dpk/slides/dpk-parse.service';
 import { Bhajan, FirebaseBhajan } from '../interfaces/bhajan';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-import { filter, map, take } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { environment } from '../../environments/environment';
 
 @Injectable({
@@ -98,7 +98,7 @@ export class SlideService {
     }
 
     private organizeSlideData(firebaseBhajan: Observable<FirebaseBhajan>) {
-        firebaseBhajan.pipe(take(1)).subscribe(bhajan => {
+        firebaseBhajan.subscribe(bhajan => {
             this.bhajan.stanzaVisible = this.dpkParseService.parseSlideText(bhajan.lyrics);
             this.bhajan.definitions = this.dpkParseService.parseSlideText(bhajan.definitions);
             this.bhajan.altStanza = this.dpkParseService.parseSlideText(bhajan.gujarati || []);

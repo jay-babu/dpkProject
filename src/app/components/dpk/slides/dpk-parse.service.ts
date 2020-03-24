@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
 import { Observable } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -14,7 +15,7 @@ export class DpkParseService {
     }
 
     getDPK(dpk: string, name: string) {
-        return this.firebaseBhajan$ = this.fireDB.collection(dpk).doc<FirebaseBhajan>(name).valueChanges();
+        return this.firebaseBhajan$ = this.fireDB.collection(dpk).doc<FirebaseBhajan>(name).valueChanges().pipe(take(1));
     }
 
     parseSlideText(slideText: string[]) {
