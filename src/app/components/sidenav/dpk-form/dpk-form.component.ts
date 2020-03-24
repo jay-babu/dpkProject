@@ -47,8 +47,9 @@ export class DpkFormComponent implements OnInit {
         materialSection: this.fb.group({
             audioUploaded: [ false ],
             audioTimings: [ '' ],
+            audioURL: [ '' ],
         }),
-    }, { asyncValidators: [ this.dpkFormService.validSubmission ], updateOn: 'blur', });
+    }, { asyncValidators: [ this.dpkFormService.validSubmission ], updateOn: 'change', });
 
     ngOnInit() {
     }

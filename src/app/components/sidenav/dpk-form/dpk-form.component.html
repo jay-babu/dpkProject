@@ -24,8 +24,8 @@
                 <mat-label>Type:</mat-label>
                 <mat-radio-group formControlName="dpk" required>
                     <mat-radio-button [style.margin]="'12px 12px'"
-                                      *ngFor="let dpk of this.dpkFormService.DPKs | keyvalue"
-                                      value="{{ dpk.key }}">{{ dpk.key }}</mat-radio-button>
+                                      *ngFor="let dpk of ['Dhun','Prathana','Kirtan', 'Miscellaneous']"
+                                      value="{{ dpk }}">{{ dpk }}</mat-radio-button>
                 </mat-radio-group>
                 <mat-divider></mat-divider>
                 <div class="form-field">
@@ -53,8 +53,10 @@
                     <button mat-button matStepperNext type="button" color="primary">Next</button>
                 </div>
             </mat-step>
+
             <mat-step formGroupName="bhajanSection" [stepControl]="dpkForm.get('bhajanSection')">
                 <ng-template matStepLabel>Bhajan Details</ng-template>
+
                 <mat-form-field class="text-fields">
                     <label>
                     <textarea cdkTextareaAutosize matInput placeholder="Lyrics" formControlName="lyrics" required
@@ -66,6 +68,7 @@
 
                     <mat-hint>Follow the format in Ex: Lyrics</mat-hint>
                 </mat-form-field>
+
                 <mat-form-field class="text-fields">
                     <label>
                         <textarea cdkTextareaAutosize matInput placeholder="Gujarati Lyrics"
@@ -86,23 +89,31 @@
                     </label>
                     <mat-hint>Same Format as Lyrics</mat-hint>
                 </mat-form-field>
+
                 <div>
                     <button mat-button matStepperPrevious type="button" color="primary">Back</button>
                     <button mat-button matStepperNext type="button" color="primary">Next</button>
                 </div>
             </mat-step>
+
             <mat-step formGroupName="materialSection" [stepControl]="dpkForm.get('materialSection')">
                 <ng-template matStepLabel>Upload Bhajan Images and Audio</ng-template>
                 <div class="form-field">
                     <mat-slide-toggle formControlName="audioUploaded" labelPosition="before" checked="audioUploaded">
                         Upload Audio?
                     </mat-slide-toggle>
+                    <a mat-flat-button *ngIf="dpkForm.value.materialSection.audioUploaded"
+                       [ngStyle]="{margin: '1vh 0', fontSize: '.9em'}"
+                       color="accent"
+                       href="https://drive.google.com/open?id=15LgtjqsTnBMTvz-BjQEBhGHgVmuA2bid"
+                       target="_blank">
+                        Please Upload your Audio File Here and Paste the Shareable Link Here
+                    </a>
 
                     <mat-form-field *ngIf="dpkForm.value.materialSection.audioUploaded" class="text-fields">
                         <label>
-                            <textarea cdkTextareaAutosize matInput
+                            <textarea cdkTextareaAutosize matInput formControlName="audioTimings" required
                                       placeholder="Audio Timings (MM:SS) M means Minutes. S means Seconds"
-                                      formControlName="audioTimings"
                                       class="mat-primary" [errorStateMatcher]="errorMatcher">
                             </textarea>
                         </label>
@@ -117,6 +128,16 @@
                             Audio File Not Found. Upload to the same place as Images
                         </mat-error>
                     </mat-form-field>
+
+                    <mat-form-field *ngIf="dpkForm.value.materialSection.audioUploaded" class="text-fields">
+                        <label>
+                            <input matInput placeholder="Audio Google Drive URL" formControlName="audioURL" required
+                                   [errorStateMatcher]="errorMatcher">
+                        </label>
+                        <mat-error *ngIf="dpkForm.hasError('badURL')">
+                            Please Enter Shared URL from Google Drive
+                        </mat-error>
+                    </mat-form-field>
                 </div>
                 <div>
                     <button mat-button matStepperPrevious type="button" color="primary">Back</button>
@@ -127,6 +148,8 @@
                     </button>
                 </div>
             </mat-step>
+
+
         </mat-vertical-stepper>
     </form>
 

@@ -44,6 +44,10 @@ mat-toolbar {
     margin: 3vh 0;
 }
 
+mat-slide-toggle {
+    margin: 1vh 0;
+}
+
 @media (max-width: 750px) {
     .submission > .submission-btn {
         font-size: 1.1em;
