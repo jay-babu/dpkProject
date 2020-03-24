@@ -50,14 +50,16 @@ export class DpkFormService {
         if (!status && title && audioUploaded) {
             if (this.verifyURL(audioURL) && this.paramsVerifyURL(audioURL)) status = { badURL: true };
         }
-        console.log(status);
         return status;
     };
 
-    submitDPK(fg: FormGroup) {
-        const title = this.fireDB.collection(`Lists`).doc(fg.value.titleSection.dpk);
-        title.update({ title: firestore.FieldValue.arrayUnion(fg.value.titleSection.title) });
-
+    async submitDPK(fg: FormGroup, editMode: boolean) {
+        if (!editMode) {
+            const title = this.fireDB.collection(`Lists`).doc(fg.value.titleSection.dpk);
+            await title.update({ title: firestore.FieldValue.arrayUnion(fg.value.titleSection.title) });
+        }
+        const audioLink = this.parseAudioURL(fg.value.materialSection.audioURL).href;
+        await new Promise(done => setTimeout(() => done(), 500));
         return this.fireDB
             .collection(fg.value.titleSection.dpk).doc(fg.value.titleSection.title)
             .set({
@@ -65,7 +67,7 @@ export class DpkFormService {
                 gujarati: fg.value.bhajanSection.gujarati.split(/\n{2,}/g),
                 definitions: fg.value.bhajanSection.definitions.split(/\n{2,}/g),
                 title: fg.value.titleSection.title,
-                audioLink: this.parseAudioURL(fg.value.materialSection.audioURL).href,
+                audioLink,
                 audioTimings: this.timingsToSeconds(fg.value.materialSection.audioTimings.split(/\n+/g)),
                 author_uid: this.afAuth.auth.currentUser.uid,
             }, { merge: true });
