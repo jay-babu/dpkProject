@@ -71,6 +71,7 @@ export class SlideService {
             const url = new URL(`${ audioURL }/${ id }`);
             url.searchParams.set('key', environment.firebaseConfig.apiKey);
             url.searchParams.set('alt', 'media');
+            url.searchParams.set('ngsw-bypass', 'true');
             return url;
         } else return null;
     }
