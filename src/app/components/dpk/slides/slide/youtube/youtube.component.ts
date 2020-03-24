@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { YoutubeService } from './youtube.service';
+import { AudioControlService } from '../../../../audio-component/audio-control.service';
 
 @Component({
     selector: 'app-youtube',
@@ -8,7 +9,7 @@ import { YoutubeService } from './youtube.service';
 })
 export class YoutubeComponent implements OnInit {
 
-    constructor(public youtubeService: YoutubeService) {
+    constructor(public youtubeService: YoutubeService, private audioControlService: AudioControlService) {
     }
 
     ngOnInit(): void {
@@ -21,9 +22,10 @@ export class YoutubeComponent implements OnInit {
     }
 
 
-    muted(event: YT.PlayerEvent) {
+    start(event: YT.PlayerEvent) {
         event.target.mute();
         event.target.playVideo();
+        this.audioControlService.toggleAudio();
         event.target.setLoop(true);
     }
 
