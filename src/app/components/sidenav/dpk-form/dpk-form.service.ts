@@ -58,7 +58,7 @@ export class DpkFormService {
             const title = this.fireDB.collection(`Lists`).doc(fg.value.titleSection.dpk);
             await title.update({ title: firestore.FieldValue.arrayUnion(fg.value.titleSection.title) });
         }
-        const audioLink = this.parseAudioURL(fg.value.materialSection.audioURL).href;
+        const audioLink = this.parseAudioURL(fg.value.materialSection.audioURL);
         await new Promise(done => setTimeout(() => done(), 500));
         return this.fireDB
             .collection(fg.value.titleSection.dpk).doc(fg.value.titleSection.title)
@@ -74,13 +74,14 @@ export class DpkFormService {
     }
 
     parseAudioURL(audioURL: string) {
+        if (!audioURL) return '';
         let audioLink: URL = new URL(audioURL);
         if (audioLink.searchParams.get('id')) return audioLink;
         else {
             audioLink = new URL(`https://drive.google.com/open`);
             const path = audioLink.pathname.split('/');
             audioLink.searchParams.set(`id`, path[3]);
-            return audioLink;
+            return audioLink.href;
         }
     }
 
