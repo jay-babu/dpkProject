@@ -9,6 +9,7 @@ import { SliderService } from './slider.service';
 })
 export class SliderComponent implements OnInit, OnDestroy {
     dpkFolder: Observable<Map<string, string[]>>;
+    dpkFolderList: string[];
 
     gitHubFiles: Map<string, string>;
 
@@ -17,6 +18,7 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.dpkFolder = this.sliderService.dpkFolder$;
+        this.dpkFolderList = [ 'Dhun', 'Prathana', 'Kirtan', 'Miscellaneous' ];
 
         this.gitHubFiles = this.sliderService.gitHubImages;
     }

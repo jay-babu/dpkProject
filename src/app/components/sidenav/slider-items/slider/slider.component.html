@@ -1,22 +1,22 @@
 <div *ngIf="dpkFolder | async as dpk" class="slider-container">
-    <ng-container *ngFor="let DPK of dpk | keyvalue">
+    <ng-container *ngFor="let DPK of dpkFolderList">
         <mat-divider></mat-divider>
         <mat-toolbar>
-            {{DPK.key}}
+            {{DPK}}
         </mat-toolbar>
         <mat-divider></mat-divider>
         <div class="slides">
-            <mat-card *ngFor="let dpkTitle of DPK.value" title="{{dpkTitle}}"
-                      [ngStyle]="{'backgroundImage': imageToURLL(getGitHubURL(DPK.key.toString(), dpkTitle))}"
+            <mat-card *ngFor="let dpkTitle of dpk.get(DPK)" title="{{dpkTitle}}"
+                      [ngStyle]="{'backgroundImage': imageToURLL(getGitHubURL(DPK, dpkTitle))}"
                       class="slide">
                 <mat-card-title *ngIf="!gitHubFiles.has(dpkTitle + '.webp')"
                                 class="cardTitle">{{dpkTitle}}</mat-card-title>
                 <div class="overlay">
                     <mat-card-actions class="actions">
-                        <a [routerLink]="['../dpk', 'singerView', DPK.key, dpkTitle]">
+                        <a [routerLink]="['../dpk', 'singerView', DPK, dpkTitle]">
                             <button mat-stroked-button color="accent">Singer</button>
                         </a>
-                        <a [routerLink]="['../dpk', 'slideShow', DPK.key, dpkTitle]">
+                        <a [routerLink]="['../dpk', 'slideShow', DPK, dpkTitle]">
                             <button mat-stroked-button color="primary">Presentation</button>
                         </a>
                     </mat-card-actions>
