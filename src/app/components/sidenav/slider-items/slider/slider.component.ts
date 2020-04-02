@@ -18,7 +18,7 @@ export class SliderComponent implements OnInit, OnDestroy {
 
     ngOnInit(): void {
         this.dpkFolder = this.sliderService.dpkFolder$;
-        this.dpkFolderList = [ 'Dhun', 'Prathana', 'Kirtan', 'Miscellaneous' ];
+        this.dpkFolderList = [ 'Dhun', 'Prarthana', 'Kirtan', 'Miscellaneous' ];
 
         this.gitHubFiles = this.sliderService.gitHubImages;
     }
