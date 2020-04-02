@@ -30,10 +30,10 @@ export class YoutubeComponent implements OnInit {
     }
 
     width() {
-        return window.innerWidth;
+        return window.innerWidth - 150;
     }
 
     height() {
-        return window.innerWidth * (946 / 1680);
+        return (window.innerWidth - 150) * (946 / 1680);
     }
 }
