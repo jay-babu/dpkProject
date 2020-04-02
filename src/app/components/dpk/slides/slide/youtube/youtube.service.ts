@@ -17,6 +17,8 @@ export class YoutubeService {
 
     approvedVideos: Map<string, string>;
 
+    filterVideos: YoutubeVideoMeta[];
+
     constructor(private http: HttpClient, private dpkParseService: DpkParseService,) {
         this._youtubeId = new BehaviorSubject<string>(null);
         this.youtubeId$ = this._youtubeId.asObservable();
@@ -49,12 +51,12 @@ export class YoutubeService {
 
         this.http.get<YoutubeChannelList>(youtubeURL.href).subscribe(videos => {
             const items = videos.items;
-            const filteredVideos: YoutubeVideoMeta[] = items.filter(video => /^Guruhari Darshan/.test(video.snippet.title));
-            this.randomVideoId(filteredVideos);
+            this.filterVideos = items.filter(video => /^Guruhari Darshan/.test(video.snippet.title));
+            this.randomVideoId();
         });
     }
 
-    randomVideoId(youtubeVideos: YoutubeVideoMeta[]) {
-        this.youtubeId = youtubeVideos[Math.floor((Math.random() * youtubeVideos.length))].id.videoId;
+    randomVideoId() {
+        this.youtubeId = this.filterVideos[Math.floor((Math.random() * this.filterVideos.length))].id.videoId;
     }
 }

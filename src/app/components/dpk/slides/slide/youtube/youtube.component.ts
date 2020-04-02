@@ -26,7 +26,6 @@ export class YoutubeComponent implements OnInit {
         event.target.mute();
         event.target.playVideo();
         this.audioControlService.toggleAudio();
-        event.target.setLoop(true);
     }
 
     width() {
@@ -35,5 +34,13 @@ export class YoutubeComponent implements OnInit {
 
     height() {
         return (window.innerWidth - 150) * (946 / 1680);
+    }
+
+    ready(ytState: YT.OnStateChangeEvent) {
+        if (ytState.data === -1) {
+            ytState.target.playVideo();
+        } else if (ytState.data === 0) {
+            this.youtubeService.randomVideoId();
+        }
     }
 }
