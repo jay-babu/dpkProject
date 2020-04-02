@@ -1,5 +1,6 @@
 <div *ngIf="youtubeService.youtubeId$ | async as videoId">
-    <youtube-player [videoId]="videoId" [suggestedQuality]="'highres'" (ready)="start($event)"
+    <youtube-player (stateChange)="ready($event)" [videoId]="videoId" [suggestedQuality]="'highres'"
+                    (ready)="start($event)"
                     [width]="width()" [height]="height()"></youtube-player>
     <app-youtube-blur></app-youtube-blur>
 </div>
