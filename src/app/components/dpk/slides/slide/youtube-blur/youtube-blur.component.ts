@@ -23,7 +23,6 @@ export class YoutubeBlurComponent implements OnInit {
     start(event: YT.PlayerEvent) {
         event.target.mute();
         event.target.playVideo();
-        event.target.setLoop(true);
     }
 
     width() {
@@ -32,5 +31,11 @@ export class YoutubeBlurComponent implements OnInit {
 
     height() {
         return window.innerHeight * 1.1;
+    }
+
+    ready(ytState: YT.OnStateChangeEvent) {
+        if (ytState.data === -1) {
+            ytState.target.playVideo();
+        }
     }
 }
