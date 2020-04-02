@@ -9,7 +9,7 @@
             <app-audio *ngIf="bhajan.audioLink" [bhajanObservable$]="this.firebaseBhajan$"
                        [hidden]="true"></app-audio>
 
-            <div *ngIf="slideConfig.definitionShown" class="definitionDiv">
+            <div *ngIf="slideConfig.definitionShown && bhajan.definitions.length > 1" class="definitionDiv">
                 <p *ngFor="let definition of bhajan.definitions[slideIndex]">{{ definition }}</p>
             </div>
         </div>
