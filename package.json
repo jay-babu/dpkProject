@@ -49,7 +49,7 @@
         "ngx-lottie": "^5.4.0",
         "particles.js": "^2.0.0",
         "path": "^0.12.7",
-        "rxjs": "~6.5.3",
+        "rxjs": "~6.5.5",
         "screenfull": "^5.0.2",
         "tslib": "1.11.0",
         "typescript": "~3.7.5",
