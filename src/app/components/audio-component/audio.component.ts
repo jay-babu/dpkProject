@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
-import { AudioControlService } from './audio-control.service';
+import { AVControlService } from './a-v-control.service';
 import { Observable } from 'rxjs';
 import { Bhajan } from '../../interfaces/bhajan';
 
@@ -16,7 +16,7 @@ export class AudioComponent implements OnInit, OnDestroy {
 
     @ViewChild('bhajanAudio') audioPlayerRef: ElementRef<HTMLAudioElement>;
 
-    constructor(private audioControlService: AudioControlService) {
+    constructor(private audioControlService: AVControlService) {
     }
 
     ngOnInit(): void {

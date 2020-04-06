@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AnimationOptions } from 'ngx-lottie';
 import { AnimationDirection, AnimationItem } from 'lottie-web';
-import { AudioControlService } from '../../../audio-component/audio-control.service';
+import { AVControlService } from '../../../audio-component/a-v-control.service';
 
 @Component({
     selector: 'app-lottie-animated-audio-fab',
@@ -25,7 +25,7 @@ export class LottieAnimatedAudioFabComponent implements OnInit {
 
     animation: AnimationItem;
 
-    constructor(private audioControlService: AudioControlService) {
+    constructor(private audioControlService: AVControlService) {
     }
 
     ngOnInit(): void {
