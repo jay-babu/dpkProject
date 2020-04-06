@@ -20,15 +20,22 @@ export class YoutubeComponent implements OnInit {
 
         tag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(tag);
+
+        this.youtubeService.paused$.subscribe(paused => {
+            if (this.player) {
+                if (!paused) {
+                    this.player.playVideo();
+                } else {
+                    this.player.pauseVideo();
+                }
+            }
+        })
     }
 
 
     start(event: YT.PlayerEvent) {
         this.player = event.target;
         this.player.mute();
-        // event.target.playVideo();
-        // this.audioControlService.toggleAudio();
-        // event.target.setLoop(true);
     }
 
     width() {
