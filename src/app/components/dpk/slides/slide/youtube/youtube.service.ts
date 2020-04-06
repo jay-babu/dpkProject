@@ -37,7 +37,7 @@ export class YoutubeService {
         const youtubeURL = new URL(this.youtubeAPI);
         youtubeURL.searchParams.set('part', 'snippet, id');
         youtubeURL.searchParams.set('channelId', 'UCuQNLnncEruW0pllaE0ZeKQ');
-        youtubeURL.searchParams.set('maxResults', '30');
+        youtubeURL.searchParams.set('maxResults', '50');
         youtubeURL.searchParams.set('order', 'date');
         youtubeURL.searchParams.set('key', environment.firebaseConfig.apiKey);
         youtubeURL.searchParams.set('ngsw-bypass', 'true');
