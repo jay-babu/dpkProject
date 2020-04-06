@@ -15,6 +15,9 @@ export class YoutubeService {
     private _youtubeId: BehaviorSubject<string>;
     youtubeId$: Observable<string>;
 
+    private _paused: BehaviorSubject<boolean>;
+    paused$: Observable<boolean>;
+
     approvedVideos: Map<string, string>;
 
     filterVideos: YoutubeVideoMeta[];
@@ -22,6 +25,9 @@ export class YoutubeService {
     constructor(private http: HttpClient, private dpkParseService: DpkParseService,) {
         this._youtubeId = new BehaviorSubject<string>(null);
         this.youtubeId$ = this._youtubeId.asObservable();
+
+        this._paused = new BehaviorSubject<boolean>(true);
+        this.paused$ = this._paused.asObservable();
 
         this.approvedVideos = new Map<string, string>([ [ 'Chesta', 'V_mKI9pJxYA' ] ]);
 
@@ -33,6 +39,10 @@ export class YoutubeService {
 
     private set youtubeId(yid: string) {
         this._youtubeId.next(yid);
+    }
+
+    toggle() {
+        this._paused.next(!this._paused.value);
     }
 
     get youtubeURL() {
