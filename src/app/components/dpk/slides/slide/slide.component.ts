@@ -33,7 +33,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
                 public slideService: SlideService,
-                private audioControlService: AvControlService,) {
+                private avControlService: AvControlService,) {
     }
 
     ngOnInit() {
@@ -52,7 +52,7 @@ export class SlideComponent implements OnInit, OnDestroy {
             this.slideConfig = slideConfig;
         }));
 
-        this.subscriptions.push(this.audioControlService.paused$.subscribe(off => {
+        this.subscriptions.push(this.avControlService.paused$.subscribe(off => {
             this.playBack = !off;
             if (off) {
                 this.timeOuts.forEach(times => clearTimeout(times));
@@ -70,7 +70,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     nextSlideAudio() {
         this.timeOuts.forEach(times => clearTimeout(times));
         let index = this.slideIndex;
-        this.audioControlService.seekTime(this.audioTimings[index]);
+        this.avControlService.seekTime(this.audioTimings[index]);
         const removeSecond = -this.audioTimings[index++];
         for (const seconds of this.audioTimings.slice(index)) {
             this.timeOuts.push(setTimeout(() => this.upOrDown(true), (removeSecond + seconds) * 1000));
