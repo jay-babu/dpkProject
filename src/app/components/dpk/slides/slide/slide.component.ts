@@ -4,7 +4,7 @@ import { Observable, Subscription } from 'rxjs';
 import { fadeAnimation } from '../../../../animations/fade.animation';
 import { SlideConfigI } from '../../../../interfaces/slide-config-i';
 import { SlideService } from '../../../../services/slide.service';
-import { AVControlService } from '../../../audio-component/a-v-control.service';
+import { AvControlService } from '../../../audio-component/av-control.service';
 import { Bhajan } from '../../../../interfaces/bhajan';
 import * as screenfull from 'screenfull';
 
@@ -33,7 +33,7 @@ export class SlideComponent implements OnInit, OnDestroy {
     constructor(private router: Router,
                 private activeRouter: ActivatedRoute,
                 public slideService: SlideService,
-                private audioControlService: AVControlService,) {
+                private audioControlService: AvControlService,) {
     }
 
     ngOnInit() {

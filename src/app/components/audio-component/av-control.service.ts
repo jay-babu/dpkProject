@@ -4,7 +4,7 @@ import { Observable, Subject } from 'rxjs';
 @Injectable({
     providedIn: 'root'
 })
-export class AVControlService {
+export class AvControlService {
 
     private bhajanAudio: HTMLAudioElement;
 

@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
-import { AVControlService } from '../audio-component/a-v-control.service';
+import { AvControlService } from '../audio-component/av-control.service';
 import { SlideService } from '../../services/slide.service';
 
 const dpkRoutes: Routes = [
@@ -17,7 +17,7 @@ const dpkRoutes: Routes = [
         RouterModule.forChild(dpkRoutes),
     ],
     providers: [
-        AVControlService,
+        AvControlService,
         SlideService,
     ]
 })
