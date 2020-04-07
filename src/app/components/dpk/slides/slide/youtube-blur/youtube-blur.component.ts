@@ -35,6 +35,9 @@ export class YoutubeBlurComponent implements OnInit, OnDestroy {
             this.officialVideo = official;
             this.toggleVideo();
         }));
+        this.subscriptions.push(this.avControlService.avTime$.subscribe(time => {
+            if (this.player && this.officialVideo) this.player.seekTo(time, true)
+        }));
     }
 
     ngOnDestroy(): void {
