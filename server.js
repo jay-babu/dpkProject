@@ -19,7 +19,7 @@ app.use(limiter);
 app.use(express.static(__dirname + '/dist/dpkProject'));
 
 app.get('/*', function (req, res) {
-
+    res.redirect("https://" + req.headers.host + "/" + req.path);
     res.sendFile(path.join(__dirname + '/dist/dpkProject/index.html'));
 });
 
