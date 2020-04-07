@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -11,22 +11,27 @@ export class AvControlService {
     private _paused: Subject<boolean>;
     paused$: Observable<boolean>;
 
+    private _avTime: BehaviorSubject<number>;
+    avTime$: Observable<number>;
+
     constructor() {
         this._paused = new Subject<boolean>();
         this.paused$ = this._paused.asObservable();
+
+        this._avTime = new BehaviorSubject<number>(0);
+        this.avTime$ = this._avTime.asObservable();
     }
 
     get audioExist() {
         return !!this.bhajanAudio;
     }
 
-    updateAudio(audioPlayerRef: ElementRef<HTMLAudioElement>) {
-        this.bhajanAudio = (audioPlayerRef) ? audioPlayerRef.nativeElement : null;
+    set avTime(time: number) {
+        this._avTime.next(time);
     }
 
-    seekTime(time: number) {
-        setTimeout(() => this.bhajanAudio.currentTime = time, 0);
-        if (this.bhajanAudio.paused) this.bhajanAudio.play();
+    updateAudio(audioPlayerRef: ElementRef<HTMLAudioElement>) {
+        this.bhajanAudio = (audioPlayerRef) ? audioPlayerRef.nativeElement : null;
     }
 
     toggleAudio() {
