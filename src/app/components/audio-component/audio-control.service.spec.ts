@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { AVControlService } from './a-v-control.service';
+import { AvControlService } from './av-control.service';
 
 describe('AudioControlService', () => {
-    let service: AVControlService;
+    let service: AvControlService;
 
   beforeEach(() => {
       TestBed.configureTestingModule({});
-      service = TestBed.inject(AVControlService);
+      service = TestBed.inject(AvControlService);
   });
 
   it('should be created', () => {

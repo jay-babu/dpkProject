@@ -9,6 +9,11 @@ body {
     font-family: Roboto, "Helvetica Neue", sans-serif;
 }
 
+@font-face {
+    font-family: Avenir;
+    src: local('Avenir'), url("./assets/fonts/AvenirLTStd-Medium.otf");
+}
+
 :root {
     --particle-bg: #00002f;
 }

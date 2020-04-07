@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { YoutubeService } from './youtube.service';
-import { AVControlService } from '../../../../audio-component/a-v-control.service';
+import { AvControlService } from '../../../../audio-component/av-control.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -16,7 +16,7 @@ export class YoutubeComponent implements OnInit, OnDestroy {
 
     subscriptions: Subscription[] = [];
 
-    constructor(public youtubeService: YoutubeService, private avControlService: AVControlService) {
+    constructor(public youtubeService: YoutubeService, private avControlService: AvControlService) {
     }
 
     ngOnInit(): void {
@@ -34,6 +34,10 @@ export class YoutubeComponent implements OnInit, OnDestroy {
         this.subscriptions.push(this.youtubeService.officialVideo$.subscribe(official => {
             this.officialVideo = official;
             this.toggleVideo();
+        }));
+
+        this.subscriptions.push(this.avControlService.avTime$.subscribe(time => {
+            if (this.player && this.officialVideo) this.player.seekTo(time, true)
         }));
     }
 
