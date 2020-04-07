@@ -36,6 +36,6 @@ export class LottieAnimatedAudioFabComponent implements OnInit {
     }
 
     seekPosition(time: number) {
-        this.audioControlService.seekTime(time);
+        this.audioControlService.avTime = time;
     }
 }
