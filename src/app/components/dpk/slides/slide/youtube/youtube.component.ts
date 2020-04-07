@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { YoutubeService } from './youtube.service';
+import { AVControlService } from '../../../../audio-component/a-v-control.service';
+import { Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-youtube',
     templateUrl: './youtube.component.html',
     styleUrls: [ './youtube.component.css' ]
 })
-export class YoutubeComponent implements OnInit {
+export class YoutubeComponent implements OnInit, OnDestroy {
 
     player: YT.Player;
+    pause: boolean;
+    officialVideo: boolean;
 
-    constructor(public youtubeService: YoutubeService) {
+    subscriptions: Subscription[] = [];
+
+    constructor(public youtubeService: YoutubeService, private avControlService: AVControlService) {
     }
 
     ngOnInit(): void {
@@ -21,21 +27,36 @@ export class YoutubeComponent implements OnInit {
         tag.src = 'https://www.youtube.com/iframe_api';
         document.body.appendChild(tag);
 
-        this.youtubeService.paused$.subscribe(paused => {
-            if (this.player) {
-                if (!paused) {
-                    this.player.playVideo();
-                } else {
-                    this.player.pauseVideo();
-                }
-            }
-        })
+        this.subscriptions.push(this.avControlService.paused$.subscribe(paused => {
+            this.pause = paused;
+            this.toggleVideo();
+        }));
+        this.subscriptions.push(this.youtubeService.officialVideo$.subscribe(official => {
+            this.officialVideo = official;
+            this.toggleVideo();
+        }));
+    }
+
+    ngOnDestroy(): void {
+        this.subscriptions.forEach(subscription => subscription.unsubscribe());
+    }
+
+    toggleVideo() {
+        if (this.player) {
+            if (this.pause === undefined) this.pause = true;
+            if (this.pause && this.officialVideo) {
+                console.log(this.pause, this.officialVideo);
+                this.player.pauseVideo();
+            } else this.player.playVideo();
+        }
     }
 
 
     start(event: YT.PlayerEvent) {
         this.player = event.target;
         this.player.mute();
+        this.toggleVideo();
+        // this.player.playVideo();
     }
 
     width() {
