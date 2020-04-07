@@ -1,6 +1,7 @@
 //Install express server
 const express = require('express');
 const path = require('path');
+const enforce = require('express-sslify');
 
 // set up rate limiter: maximum of five requests per minute
 const RateLimit = require('express-rate-limit');
@@ -13,13 +14,13 @@ const app = express();
 
 // apply rate limiter to all requests
 app.use(limiter);
+app.use(enforce.HTTPS({trustProtoHeader: true}));
 
 
 // Serve only the static files form the dist directory
 app.use(express.static(__dirname + '/dist/dpkProject'));
 
 app.get('/*', function (req, res) {
-    res.redirect("https://" + req.headers.host + "/" + req.path);
     res.sendFile(path.join(__dirname + '/dist/dpkProject/index.html'));
 });
 
