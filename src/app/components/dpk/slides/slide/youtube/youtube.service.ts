@@ -16,6 +16,8 @@ export class YoutubeService {
     youtubeId$: Observable<string>;
 
     approvedVideos: Map<string, string>;
+    private _officialVideo = new BehaviorSubject(true);
+    officialVideo$ = this._officialVideo.asObservable();
 
     filterVideos: YoutubeVideoMeta[];
 
@@ -27,7 +29,13 @@ export class YoutubeService {
 
         this.dpkParseService.firebaseBhajan$.subscribe(firebaseBhajan => {
             const yid = this.approvedVideos.get(firebaseBhajan.title);
-            (yid) ? this.youtubeId = yid : this.listYoutubeVideos();
+            if (yid) {
+                this.youtubeId = yid;
+                this._officialVideo.next(true)
+            } else {
+                this.listYoutubeVideos();
+                this._officialVideo.next(false);
+            }
         });
     }
 
