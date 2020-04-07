@@ -44,10 +44,9 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     toggleVideo() {
         if (this.player) {
             if (this.pause === undefined) this.pause = true;
-            if (this.pause && this.officialVideo) {
-                console.log(this.pause, this.officialVideo);
-                this.player.pauseVideo();
-            } else this.player.playVideo();
+
+            if (this.pause && this.officialVideo) this.player.pauseVideo();
+            else this.player.playVideo();
         }
     }
 
@@ -56,7 +55,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
         this.player = event.target;
         this.player.mute();
         this.toggleVideo();
-        // this.player.playVideo();
     }
 
     width() {

@@ -14,7 +14,7 @@ export class YoutubeBlurComponent implements OnInit, OnDestroy {
     pause: boolean;
     officialVideo: boolean;
 
-    subscriptions: Subscription[];
+    subscriptions: Subscription[] = [];
 
     constructor(public youtubeService: YoutubeService, private avControlService: AVControlService) {
     }
