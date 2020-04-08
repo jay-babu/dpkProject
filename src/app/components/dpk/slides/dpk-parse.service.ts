@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FirebaseBhajan } from '../../../interfaces/bhajan';
-import { Observable } from 'rxjs';
+import { Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
 })
 export class DpkParseService {
-
+    private _firebaseBhajan: Subject<FirebaseBhajan>;
     firebaseBhajan$: Observable<FirebaseBhajan>;
 
     constructor(private fireDB: AngularFirestore) {
+        this._firebaseBhajan = new Subject<FirebaseBhajan>();
+        this.firebaseBhajan$ = this._firebaseBhajan.asObservable();
     }
 
     getDPK(dpk: string, name: string) {
-        return this.firebaseBhajan$ = this.fireDB.collection(dpk).doc<FirebaseBhajan>(name).valueChanges().pipe(take(1));
+        this.fireDB.collection(dpk).doc<FirebaseBhajan>(name).valueChanges().pipe(take(1)).subscribe(
+            firebaseBhajan => this._firebaseBhajan.next(firebaseBhajan)
+        );
+        return this.firebaseBhajan$;
     }
 
     parseSlideText(slideText: string[]) {
