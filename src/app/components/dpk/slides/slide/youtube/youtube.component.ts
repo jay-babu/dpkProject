@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { YoutubeService } from './youtube.service';
 import { AvControlService } from '../../../../audio-component/av-control.service';
 import { Subscription } from 'rxjs';
+import { take } from 'rxjs/operators';
 
 @Component({
     selector: 'app-youtube',
@@ -31,10 +32,10 @@ export class YoutubeComponent implements OnInit, OnDestroy {
             this.pause = paused;
             this.toggleVideo();
         }));
-        this.subscriptions.push(this.youtubeService.officialVideo$.subscribe(official => {
+        this.youtubeService.officialVideo$.pipe(take(1)).subscribe(official => {
             this.officialVideo = official;
             this.toggleVideo();
-        }));
+        });
 
         this.subscriptions.push(this.avControlService.avTime$.subscribe(time => {
             if (this.player && this.officialVideo) this.player.seekTo(time, true)
@@ -48,7 +49,6 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     toggleVideo() {
         if (this.player) {
             if (this.pause === undefined) this.pause = true;
-
             if (this.pause && this.officialVideo) this.player.pauseVideo();
             else this.player.playVideo();
         }
