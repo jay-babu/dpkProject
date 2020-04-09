@@ -7,13 +7,14 @@ const enforce = require('express-sslify');
 const RateLimit = require('express-rate-limit');
 const limiter = new RateLimit({
     windowMs: 60 * 1000, // 1 minute
-    max: 20
+    max: 40
 });
 
 const app = express();
 
 // apply rate limiter to all requests
 app.use(limiter);
+app.set('trust proxy', 1);
 app.use(enforce.HTTPS({trustProtoHeader: true}));
 
 
