@@ -20,7 +20,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-        this.fontStyles = new Set([ 'Avenir', 'cursive', 'Roboto', 'Montserrat', 'Calibri', 'Helvetica Neue' ]);
+        this.fontStyles = new Set([ 'Madelina', 'Avenir', 'cursive', 'Roboto', 'Montserrat', 'Calibri', 'Helvetica Neue' ]);
         this.customForm = this.fb.group({
             fontStyle: 'Avenir',
             definitionShown: true,
