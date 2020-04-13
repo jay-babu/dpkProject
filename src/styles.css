@@ -10,8 +10,10 @@ body {
 }
 
 @font-face {
-    font-family: Avenir;
-    src: local('Avenir'), url("./assets/fonts/AvenirLTStd-Medium.otf");
+    /*font-family: Avenir;*/
+    /*src: local('Avenir'), url("./assets/fonts/AvenirLTStd-Medium.otf");*/
+    font-family: Madelina;
+    src: local('Madelina'), url("./assets/fonts/MadeleinaSans.ttf");
 }
 
 :root {
