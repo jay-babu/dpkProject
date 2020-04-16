@@ -1,4 +1,4 @@
 export interface TutorialDialog {
-    key: string;
-    usages: string;
+    key: string
+    usages: string
 }

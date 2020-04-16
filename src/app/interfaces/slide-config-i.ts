@@ -1,4 +1,4 @@
 export interface SlideConfigI {
-    fontStyle: string,
-    definitionShown: boolean,
+    fontStyle: string
+    definitionShown: boolean
 }

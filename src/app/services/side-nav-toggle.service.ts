@@ -1,19 +1,19 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { Injectable } from '@angular/core'
+import { BehaviorSubject, Observable } from 'rxjs'
 
 @Injectable({
-    providedIn: 'root'
+    providedIn: 'root',
 })
 export class SideNavToggleService {
-    private sideNavToggleSubject = new BehaviorSubject(false);
+    private sideNavToggleSubject = new BehaviorSubject(false)
 
-    sideNavToggle$: Observable<boolean>;
+    sideNavToggle$: Observable<boolean>
 
     constructor() {
-        this.sideNavToggle$ = this.sideNavToggleSubject.asObservable();
+        this.sideNavToggle$ = this.sideNavToggleSubject.asObservable()
     }
 
     toggleSidenav(show?: boolean) {
-        this.sideNavToggleSubject.next(show || !this.sideNavToggleSubject.value);
+        this.sideNavToggleSubject.next(show || !this.sideNavToggleSubject.value)
     }
 }

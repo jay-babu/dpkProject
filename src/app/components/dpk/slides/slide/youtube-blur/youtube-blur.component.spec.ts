@@ -1,25 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { YoutubeBlurComponent } from './youtube-blur.component';
+import { YoutubeBlurComponent } from './youtube-blur.component'
 
 describe('YoutubeBlurComponent', () => {
-    let component: YoutubeBlurComponent;
-    let fixture: ComponentFixture<YoutubeBlurComponent>;
+    let component: YoutubeBlurComponent
+    let fixture: ComponentFixture<YoutubeBlurComponent>
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ YoutubeBlurComponent ]
-        })
-            .compileComponents();
-    }));
+            declarations: [YoutubeBlurComponent],
+        }).compileComponents()
+    }))
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(YoutubeBlurComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+        fixture = TestBed.createComponent(YoutubeBlurComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
     it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-});
+        expect(component).toBeTruthy()
+    })
+})

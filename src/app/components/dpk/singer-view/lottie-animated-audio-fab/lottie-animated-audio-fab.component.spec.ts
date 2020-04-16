@@ -1,25 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LottieAnimatedAudioFabComponent } from './lottie-animated-audio-fab.component';
+import { LottieAnimatedAudioFabComponent } from './lottie-animated-audio-fab.component'
 
 describe('LottieAnimatedAudioFabComponent', () => {
-    let component: LottieAnimatedAudioFabComponent;
-    let fixture: ComponentFixture<LottieAnimatedAudioFabComponent>;
+    let component: LottieAnimatedAudioFabComponent
+    let fixture: ComponentFixture<LottieAnimatedAudioFabComponent>
 
     beforeEach(async(() => {
         TestBed.configureTestingModule({
-            declarations: [ LottieAnimatedAudioFabComponent ]
-        })
-            .compileComponents();
-    }));
+            declarations: [LottieAnimatedAudioFabComponent],
+        }).compileComponents()
+    }))
 
     beforeEach(() => {
-        fixture = TestBed.createComponent(LottieAnimatedAudioFabComponent);
-        component = fixture.componentInstance;
-        fixture.detectChanges();
-    });
+        fixture = TestBed.createComponent(LottieAnimatedAudioFabComponent)
+        component = fixture.componentInstance
+        fixture.detectChanges()
+    })
 
     it('should create', () => {
-        expect(component).toBeTruthy();
-    });
-});
+        expect(component).toBeTruthy()
+    })
+})

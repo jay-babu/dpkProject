@@ -1,3 +1,3 @@
 export interface FirebaseLists {
-    title: string[];
+    title: string[]
 }
