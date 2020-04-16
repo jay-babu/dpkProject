@@ -1,16 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TutorialComponent } from './tutorial.component';
-import { MatButtonModule } from '@angular/material/button';
-import { FontAwesomeModule } from '../../font-awesome.module';
-import { MatTableModule } from '@angular/material/table';
-import { MatDialogModule } from '@angular/material/dialog';
-
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { TutorialComponent } from './tutorial.component'
+import { MatButtonModule } from '@angular/material/button'
+import { FontAwesomeModule } from '../../font-awesome.module'
+import { MatTableModule } from '@angular/material/table'
+import { MatDialogModule } from '@angular/material/dialog'
 
 @NgModule({
-    declarations: [
-        TutorialComponent
-    ],
+    declarations: [TutorialComponent],
     imports: [
         CommonModule,
         MatButtonModule,
@@ -18,9 +15,6 @@ import { MatDialogModule } from '@angular/material/dialog';
         MatTableModule,
         MatDialogModule,
     ],
-    exports: [
-        TutorialComponent
-    ],
+    exports: [TutorialComponent],
 })
-export class TutorialModule {
-}
+export class TutorialModule {}

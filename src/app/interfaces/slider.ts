@@ -1,6 +1,6 @@
 export interface Slider {
-    name: string;
-    imageID: string;
-    image: URL;
-    type?: string;
+    name: string
+    imageID: string
+    image: URL
+    type?: string
 }

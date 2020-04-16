@@ -1,15 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core'
 
 @Component({
     selector: 'app-slides',
     templateUrl: './slides.component.html',
-    styleUrls: ['./slides.component.css']
+    styleUrls: ['./slides.component.css'],
 })
 export class SlidesComponent implements OnInit {
+    constructor() {}
 
-    constructor() {
-    }
-
-    ngOnInit(): void {
-    }
+    ngOnInit(): void {}
 }

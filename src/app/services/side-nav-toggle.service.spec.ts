@@ -1,16 +1,16 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing'
 
-import { SideNavToggleService } from './side-nav-toggle.service';
+import { SideNavToggleService } from './side-nav-toggle.service'
 
 describe('SideNavToggleService', () => {
-  let service: SideNavToggleService;
+    let service: SideNavToggleService
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(SideNavToggleService);
-  });
+    beforeEach(() => {
+        TestBed.configureTestingModule({})
+        service = TestBed.inject(SideNavToggleService)
+    })
 
-  it('should be created', () => {
-    expect(service).toBeTruthy();
-  });
-});
+    it('should be created', () => {
+        expect(service).toBeTruthy()
+    })
+})

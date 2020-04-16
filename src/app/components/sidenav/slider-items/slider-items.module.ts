@@ -1,25 +1,20 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { RouterModule, Routes } from '@angular/router';
-import { SliderItemsComponent } from './slider-items.component';
-import { SliderComponent } from './slider/slider.component';
-import { TutorialModule } from '../../tutorial/tutorial.module';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from '@angular/material/icon';
-import { MatCardModule } from '@angular/material/card';
-import { MatButtonModule } from '@angular/material/button';
-import { SliderService } from './slider/slider.service';
-import { MatDividerModule } from '@angular/material/divider';
+import { NgModule } from '@angular/core'
+import { CommonModule } from '@angular/common'
+import { RouterModule, Routes } from '@angular/router'
+import { SliderItemsComponent } from './slider-items.component'
+import { SliderComponent } from './slider/slider.component'
+import { TutorialModule } from '../../tutorial/tutorial.module'
+import { MatToolbarModule } from '@angular/material/toolbar'
+import { MatIconModule } from '@angular/material/icon'
+import { MatCardModule } from '@angular/material/card'
+import { MatButtonModule } from '@angular/material/button'
+import { SliderService } from './slider/slider.service'
+import { MatDividerModule } from '@angular/material/divider'
 
-const sliderRoutes: Routes = [
-    { path: '', component: SliderItemsComponent },
-];
+const sliderRoutes: Routes = [{ path: '', component: SliderItemsComponent }]
 
 @NgModule({
-    declarations: [
-        SliderItemsComponent,
-        SliderComponent,
-    ],
+    declarations: [SliderItemsComponent, SliderComponent],
     imports: [
         CommonModule,
         RouterModule.forChild(sliderRoutes),
@@ -30,9 +25,6 @@ const sliderRoutes: Routes = [
         MatButtonModule,
         MatDividerModule,
     ],
-    providers: [
-        SliderService,
-    ]
+    providers: [SliderService],
 })
-export class SliderItemsModule {
-}
+export class SliderItemsModule {}

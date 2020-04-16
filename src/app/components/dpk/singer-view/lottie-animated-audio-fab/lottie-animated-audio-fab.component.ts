@@ -1,16 +1,15 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { AnimationOptions } from 'ngx-lottie';
-import { AnimationDirection, AnimationItem } from 'lottie-web';
-import { AvControlService } from '../../../audio-component/av-control.service';
+import { Component, Input, OnInit } from '@angular/core'
+import { AnimationOptions } from 'ngx-lottie'
+import { AnimationDirection, AnimationItem } from 'lottie-web'
+import { AvControlService } from '../../../audio-component/av-control.service'
 
 @Component({
     selector: 'app-lottie-animated-audio-fab',
     templateUrl: './lottie-animated-audio-fab.component.html',
-    styleUrls: [ './lottie-animated-audio-fab.component.css' ]
+    styleUrls: ['./lottie-animated-audio-fab.component.css'],
 })
 export class LottieAnimatedAudioFabComponent implements OnInit {
-
-    @Input() time: number;
+    @Input() time: number
 
     options: AnimationOptions = {
         path: './assets/playPause.json',
@@ -18,24 +17,22 @@ export class LottieAnimatedAudioFabComponent implements OnInit {
         loop: true,
         rendererSettings: {
             viewBoxSize: '100 700 880 10',
-        }
-    };
-
-    direction: AnimationDirection = -1;
-
-    animation: AnimationItem;
-
-    constructor(private audioControlService: AvControlService) {
+        },
     }
 
-    ngOnInit(): void {
-    }
+    direction: AnimationDirection = -1
+
+    animation: AnimationItem
+
+    constructor(private audioControlService: AvControlService) {}
+
+    ngOnInit(): void {}
 
     animationCreated(animationItem: AnimationItem) {
-        this.animation = animationItem;
+        this.animation = animationItem
     }
 
     seekPosition(time: number) {
-        this.audioControlService.avTime = time;
+        this.audioControlService.avTime = time
     }
 }

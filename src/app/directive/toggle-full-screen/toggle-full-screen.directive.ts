@@ -1,23 +1,20 @@
-import { Directive, HostListener } from '@angular/core';
-import * as screenfull from 'screenfull';
+import { Directive, HostListener } from '@angular/core'
+import * as screenfull from 'screenfull'
 
 @Directive({
-    selector: '[appToggleFullScreen]'
+    selector: '[appToggleFullScreen]',
 })
 export class ToggleFullScreenDirective {
-
-    constructor() {
-    }
+    constructor() {}
 
     @HostListener('click') onClick() {
         if (screenfull.isEnabled) {
-            screenfull.toggle();
+            screenfull.toggle()
         }
     }
 
-    @HostListener('document:keyup.escape', [ '$event' ]) onEscape() {
+    @HostListener('document:keyup.escape', ['$event']) onEscape() {
         // @ts-ignore
-        screenfull.exit();
+        screenfull.exit()
     }
-
 }
