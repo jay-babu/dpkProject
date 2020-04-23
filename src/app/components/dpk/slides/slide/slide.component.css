@@ -1,14 +1,12 @@
 .slide {
     font-size: 2.2vh;
-    height: 100%;
     width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
     position: fixed;
-    top: 0;
-    left: 0;
+    bottom: 0;
 }
 
 .stanzaDiv {
@@ -90,33 +88,4 @@ img {
     margin: 0;
     line-height: 1.4;
     color: lightgray;
-}
-
-.bg-image {
-    /*Image Defined in HTML with [ngStyle]*/
-
-    /* Add the blur effect */
-    filter: blur(50px);
-    -webkit-filter: blur(50px);
-
-    /* Full height */
-    height: 100vh;
-    width: 100vw;
-
-    /* Center and scale the image nicely */
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    animation: bg-animate 13s ease-in-out alternate infinite;
-}
-
-@keyframes bg-animate {
-    from {
-        filter: blur(50px);
-        -webkit-filter: blur(50px);
-    }
-    to {
-        filter: blur(50) invert(100%);
-        -webkit-filter: blur(50px) invert(100%);
-    }
 }
