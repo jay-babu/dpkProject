@@ -1,12 +1,10 @@
 div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     overflow: hidden;
     position: absolute;
-    top: -40px;
-    left: -40px;
+    top: 0;
+    left: 0;
     z-index: -1;
+    transform: scale(1.1);
     -webkit-animation: invert 6s infinite alternate cubic-bezier(0.8, 0, 0.2, 1);
 }
 
