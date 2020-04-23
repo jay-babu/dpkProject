@@ -1,18 +1,18 @@
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core'
 import { ActivatedRoute, Router } from '@angular/router'
 import { Observable, Subscription } from 'rxjs'
-import { fadeAnimation } from '../../../../animations/fade.animation'
-import { SlideConfigI } from '../../../../interfaces/slide-config-i'
-import { SlideService } from '../../../../services/slide.service'
+import { fadeAnimation } from 'src/app/animations/fade.animation'
+import { SlideConfigI } from 'src/app/interfaces/slide-config-i'
+import { SlideService } from 'src/app/services/slide.service'
 import { AvControlService } from '../../../audio-component/av-control.service'
-import { Bhajan } from '../../../../interfaces/bhajan'
+import { Bhajan } from 'src/app/interfaces/bhajan'
 import * as screenfull from 'screenfull'
 
 @Component({
     selector: 'app-slide',
     templateUrl: './slide.component.html',
-    styleUrls: ['./slide.component.css'],
-    animations: [fadeAnimation],
+    styleUrls: [ './slide.component.css' ],
+    animations: [ fadeAnimation ],
 })
 export class SlideComponent implements OnInit, OnDestroy {
     firebaseBhajan$: Observable<Bhajan>
@@ -35,7 +35,8 @@ export class SlideComponent implements OnInit, OnDestroy {
         private activeRouter: ActivatedRoute,
         public slideService: SlideService,
         private avControlService: AvControlService,
-    ) {}
+    ) {
+    }
 
     ngOnInit() {
         this.activeRouter.params.subscribe(params => {
@@ -101,7 +102,7 @@ export class SlideComponent implements OnInit, OnDestroy {
         this.navigateID()
     }
 
-    @HostListener('window:keyup', ['$event'])
+    @HostListener('window:keyup', [ '$event' ])
     async slideMovement(event: KeyboardEvent) {
         if (
             (event.key === 'ArrowRight' ||
@@ -134,7 +135,7 @@ export class SlideComponent implements OnInit, OnDestroy {
 
     navigateID() {
         this.router
-            .navigate([`./`, { id: this.slideIndex }], {
+            .navigate([ `./`, { id: this.slideIndex } ], {
                 relativeTo: this.activeRouter,
             })
             .then(

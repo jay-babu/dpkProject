@@ -3,9 +3,18 @@ div {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    filter: blur(30px);
     position: absolute;
     top: -40px;
     left: -40px;
     z-index: -1;
+    -webkit-animation: invert 6s infinite alternate cubic-bezier(0.8, 0, 0.2, 1);
+}
+
+@-webkit-keyframes invert {
+    0% {
+        -webkit-filter: invert(0) blur(30px);
+    }
+    100% {
+        -webkit-filter: invert(1) blur(30px);
+    }
 }
