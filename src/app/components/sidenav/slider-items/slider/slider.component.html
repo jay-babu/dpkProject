@@ -1,9 +1,11 @@
 <div *ngIf="dpkFolder | async as dpk" class="slider-container">
     <ng-container *ngFor="let DPK of dpkFolderList">
         <mat-divider></mat-divider>
-        <mat-toolbar>
-            {{DPK}}
-        </mat-toolbar>
+        <div [style.background-color]="'#005dbe'">
+            <mat-toolbar>
+                {{DPK}}
+            </mat-toolbar>
+        </div>
         <mat-divider></mat-divider>
         <div class="slides">
             <mat-card *ngFor="let dpkTitle of dpk.get(DPK)" title="{{dpkTitle}}"
