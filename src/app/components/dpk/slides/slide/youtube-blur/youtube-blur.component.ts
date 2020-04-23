@@ -68,11 +68,11 @@ export class YoutubeBlurComponent implements OnInit, OnDestroy {
     }
 
     width() {
-        return window.innerWidth * 1.1
+        return window.innerWidth
     }
 
     height() {
-        return window.innerHeight * 1.1
+        return window.innerHeight
     }
 
     ready(ytState: YT.OnStateChangeEvent) {
