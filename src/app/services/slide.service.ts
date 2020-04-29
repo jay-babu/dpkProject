@@ -30,7 +30,7 @@ export class SlideService {
         this.bhajan$ = this._bhajan.asObservable()
 
         this._slideConfig = new BehaviorSubject<any>({
-            fontStyle: 'Madelina',
+            fontStyle: 'Amiko',
             definitionShown: true,
         })
         this.slideConfig$ = this._slideConfig.asObservable()

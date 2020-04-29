@@ -8,7 +8,7 @@ import { MatDialog } from '@angular/material/dialog'
 @Component({
     selector: 'app-options',
     templateUrl: './options.component.html',
-    styleUrls: ['./options.component.css'],
+    styleUrls: [ './options.component.css' ],
 })
 export class OptionsComponent implements OnInit, OnDestroy {
     customForm: FormGroup
@@ -20,11 +20,12 @@ export class OptionsComponent implements OnInit, OnDestroy {
         private fb: FormBuilder,
         private slideService: SlideService,
         private dialog: MatDialog,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         this.fontStyles = new Set([
-            'Madelina',
+            'Amiko',
             'Avenir',
             'cursive',
             'Roboto',
@@ -33,7 +34,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
             'Helvetica Neue',
         ])
         this.customForm = this.fb.group({
-            fontStyle: 'Avenir',
+            fontStyle: 'Amiko',
             definitionShown: true,
         })
         this.subscriptions.push(
