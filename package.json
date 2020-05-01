@@ -29,7 +29,7 @@
         "@angular/compiler": "^9.1.4",
         "@angular/compiler-cli": "^9.1.4",
         "@angular/core": "^9.1.4",
-        "@angular/fire": "^5.4.2",
+        "@angular/fire": "^6.0.0",
         "@angular/forms": "^9.1.4",
         "@angular/language-service": "^9.1.4",
         "@angular/material": "^9.2.2",
