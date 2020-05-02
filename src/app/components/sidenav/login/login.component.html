@@ -3,7 +3,7 @@
         <ng-container *ngIf="user$ | async; else login">
             <mat-card>
                 <mat-card-title>
-                    Congrats You logged in without a password!
+                    Congrats, you are logged in! Please use the sidebar to navigate.
                 </mat-card-title>
                 <button mat-button color="warn" (click)="logout()">Sign Out</button>
             </mat-card>
@@ -12,27 +12,26 @@
         <ng-template #login>
             <mat-card>
                 <mat-card-title>Sign In</mat-card-title>
-                <form [formGroup]="emailForm" (ngSubmit)="sendEmailLink()">
-                    <mat-form-field *ngIf="!emailSent">
-                        <label>
-                            <input matInput placeholder="Email" formControlName="email">
-                        </label>
-                    </mat-form-field>
-                    <button mat-flat-button color="primary" [disabled]="emailSent || emailForm.invalid"
-                            type="submit">
-                        Get Login Link
-                    </button>
-                </form>
+                <!--                <form [formGroup]="emailForm" (ngSubmit)="sendEmailLink()">-->
+                <!--                    <mat-form-field *ngIf="!emailSent">-->
+                <!--                        <label>-->
+                <!--                            <input matInput placeholder="Email" formControlName="email">-->
+                <!--                        </label>-->
+                <!--                    </mat-form-field>-->
+                <!--                    <button mat-flat-button color="primary" [disabled]="emailSent || emailForm.invalid"-->
+                <!--                            type="submit">-->
+                <!--                        Get Login Link-->
+                <!--                    </button>-->
+                <!--                </form>-->
 
                 <div class="buttons">
-                    <button mat-flat-button color="accent" (click)="googleSignIn()">
+                    <button mat-flat-button color="accent" (click)="gmailLogin()">
                         Google Sign In
                     </button>
+                    <button mat-flat-button color="accent" (click)="githubLogin()">
+                        GitHub Sign In
+                    </button>
                 </div>
-
-                <mat-card-footer *ngIf="emailSent">
-                    We sent you an email with your login link
-                </mat-card-footer>
                 <mat-card-footer *ngIf="errorMessage">
                     {{ errorMessage }}
                 </mat-card-footer>

@@ -55,7 +55,7 @@ export class YoutubeBlurComponent implements OnInit, OnDestroy {
     toggleVideo() {
         if (this.player) {
             if (this.pause === undefined) this.pause = true
-            console.log('Blur', this.pause, this.officialVideo)
+            // console.log('Blur', this.pause, this.officialVideo)
             if (this.pause && this.officialVideo) this.player.pauseVideo()
             else this.player.playVideo()
         }
