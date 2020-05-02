@@ -9,10 +9,14 @@ import { firestore } from 'firebase/app'
     providedIn: 'root',
 })
 export class DpkFormService {
+    uid: string
+
     constructor(
         private fireDB: AngularFirestore,
         private afAuth: AngularFireAuth,
-    ) {}
+    ) {
+        this.afAuth.user.subscribe(user => this.uid = user.uid)
+    }
 
     validSubmission: (form: FormGroup) => Promise<ValidationErrors> = async (
         form: FormGroup,
@@ -88,16 +92,16 @@ export class DpkFormService {
                     audioTimings: this.timingsToSeconds(
                         fg.value.materialSection.audioTimings.split(/\n+/g),
                     ),
-                    author_uid: this.afAuth.auth.currentUser.uid,
+                    author_uid: this.uid,
                 },
                 { merge: true },
             )
     }
 
-    parseAudioURL(audioURL: string) {
+    parseAudioURL(audioURL: string): string {
         if (!audioURL) return ''
         let audioLink: URL = new URL(audioURL)
-        if (audioLink.searchParams.get('id')) return audioLink
+        if (audioLink.searchParams.get('id')) return audioLink.href
         else {
             audioLink = new URL(`https://drive.google.com/open`)
             const path = audioLink.pathname.split('/')
@@ -109,13 +113,13 @@ export class DpkFormService {
     getOwnData(fg: FormGroup) {
         return this.fireDB
             .collection<FirebaseBhajan>(fg.value.titleSection.dpk, ref =>
-                ref.where('author_uid', '==', this.afAuth.auth.currentUser.uid),
+                ref.where('author_uid', '==', this.uid),
             )
             .valueChanges()
     }
 
     timingsToSeconds(audioTimings: string[]) {
-        if (audioTimings === ['']) {
+        if (audioTimings === [ '' ]) {
             return ''
         }
 
@@ -123,7 +127,7 @@ export class DpkFormService {
         for (const time of audioTimings) {
             let minutes
             let seconds
-            ;[minutes, seconds] = time.split(':')
+            [ minutes, seconds ] = time.split(':')
             seconds = +seconds
             seconds += +minutes * 60
             secondsArr.push(seconds)
