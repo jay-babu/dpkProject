@@ -6,7 +6,7 @@ import { Subscription } from 'rxjs'
 @Component({
     selector: 'app-youtube',
     templateUrl: './youtube.component.html',
-    styleUrls: ['./youtube.component.css'],
+    styleUrls: [ './youtube.component.css' ],
 })
 export class YoutubeComponent implements OnInit, OnDestroy {
     player: YT.Player
@@ -18,7 +18,8 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     constructor(
         public youtubeService: YoutubeService,
         private avControlService: AvControlService,
-    ) {}
+    ) {
+    }
 
     ngOnInit(): void {
         // This code loads the IFrame Player API code asynchronously, according to the instructions at
@@ -30,12 +31,14 @@ export class YoutubeComponent implements OnInit, OnDestroy {
 
         this.subscriptions.push(
             this.avControlService.paused$.subscribe(paused => {
+                // console.log(`pause`)
                 this.pause = paused
                 this.toggleVideo()
             }),
         )
         this.subscriptions.push(
             this.youtubeService.officialVideo$.subscribe(official => {
+                // console.log(`official`)
                 this.officialVideo = official
                 this.toggleVideo()
             }),
@@ -47,6 +50,7 @@ export class YoutubeComponent implements OnInit, OnDestroy {
                     this.player.seekTo(time, true)
             }),
         )
+        // setTimeout(() => console.log(`timeout`, this.player), 5000)
     }
 
     ngOnDestroy(): void {
@@ -56,7 +60,7 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     toggleVideo() {
         if (this.player) {
             if (this.pause === undefined) this.pause = true
-            console.log('Youtube', this.pause, this.officialVideo)
+            // console.log('Youtube', this.pause, this.officialVideo)
 
             if (this.pause && this.officialVideo) this.player.pauseVideo()
             else this.player.playVideo()
@@ -65,6 +69,7 @@ export class YoutubeComponent implements OnInit, OnDestroy {
 
     start(event: YT.PlayerEvent) {
         this.player = event.target
+        // console.log(`player ready`)
         this.player.mute()
         this.toggleVideo()
     }
@@ -78,6 +83,7 @@ export class YoutubeComponent implements OnInit, OnDestroy {
     }
 
     ready(ytState: YT.OnStateChangeEvent) {
+        // console.log(`ready ready`)
         if (ytState.data === -1) {
             ytState.target.playVideo()
         } else if (ytState.data === 0) {
