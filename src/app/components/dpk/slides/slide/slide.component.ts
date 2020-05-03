@@ -100,6 +100,10 @@ export class SlideComponent implements OnInit, OnDestroy {
         )
         this.hidden = false
         this.navigateID()
+        if (this.playBack && this.audioTimings) {
+            await new Promise(done => setTimeout(() => done(), 500))
+            this.nextSlideAudio()
+        }
     }
 
     @HostListener('window:keyup', [ '$event' ])
@@ -110,20 +114,12 @@ export class SlideComponent implements OnInit, OnDestroy {
                 event.key === 'PageDown') &&
             this.slideIndex < this.stanza.length - 1
         ) {
-            this.upOrDown(true)
-            if (this.playBack && this.audioTimings) {
-                await new Promise(done => setTimeout(() => done(), 500))
-                this.nextSlideAudio()
-            }
+            await this.upOrDown(true)
         } else if (
             (event.key === 'ArrowLeft' || event.key === 'PageUp') &&
             this.slideIndex > 0
         ) {
-            this.upOrDown(false)
-            if (this.playBack && this.audioTimings) {
-                await new Promise(done => setTimeout(() => done(), 500))
-                this.nextSlideAudio()
-            }
+            await this.upOrDown(false)
         } else if (event.key === 'b') {
             this.hidden = !this.hidden
         } else if (event.key === 'f') {
