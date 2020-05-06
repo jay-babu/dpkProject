@@ -1,8 +1,6 @@
 <div class="mat-app-background">
     <div *ngIf="this.firebaseBhajan$ | async as bhajan">
-        <div (swipeRight)="upOrDown(false)" (swipeLeft)="upOrDown(true)">
-            <app-youtube></app-youtube>
-        </div>
+        <app-youtube></app-youtube>
         <div class="slide" *ngIf="this.slideService.slideConfig$ | async" [@openClose]="hidden ? 'closed' : 'open'">
             <div class="stanzaDiv" [style.font-family]="slideConfig.fontStyle">
                 <h2 *ngFor="let line of this.stanza[slideIndex]">{{ line }}</h2>
