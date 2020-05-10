@@ -2,5 +2,7 @@
     <youtube-player (stateChange)="ready($event)" [videoId]="videoId" [suggestedQuality]="'highres'"
                     (ready)="start($event)"
                     [width]="width()" [height]="height()"></youtube-player>
-    <app-youtube-blur></app-youtube-blur>
+    <ng-container *ngIf="slideService.slideConfig$ | async as slideConfig">
+        <app-youtube-blur *ngIf="!slideConfig.powerSave"></app-youtube-blur>
+    </ng-container>
 </div>
