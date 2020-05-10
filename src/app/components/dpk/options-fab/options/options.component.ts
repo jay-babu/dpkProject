@@ -36,6 +36,7 @@ export class OptionsComponent implements OnInit, OnDestroy {
         this.customForm = this.fb.group({
             fontStyle: 'Amiko',
             definitionShown: true,
+            powerSave: false,
         })
         this.subscriptions.push(
             this.customForm.valueChanges.subscribe(customForm =>

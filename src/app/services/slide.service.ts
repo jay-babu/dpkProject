@@ -32,6 +32,7 @@ export class SlideService {
         this._slideConfig = new BehaviorSubject<any>({
             fontStyle: 'Amiko',
             definitionShown: true,
+            powerSave: false,
         })
         this.slideConfig$ = this._slideConfig.asObservable()
 
