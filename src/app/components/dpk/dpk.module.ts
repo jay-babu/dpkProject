@@ -5,7 +5,6 @@ import { AvControlService } from '../audio-component/av-control.service'
 import { SlideService } from '../../services/slide.service'
 
 const dpkRoutes: Routes = [
-    // { path: 'pdf/:dpk/:name', component: PdfSlideComponent, },
     {
         path: 'slideShow',
         loadChildren: () =>

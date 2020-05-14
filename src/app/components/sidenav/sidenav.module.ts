@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common'
 import { RouterModule, Routes } from '@angular/router'
 import { PrivacyPolicyComponent } from '../privacy-policy/privacy-policy.component'
 import { ThemeService } from '../../services/theme.service'
+import { AngularFireAuthGuard, redirectUnauthorizedTo } from '@angular/fire/auth-guard'
+
+const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo([ 'login' ])
 
 const sidenavRoutes: Routes = [
     {
@@ -22,12 +25,15 @@ const sidenavRoutes: Routes = [
             import('./slider-items/slider-items.module').then(
                 m => m.SliderItemsModule,
             ),
+        canActivate: [ AngularFireAuthGuard ],
+        data: { authGuardPipe: redirectUnauthorizedToLogin },
     },
 ]
 
 @NgModule({
-    declarations: [PrivacyPolicyComponent],
-    imports: [CommonModule, RouterModule.forChild(sidenavRoutes)],
-    providers: [ThemeService],
+    declarations: [ PrivacyPolicyComponent ],
+    imports: [ CommonModule, RouterModule.forChild(sidenavRoutes) ],
+    providers: [ ThemeService ],
 })
-export class SidenavModule {}
+export class SidenavModule {
+}
