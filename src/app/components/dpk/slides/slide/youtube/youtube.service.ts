@@ -2,10 +2,7 @@ import { Injectable } from '@angular/core'
 import { BehaviorSubject, Observable } from 'rxjs'
 import { environment } from '../../../../../../environments/environment'
 import { HttpClient } from '@angular/common/http'
-import {
-    YoutubeChannelList,
-    YoutubeVideoMeta,
-} from '../../../../../interfaces/youtube-channel-list'
+import { YoutubeChannelList, YoutubeVideoMeta } from '../../../../../interfaces/youtube-channel-list'
 import { DpkParseService } from '../../dpk-parse.service'
 
 @Injectable({
@@ -31,10 +28,12 @@ export class YoutubeService {
         this.youtubeId$ = this._youtubeId.asObservable()
 
         this.approvedVideos = new Map<string, string>([
-            ['Chesta', 'V_mKI9pJxYA'],
+            [ 'Chesta', 'V_mKI9pJxYA' ],
+            [ 'Marmali Chhe Ankhyu', 'iSvqsT-APXw' ],
         ])
 
         this.dpkParseService.firebaseBhajan$.subscribe(firebaseBhajan => {
+            console.log(firebaseBhajan.title, this.approvedVideos)
             const yid = this.approvedVideos.get(firebaseBhajan.title)
             if (yid) {
                 this.youtubeId = yid
@@ -76,6 +75,6 @@ export class YoutubeService {
     randomVideoId() {
         this.youtubeId = this.filterVideos[
             Math.floor(Math.random() * this.filterVideos.length)
-        ].id.videoId
+            ].id.videoId
     }
 }
