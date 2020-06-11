@@ -11,7 +11,6 @@ import { TutorialModule } from '../../tutorial/tutorial.module'
 import { MatButtonModule } from '@angular/material/button'
 import { MatDialogModule } from '@angular/material/dialog'
 import { ReactiveFormsModule } from '@angular/forms'
-import { MatFormFieldModule } from '@angular/material/form-field'
 import { MatSelectModule } from '@angular/material/select'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { LottieModule } from 'ngx-lottie'
@@ -33,7 +32,6 @@ import { ToggleFullScreenModule } from '../../../directive/toggle-full-screen/to
         MatButtonModule,
         MatDialogModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
         MatSelectModule,
         MatSlideToggleModule,
         LottieModule,
