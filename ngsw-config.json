@@ -34,9 +34,9 @@
                 "**/slides"
             ],
             "cacheConfig": {
-                "strategy": "freshness",
+                "strategy": "performance",
                 "maxSize": 100,
-                "maxAge": "7d",
+                "maxAge": "1h",
                 "timeout": "5s"
             }
         },
@@ -50,7 +50,7 @@
             "cacheConfig": {
                 "strategy": "freshness",
                 "maxSize": 500,
-                "maxAge": "8d",
+                "maxAge": "1d",
                 "timeout": "5s"
             }
         }
