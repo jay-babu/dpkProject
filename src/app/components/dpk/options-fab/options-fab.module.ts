@@ -33,7 +33,6 @@ import { ToggleFullScreenModule } from '../../../directive/toggle-full-screen/to
         MatButtonModule,
         MatDialogModule,
         ReactiveFormsModule,
-        MatFormFieldModule,
         MatSelectModule,
         MatSlideToggleModule,
         LottieModule,
