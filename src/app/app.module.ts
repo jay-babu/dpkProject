@@ -5,7 +5,7 @@ import { AngularFireModule } from '@angular/fire'
 import { AngularFireAuthModule } from '@angular/fire/auth'
 import { AngularFirestoreModule } from '@angular/fire/firestore'
 import { ReactiveFormsModule } from '@angular/forms'
-import { BrowserModule, HammerModule } from '@angular/platform-browser'
+import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { RouterModule } from '@angular/router'
 import { environment } from '../environments/environment'
@@ -45,7 +45,6 @@ export function playerFactory() {
         LottieModule.forRoot({ player: playerFactory }),
         ReactiveFormsModule,
         RouterModule,
-        HammerModule,
         ServiceWorkerModule.register('ngsw-worker.js', {
             enabled: environment.production,
         }),

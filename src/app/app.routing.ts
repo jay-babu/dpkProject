@@ -20,7 +20,7 @@ const appRoutes: Routes = [
     { path: '**', redirectTo: 'slides' },
 ]
 
-export const AppRoutingModule: ModuleWithProviders = RouterModule.forRoot(
+export const AppRoutingModule: ModuleWithProviders<RouterModule> = RouterModule.forRoot(
     appRoutes,
     {
         preloadingStrategy: PreloadAllModules,
