@@ -1,0 +1,14 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "com.herokuapp.dpkproject.twa",
+            "sha256_cert_fingerprints": [
+                "99:7F:F6:2D:21:73:76:B6:5B:1E:EC:78:92:03:11:34:71:24:F5:04:A9:69:19:B2:CC:4A:65:58:23:E4:4E:51"
+            ]
+        }
+    }
+]
